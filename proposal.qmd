@@ -18,9 +18,15 @@ library(tidyverse)
 
 -   Identify the source of the data.
 
+For this project proposal, we will be exploring County Demographics. The source of this dataset is from the CORGIS Dataset Project, specifically by Ryan Whitcomb, Joung Min Choi, and Bo Guan.
+
 -   State when and how it was originally collected (by the original data curator, not necessarily how you found the data).
 
+This dataset was originally collected from 2010 to 2019 by the United States Census Bureau, which individually surveys all residents of the United States.
+
 -   Write a brief description of the observations.
+
+The observations describe the "age distributions, the education levels, employment statistics, ethnicity percents, household information, income, and other miscellaneous statistics" of all U.S. counties from 2010 to 2019.
 
 ## Research question
 
@@ -30,7 +36,7 @@ library(tidyverse)
 
 -   Identify the types of variables in your research question. Categorical? Quantitative?
 
-## Literature 
+## Literature
 
 -   Find one published credible article on the topic you are interested in researching.
 
@@ -64,7 +70,7 @@ library(tidyverse)
 
 -   Identify the types of variables in your research question. Categorical? Quantitative?
 
-## Literature 
+## Literature
 
 -   Find one published credible article on the topic you are interested in researching.
 
@@ -98,7 +104,7 @@ library(tidyverse)
 
 -   Identify the types of variables in your research question. Categorical? Quantitative?
 
-## Literature 
+## Literature
 
 -   Find one published credible article on the topic you are interested in researching.
 
