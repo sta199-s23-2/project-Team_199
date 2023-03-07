@@ -58,9 +58,15 @@ The observations describe the "age distributions, the education levels, employme
 
 -   Identify the source of the data.
 
+For this project we will be exploring English Premier League Football data. The source of this data comes from Organization called Football.CSV which explores football data from all over the world.
+
 -   State when and how it was originally collected (by the original data curator, not necessarily how you found the data).
 
+The data was collected by recording every game that every team in the Premier League played over the past 30 years.
+
 -   Write a brief description of the observations.
+
+The observation describe "Date, Round number, FT score, Team 1, Team 2, Standing Position", for every game played in the Premier League from 2010-2019.
 
 ## Research question
 
@@ -83,7 +89,8 @@ The observations describe the "age distributions, the education levels, employme
 ```{r}
 #| label: load-data-2
 
-# add code here
+flights <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-07-12/flights.csv')
+
 ```
 
 # Data 3
