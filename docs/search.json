@@ -53,7 +53,7 @@
     "href": "proposal.html#introduction-and-data-1",
     "title": "Project title",
     "section": "Introduction and data",
-    "text": "Introduction and data\n\nIdentify the source of the data.\nState when and how it was originally collected (by the original data curator, not necessarily how you found the data).\nWrite a brief description of the observations."
+    "text": "Introduction and data\n\nIdentify the source of the data.\n\nFor this project we will be exploring English Premier League Football data. The source of this data comes from Organization called Football.CSV which explores football data from all over the world.\n\nState when and how it was originally collected (by the original data curator, not necessarily how you found the data).\n\nThe data was collected by recording every game that every team in the Premier League played over the past 30 years.\n\nWrite a brief description of the observations.\n\nThe observation describe “Date, Round number, FT score, Team 1, Team 2, Standing Position”, for every game played in the Premier League from 2010-2019."
   },
   {
     "objectID": "proposal.html#research-question-1",
@@ -74,7 +74,7 @@
     "href": "proposal.html#glimpse-of-data-1",
     "title": "Project title",
     "section": "Glimpse of data",
-    "text": "Glimpse of data\n\n# add code here"
+    "text": "Glimpse of data\n\nflights <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-07-12/flights.csv')\n\nRows: 688099 Columns: 14\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr  (6): MONTH_NUM, MONTH_MON, APT_ICAO, APT_NAME, STATE_NAME, Pivot Label\ndbl  (7): YEAR, FLT_DEP_1, FLT_ARR_1, FLT_TOT_1, FLT_DEP_IFR_2, FLT_ARR_IFR_...\ndttm (1): FLT_DATE\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message."
   },
   {
     "objectID": "proposal.html#introduction-and-data-2",
