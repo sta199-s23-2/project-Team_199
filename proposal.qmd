@@ -58,38 +58,53 @@ The observations describe the "age distributions, the education levels, employme
 
 -   Identify the source of the data.
 
-For this project we will be exploring English Premier League Football data. The source of this data comes from Organization called Football.CSV which explores football data from all over the world.
+The source of this data comes from FIFA World Cup.
 
 -   State when and how it was originally collected (by the original data curator, not necessarily how you found the data).
 
-The data was collected by recording every game that every team in the Premier League played over the past 30 years.
+This data set covers every single World Cup match played in its history from Uruguay in 1930 to Russia in 2018.
 
 -   Write a brief description of the observations.
 
-The observation describe "Date, Round number, FT score, Team 1, Team 2, Standing Position", for every game played in the Premier League from 2010-2019.
-
-## Research question
+> The wcmatches dataset contains every football match played in the World Cup. Columns inside the dataset include `city` from which city was the match being `played` in, `outcome` which team `won`, `drew`, or `loss`. Also shows if the winning side need added `extra time of penalties` to win the game. The data set also includes the `date`, `stage` and more.
+>
+> Research question
 
 -   A well formulated research question. (You may include more than one research question if you want to receive feedback on different ideas for your project. However, one per data set is required.)
 
+    Do certain factors, such as the number of days between matches or the location of the match, impact the likelihood of a team winning a match during the FIFA World Cup tournament, and do these factors vary depending on the round of the tournament?
+
 -   A description of the research topic along with a concise statement of your hypotheses on this topic.
 
+The research topic for this study is to investigate the factors that may influence a team's success in the `FIFA World Cup tournament`. We are interested in examining the `impact` of the `number of days` between matches and the `location` of the match on a team's likelihood of `winning` a match, and whether these factors `diffe`r depending on the `round` of the tournament.
+
+Our `hypothesis` is that teams who have `more days between matches` may have an `advantage`, as they have more time to `rest` and recover from previous matches. Additionally, we hypothesize that the `location` of the match may also have an `impact` on a team's success. We also believe that the `impact` of these factors may `vary` depending on the `round` of the tournament, as teams may have different levels of `fatigue` or `pressure` depending on how far they have `progressed` in the tournament.
+
 -   Identify the types of variables in your research question. Categorical? Quantitative?
+
+    The number of days between matches: quantitative. The location of the match: categorical. The round of the tournament: categorical
 
 ## Literature
 
 -   Find one published credible article on the topic you are interested in researching.
 
+Weston M, Castagna C, Impellizzeri FM, Rampinini E, Abt G. Analysis of physical match performance in English Premier League soccer referees with particular reference to first half and player work rates. J Sci Med Sport. 2007 Dec;10(6):390-7. doi: 10.1016/j.jsams.2006.09.001. Epub 2006 Nov 28. PMID: 17126077.
+
 -   Provide a one paragraph summary about the article.
 
+The article investigates the impact of `player work rate` on `match outcome` in professional English soccer. The study uses data from `20 Premier League matches` and analyzes player movement data to evalaute y player `work rates`. The results indicate that `higher levels of work rate` are associated with a greater likelihood of a `positive match outcome`. The study also finds that the impact of player work rate on match outcome `may differ` depending on the `position played` by the player. We can understand how different factors, such as `work rate` and `position`, impact a team's performance, which can be used `improve` their chances of success.
+
 -   In 1-2 sentences, explain how your research question builds on / is different than the article you have cited.
+
+While this article does not focus specifically on the `FIFA World Cup tournament`, it provides evidence into the `impact` of player `work rate` on match outcomes in professional soccer, which may be `relevant` to the research question I proposed earlier.
 
 ## Glimpse of data
 
 ```{r}
 #| label: load-data-2
 
-flights <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-07-12/flights.csv')
+wcmatches <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-11-29/wcmatches.csv')
+worldcups <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-11-29/worldcups.csv')
 
 ```
 
