@@ -6,10 +6,7 @@ editor: visual
 ---
 
 ```{r}
-#| label: load-pkgs
-#| message: false
 
-library(tidyverse)
 ```
 
 # Data 1
@@ -26,11 +23,13 @@ This dataset was originally collected from 2010 to 2019 by the United States Cen
 
 -   Write a brief description of the observations.
 
-The observations describe the "age distributions, the education levels, employment statistics, ethnicity percents, household information, income, and other miscellaneous statistics" of all U.S. counties from 2010 to 2019.
+The observations describe the "age distributions, the education levels, employment statistics, ethnicity percents, household information, income, and other miscellaneous statistics" of all U.S. counties from 2010 to 2019. The county_demographics dataset includes rows by county across America and columns such as "Age.Percent 65 and Older", "Age.Percent Under 18 Years", "Education.High School or Higher", and "Ethnicities.Two or More Races".
 
 ## Research question
 
--   A well formulated research question. (You may include more than one research question if you want to receive feedback on different ideas for your project. However, one per data set is required.)
+-   A well-formulated research question. (You may include more than one research question if you want to receive feedback on different ideas for your project. However, one per data set is required.)
+
+Do factors---such as race, age, or education level---impact the median household incomes of counties across America?
 
 -   A description of the research topic along with a concise statement of your hypotheses on this topic.
 
@@ -40,17 +39,17 @@ The observations describe the "age distributions, the education levels, employme
 
 -   Find one published credible article on the topic you are interested in researching.
 
+One published credible article we found was: [Understanding Equity Through Census Bureau Data](https://www.census.gov/library/stories/2021/09/understanding-equity-through-census-bureau-data.html)
+
 -   Provide a one paragraph summary about the article.
+
+This article
 
 -   In 1-2 sentences, explain how your research question builds on / is different than the article you have cited.
 
+Our research question
+
 ## Glimpse of data
-
-```{r}
-#| label: load-data-1
-
-# add code here
-```
 
 # Data 2
 
