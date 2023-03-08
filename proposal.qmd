@@ -6,6 +6,10 @@ editor: visual
 ---
 
 ```{r}
+#| label: load-pkgs
+#| message: false
+
+library(tidyverse)
 
 ```
 
@@ -33,7 +37,11 @@ Do factors---such as race, age, or education level---impact the median household
 
 -   A description of the research topic along with a concise statement of your hypotheses on this topic.
 
+The research topic will not only explore whether or not
+
 -   Identify the types of variables in your research question. Categorical? Quantitative?
+
+Variables in this dataset that are categorical include, but are not limited to, "Education.High School or Higher" and "Ethnicities.Two or More Races". Variables in this dataset that are quantitative include, but are not limited to, "Age.Percent 65 and Older" and "Age.Percent Under 18 Years".
 
 ## Literature
 
@@ -50,6 +58,10 @@ This article
 Our research question
 
 ## Glimpse of data
+
+```{r}
+#| label: load-data-1
+```
 
 # Data 2
 
