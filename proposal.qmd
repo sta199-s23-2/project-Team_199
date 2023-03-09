@@ -37,11 +37,13 @@ Do factors---such as race, age, or education level---impact the median household
 
 -   A description of the research topic along with a concise statement of your hypotheses on this topic.
 
-The research topic will not only explore whether or not
+The research topic will not only explore whether or not the factors stated above influence counties' median household income, but it will also dive into equity and inequity as it relates to economic disparity across the country. We will research related topics, such as income inequality and rural-urban divide, to get a bigger picture of what the data truly means in the broader United States landscape.
+
+Our hypothesis is that counties with higher ages and education levels will, in turn, produce higher median household incomes. We do believe that factors such as age, race, and education level influence median household incomes.
 
 -   Identify the types of variables in your research question. Categorical? Quantitative?
 
-Variables in this dataset that are categorical include, but are not limited to, "Education.High School or Higher" and "Ethnicities.Two or More Races". Variables in this dataset that are quantitative include, but are not limited to, "Age.Percent 65 and Older" and "Age.Percent Under 18 Years".
+Variables in this dataset that are categorical include, but are not limited to, "Education.High School or Higher", "Ethnicities.White Alone", and "Ethnicities.Two or More Races". Variables in this dataset that are quantitative include, but are not limited to, "Age.Percent 65 and Older", "Population.Population per Square Mile", and "Age.Percent Under 18 Years".
 
 ## Literature
 
@@ -51,16 +53,18 @@ One published credible article we found was: [Understanding Equity Through Censu
 
 -   Provide a one paragraph summary about the article.
 
-This article
+This article reviews the US Census Bureau Data by looking at several different reports that point to overall societal inequality. It details the Income and Poverty report, the Supplemental Poverty Measure, female-to-male earning ratios, health insurance coverage, Annual Education Attainment, household wealth, home ownership, and Community Resilience Estimates. These overviews help readers, analysts, and researchers understand what impact the pandemic has made on topics in the United States that connect to equity.
 
 -   In 1-2 sentences, explain how your research question builds on / is different than the article you have cited.
 
-Our research question
+Our research question expands beyond the article cited because it does not solely look at data pre- and post-pandemic. The data we will analyze relies on pre-pandemic (2010-2019) statistics that will help us gauge the state of counties 4 years ago and lead us to draw our own similarities and comparisons with what we know currently. Overall, we want to gain a much broader sense of overall trends, using a 10-year dataset to conduct research, instead of focusing on a smaller portion of recent history.
 
 ## Glimpse of data
 
 ```{r}
 #| label: load-data-1
+
+county_demographics <- readr::read_csv('https://think.cs.vt.edu/corgis/datasets/csv/county_demographics/county_demographics.csv')
 ```
 
 # Data 2
