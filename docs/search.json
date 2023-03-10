@@ -81,7 +81,7 @@
     "href": "proposal.html#introduction-and-data-2",
     "title": "Project title",
     "section": "Introduction and data",
-    "text": "Introduction and data\n\nIdentify the source of the data.\nState when and how it was originally collected (by the original data curator, not necessarily how you found the data).\nWrite a brief description of the observations."
+    "text": "Introduction and data\n\nThe data is a cleaned dataset created by a user on Kaggle (https://www.kaggle.com/datasets/heesoo37/120-years-of-olympic-history-athletes-and-results)\nThe original source of the data is http://www.sports-reference.com/, which has a compilation of data from the Olympic games.\nThe dataset has observations for each athlete competing in an event, and it has variables such as tea m, age, sex, and sport."
   },
   {
     "objectID": "proposal.html#research-question-2",
@@ -102,7 +102,7 @@
     "href": "proposal.html#glimpse-of-data-2",
     "title": "Project title",
     "section": "Glimpse of data",
-    "text": "Glimpse of data\n\n# add code here"
+    "text": "Glimpse of data\n\nolympics <- read.csv(\"data/olympics.csv\") \nglimpse(olympics)\n\nRows: 271,116\nColumns: 15\n$ ID     <int> 1, 2, 3, 4, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 6, 6, 7, 7, 7, …\n$ Name   <chr> \"A Dijiang\", \"A Lamusi\", \"Gunnar Nielsen Aaby\", \"Edgar Lindenau…\n$ Sex    <chr> \"M\", \"M\", \"M\", \"M\", \"F\", \"F\", \"F\", \"F\", \"F\", \"F\", \"M\", \"M\", \"M\"…\n$ Age    <int> 24, 23, 24, 34, 21, 21, 25, 25, 27, 27, 31, 31, 31, 31, 33, 33,…\n$ Height <int> 180, 170, NA, NA, 185, 185, 185, 185, 185, 185, 188, 188, 188, …\n$ Weight <dbl> 80, 60, NA, NA, 82, 82, 82, 82, 82, 82, 75, 75, 75, 75, 75, 75,…\n$ Team   <chr> \"China\", \"China\", \"Denmark\", \"Denmark/Sweden\", \"Netherlands\", \"…\n$ NOC    <chr> \"CHN\", \"CHN\", \"DEN\", \"DEN\", \"NED\", \"NED\", \"NED\", \"NED\", \"NED\", …\n$ Games  <chr> \"1992 Summer\", \"2012 Summer\", \"1920 Summer\", \"1900 Summer\", \"19…\n$ Year   <int> 1992, 2012, 1920, 1900, 1988, 1988, 1992, 1992, 1994, 1994, 199…\n$ Season <chr> \"Summer\", \"Summer\", \"Summer\", \"Summer\", \"Winter\", \"Winter\", \"Wi…\n$ City   <chr> \"Barcelona\", \"London\", \"Antwerpen\", \"Paris\", \"Calgary\", \"Calgar…\n$ Sport  <chr> \"Basketball\", \"Judo\", \"Football\", \"Tug-Of-War\", \"Speed Skating\"…\n$ Event  <chr> \"Basketball Men's Basketball\", \"Judo Men's Extra-Lightweight\", …\n$ Medal  <chr> NA, NA, NA, \"Gold\", NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…"
   },
   {
     "objectID": "report.html",
