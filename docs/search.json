@@ -16,91 +16,91 @@
   {
     "objectID": "proposal.html",
     "href": "proposal.html",
-    "title": "Project title",
+    "title": "Project Proposal - Team 199",
     "section": "",
     "text": "library(tidyverse)"
   },
   {
     "objectID": "proposal.html#introduction-and-data",
     "href": "proposal.html#introduction-and-data",
-    "title": "Project title",
+    "title": "Project Proposal - Team 199",
     "section": "Introduction and data",
     "text": "Introduction and data\n\nIdentify the source of the data.\n\nFor this project proposal, we will be exploring County Demographics. The source of this dataset is from the CORGIS Dataset Project, specifically by Ryan Whitcomb, Joung Min Choi, and Bo Guan.\n\nState when and how it was originally collected (by the original data curator, not necessarily how you found the data).\n\nThis dataset was originally collected from 2010 to 2019 by the United States Census Bureau, which individually surveys all residents of the United States.\n\nWrite a brief description of the observations.\n\nThe observations describe the “age distributions, the education levels, employment statistics, ethnicity percents, household information, income, and other miscellaneous statistics” of all U.S. counties from 2010 to 2019."
   },
   {
     "objectID": "proposal.html#research-question",
     "href": "proposal.html#research-question",
-    "title": "Project title",
+    "title": "Project Proposal - Team 199",
     "section": "Research question",
     "text": "Research question\n\nA well formulated research question. (You may include more than one research question if you want to receive feedback on different ideas for your project. However, one per data set is required.)\nA description of the research topic along with a concise statement of your hypotheses on this topic.\nIdentify the types of variables in your research question. Categorical? Quantitative?"
   },
   {
     "objectID": "proposal.html#literature",
     "href": "proposal.html#literature",
-    "title": "Project title",
+    "title": "Project Proposal - Team 199",
     "section": "Literature",
     "text": "Literature\n\nFind one published credible article on the topic you are interested in researching.\nProvide a one paragraph summary about the article.\nIn 1-2 sentences, explain how your research question builds on / is different than the article you have cited."
   },
   {
     "objectID": "proposal.html#glimpse-of-data",
     "href": "proposal.html#glimpse-of-data",
-    "title": "Project title",
+    "title": "Project Proposal - Team 199",
     "section": "Glimpse of data",
     "text": "Glimpse of data\n\n# add code here"
   },
   {
     "objectID": "proposal.html#introduction-and-data-1",
     "href": "proposal.html#introduction-and-data-1",
-    "title": "Project title",
+    "title": "Project Proposal - Team 199",
     "section": "Introduction and data",
     "text": "Introduction and data\n\nIdentify the source of the data.\n\nFor this project we will be exploring English Premier League Football data. The source of this data comes from Organization called Football.CSV which explores football data from all over the world.\n\nState when and how it was originally collected (by the original data curator, not necessarily how you found the data).\n\nThe data was collected by recording every game that every team in the Premier League played over the past 30 years.\n\nWrite a brief description of the observations.\n\nThe observation describe “Date, Round number, FT score, Team 1, Team 2, Standing Position”, for every game played in the Premier League from 2010-2019."
   },
   {
     "objectID": "proposal.html#research-question-1",
     "href": "proposal.html#research-question-1",
-    "title": "Project title",
+    "title": "Project Proposal - Team 199",
     "section": "Research question",
     "text": "Research question\n\nA well formulated research question. (You may include more than one research question if you want to receive feedback on different ideas for your project. However, one per data set is required.)\nA description of the research topic along with a concise statement of your hypotheses on this topic.\nIdentify the types of variables in your research question. Categorical? Quantitative?"
   },
   {
     "objectID": "proposal.html#literature-1",
     "href": "proposal.html#literature-1",
-    "title": "Project title",
+    "title": "Project Proposal - Team 199",
     "section": "Literature",
     "text": "Literature\n\nFind one published credible article on the topic you are interested in researching.\nProvide a one paragraph summary about the article.\nIn 1-2 sentences, explain how your research question builds on / is different than the article you have cited."
   },
   {
     "objectID": "proposal.html#glimpse-of-data-1",
     "href": "proposal.html#glimpse-of-data-1",
-    "title": "Project title",
+    "title": "Project Proposal - Team 199",
     "section": "Glimpse of data",
     "text": "Glimpse of data\n\nflights <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-07-12/flights.csv')\n\nRows: 688099 Columns: 14\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr  (6): MONTH_NUM, MONTH_MON, APT_ICAO, APT_NAME, STATE_NAME, Pivot Label\ndbl  (7): YEAR, FLT_DEP_1, FLT_ARR_1, FLT_TOT_1, FLT_DEP_IFR_2, FLT_ARR_IFR_...\ndttm (1): FLT_DATE\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message."
   },
   {
     "objectID": "proposal.html#introduction-and-data-2",
     "href": "proposal.html#introduction-and-data-2",
-    "title": "Project title",
+    "title": "Project Proposal - Team 199",
     "section": "Introduction and data",
     "text": "Introduction and data\n\nThe data is a cleaned dataset created by a user on Kaggle (https://www.kaggle.com/datasets/heesoo37/120-years-of-olympic-history-athletes-and-results)\nThe original source of the data is http://www.sports-reference.com/, which has a compilation of data from the Olympic games over the years.\nThe dataset has observations for each athlete competing in an event, and it has variables such as team, age, sex, and sport."
   },
   {
     "objectID": "proposal.html#research-question-2",
     "href": "proposal.html#research-question-2",
-    "title": "Project title",
+    "title": "Project Proposal - Team 199",
     "section": "Research question",
     "text": "Research question\n\nWhich Olympic skiing event’s results can best be predicted by athletes’ characteristics, such as nationality, sex, weight, and height?\nThis research topic will explore which Olympic skiing victories are the most predictable based on the characteristics of competitors. This question could be important in knowing which events are the most predictable, and which may be more contested, which could guide coverage of the events. We predict that the events that tend to be dominated by one country, such as freestyle skiing (dominated by Canada) will have the best predictive models.\nThe question involves categorical variables such as event, country, sex, and medal, as well as quantitative variables such as height and weight."
   },
   {
     "objectID": "proposal.html#literature-2",
     "href": "proposal.html#literature-2",
-    "title": "Project title",
+    "title": "Project Proposal - Team 199",
     "section": "Literature",
     "text": "Literature\n\nhttps://pietistschoolman.com/2014/02/21/which-country-dominates-which-olympic-sport-winter-edition/\nThe article shows the most dominated winter Olympic sports, broken down both by country and continent. This provides a decent basis to form a hypothesis, as particularly dominated sports may be more easily predicted than tossup sports. The article also suggests that continent, and not just country, could be a basis to sort athletes in order to predict results.\nThe article does not go into depth regarding whether any of the events can be predicted year-to-year, so it can easily be expanded on."
   },
   {
     "objectID": "proposal.html#glimpse-of-data-2",
     "href": "proposal.html#glimpse-of-data-2",
-    "title": "Project title",
+    "title": "Project Proposal - Team 199",
     "section": "Glimpse of data",
     "text": "Glimpse of data\n\nolympics <- read.csv(\"data/olympics.csv\") \nglimpse(olympics)\n\nRows: 271,116\nColumns: 15\n$ ID     <int> 1, 2, 3, 4, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 6, 6, 7, 7, 7, …\n$ Name   <chr> \"A Dijiang\", \"A Lamusi\", \"Gunnar Nielsen Aaby\", \"Edgar Lindenau…\n$ Sex    <chr> \"M\", \"M\", \"M\", \"M\", \"F\", \"F\", \"F\", \"F\", \"F\", \"F\", \"M\", \"M\", \"M\"…\n$ Age    <int> 24, 23, 24, 34, 21, 21, 25, 25, 27, 27, 31, 31, 31, 31, 33, 33,…\n$ Height <int> 180, 170, NA, NA, 185, 185, 185, 185, 185, 185, 188, 188, 188, …\n$ Weight <dbl> 80, 60, NA, NA, 82, 82, 82, 82, 82, 82, 75, 75, 75, 75, 75, 75,…\n$ Team   <chr> \"China\", \"China\", \"Denmark\", \"Denmark/Sweden\", \"Netherlands\", \"…\n$ NOC    <chr> \"CHN\", \"CHN\", \"DEN\", \"DEN\", \"NED\", \"NED\", \"NED\", \"NED\", \"NED\", …\n$ Games  <chr> \"1992 Summer\", \"2012 Summer\", \"1920 Summer\", \"1900 Summer\", \"19…\n$ Year   <int> 1992, 2012, 1920, 1900, 1988, 1988, 1992, 1992, 1994, 1994, 199…\n$ Season <chr> \"Summer\", \"Summer\", \"Summer\", \"Summer\", \"Winter\", \"Winter\", \"Wi…\n$ City   <chr> \"Barcelona\", \"London\", \"Antwerpen\", \"Paris\", \"Calgary\", \"Calgar…\n$ Sport  <chr> \"Basketball\", \"Judo\", \"Football\", \"Tug-Of-War\", \"Speed Skating\"…\n$ Event  <chr> \"Basketball Men's Basketball\", \"Judo Men's Extra-Lightweight\", …\n$ Medal  <chr> NA, NA, NA, \"Gold\", NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…"
   },

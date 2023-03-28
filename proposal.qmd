@@ -1,6 +1,6 @@
 ---
-title: "Project title"
-subtitle: "Proposal"
+title: "Project Proposal - Team 199"
+subtitle: "Amalia Desir, Luke Francese, Ella Davis, Ruben Mesalles"
 format: html
 editor: visual
 ---
@@ -48,7 +48,7 @@ The observations describe the "age distributions, the education levels, employme
 
 ```{r}
 #| label: load-data-1
-
+#| 
 # add code here
 ```
 
@@ -127,4 +127,3 @@ flights <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/ti
 olympics <- read.csv("data/olympics.csv") 
 glimpse(olympics)
 ```
-
