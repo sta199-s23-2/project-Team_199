@@ -1,6 +1,6 @@
 ---
-title: "Project title"
-subtitle: "Proposal"
+title: "Project Team 199's Three Data Set Proposal"
+subtitle: "Ella Davis, Amalia Desir, Rueben Mesalles, and Luke Francese"
 format: html
 editor: visual
 ---
@@ -65,6 +65,8 @@ Our research question expands beyond the article cited because it does not solel
 #| label: load-data-1
 
 county_demographics <- readr::read_csv('https://think.cs.vt.edu/corgis/datasets/csv/county_demographics/county_demographics.csv')
+
+
 ```
 
 # Data 2
