@@ -48,7 +48,11 @@ The observations describe the "age distributions, the education levels, employme
 
 ```{r}
 #| label: load-data-1
-#| 
+
+county_demographics <- readr::read_csv('https://think.cs.vt.edu/corgis/datasets/csv/county_demographics/county_demographics.csv')
+
+# add glimpse. the glimpse will not run with the current code 
+
 # add code here
 ```
 

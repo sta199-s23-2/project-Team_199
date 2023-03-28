@@ -46,7 +46,7 @@
     "href": "proposal.html#glimpse-of-data",
     "title": "Project Proposal - Team 199",
     "section": "Glimpse of data",
-    "text": "Glimpse of data\n\n# add code here"
+    "text": "Glimpse of data\n\ncounty_demographics <- readr::read_csv('https://think.cs.vt.edu/corgis/datasets/csv/county_demographics/county_demographics.csv')\n\nRows: 3139 Columns: 43\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr  (2): County, State\ndbl (41): Age.Percent 65 and Older, Age.Percent Under 18 Years, Age.Percent ...\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\n# add glimpse. the glimpse will not run with the current code \n\n# add code here"
   },
   {
     "objectID": "proposal.html#introduction-and-data-1",
