@@ -1,6 +1,6 @@
 ---
-title: "Project Team 199's Three Data Set Proposal"
-subtitle: "Ella Davis, Amalia Desir, Rueben Mesalles, and Luke Francese"
+title: "Project Proposal - Team 199"
+subtitle: "Amalia Desir, Luke Francese, Ella Davis, Ruben Mesalles"
 format: html
 editor: visual
 ---
@@ -10,7 +10,6 @@ editor: visual
 #| message: false
 
 library(tidyverse)
-
 ```
 
 # Data 1
@@ -27,37 +26,23 @@ This dataset was originally collected from 2010 to 2019 by the United States Cen
 
 -   Write a brief description of the observations.
 
-The observations describe the "age distributions, the education levels, employment statistics, ethnicity percents, household information, income, and other miscellaneous statistics" of all U.S. counties from 2010 to 2019. The county_demographics dataset includes rows by county across America and columns such as "Age.Percent 65 and Older", "Age.Percent Under 18 Years", "Education.High School or Higher", and "Ethnicities.Two or More Races".
+The observations describe the "age distributions, the education levels, employment statistics, ethnicity percents, household information, income, and other miscellaneous statistics" of all U.S. counties from 2010 to 2019.
 
 ## Research question
 
--   A well-formulated research question. (You may include more than one research question if you want to receive feedback on different ideas for your project. However, one per data set is required.)
-
-Do factors---such as race, age, or education level---impact the median household incomes of counties across America?
+-   A well formulated research question. (You may include more than one research question if you want to receive feedback on different ideas for your project. However, one per data set is required.)
 
 -   A description of the research topic along with a concise statement of your hypotheses on this topic.
 
-The research topic will not only explore whether or not the factors stated above influence counties' median household income, but it will also dive into equity and inequity as it relates to economic disparity across the country. We will research related topics, such as income inequality and rural-urban divide, to get a bigger picture of what the data truly means in the broader United States landscape.
-
-Our hypothesis is that counties with higher ages and education levels will, in turn, produce higher median household incomes. We do believe that factors such as age, race, and education level influence median household incomes.
-
 -   Identify the types of variables in your research question. Categorical? Quantitative?
-
-Variables in this dataset that are categorical include, but are not limited to, "Education.High School or Higher", "Ethnicities.White Alone", and "Ethnicities.Two or More Races". Variables in this dataset that are quantitative include, but are not limited to, "Age.Percent 65 and Older", "Population.Population per Square Mile", and "Age.Percent Under 18 Years".
 
 ## Literature
 
 -   Find one published credible article on the topic you are interested in researching.
 
-One published credible article we found was: [Understanding Equity Through Census Bureau Data](https://www.census.gov/library/stories/2021/09/understanding-equity-through-census-bureau-data.html)
-
 -   Provide a one paragraph summary about the article.
 
-This article reviews the US Census Bureau Data by looking at several different reports that point to overall societal inequality. It details the Income and Poverty report, the Supplemental Poverty Measure, female-to-male earning ratios, health insurance coverage, Annual Education Attainment, household wealth, home ownership, and Community Resilience Estimates. These overviews help readers, analysts, and researchers understand what impact the pandemic has made on topics in the United States that connect to equity.
-
 -   In 1-2 sentences, explain how your research question builds on / is different than the article you have cited.
-
-Our research question expands beyond the article cited because it does not solely look at data pre- and post-pandemic. The data we will analyze relies on pre-pandemic (2010-2019) statistics that will help us gauge the state of counties 4 years ago and lead us to draw our own similarities and comparisons with what we know currently. Overall, we want to gain a much broader sense of overall trends, using a 10-year dataset to conduct research, instead of focusing on a smaller portion of recent history.
 
 ## Glimpse of data
 
@@ -66,74 +51,27 @@ Our research question expands beyond the article cited because it does not solel
 
 county_demographics <- readr::read_csv('https://think.cs.vt.edu/corgis/datasets/csv/county_demographics/county_demographics.csv')
 
+# add glimpse. the glimpse will not run with the current code 
+
+# add code here
 
 ```
 
-# Data 2
+# Data 2 test
 
 ## Introduction and data
 
 -   Identify the source of the data.
 
-The source of this data comes from FIFA World Cup.
+For this project we will be exploring English Premier League Football data. The source of this data comes from Organization called Football.CSV which explores football data from all over the world.
 
 -   State when and how it was originally collected (by the original data curator, not necessarily how you found the data).
 
-This data set covers every single World Cup match played in its history from Uruguay in 1930 to Russia in 2018.
+The data was collected by recording every game that every team in the Premier League played over the past 30 years.
 
 -   Write a brief description of the observations.
 
-> The wcmatches dataset contains every football match played in the World Cup. Columns inside the dataset include `city` from which city was the match being `played` in, `outcome` which team `won`, `drew`, or `loss`. Also shows if the winning side need added `extra time of penalties` to win the game. The data set also includes the `date`, `stage` and more.
->
-> Research question
-
--   A well formulated research question. (You may include more than one research question if you want to receive feedback on different ideas for your project. However, one per data set is required.)
-
-    Do certain factors, such as the number of days between matches or the location of the match, impact the likelihood of a team winning a match during the FIFA World Cup tournament, and do these factors vary depending on the round of the tournament?
-
--   A description of the research topic along with a concise statement of your hypotheses on this topic.
-
-The research topic for this study is to investigate the factors that may influence a team's success in the `FIFA World Cup tournament`. We are interested in examining the `impact` of the `number of days` between matches and the `location` of the match on a team's likelihood of `winning` a match, and whether these factors `diffe`r depending on the `round` of the tournament.
-
-Our `hypothesis` is that teams who have `more days between matches` may have an `advantage`, as they have more time to `rest` and recover from previous matches. Additionally, we hypothesize that the `location` of the match may also have an `impact` on a team's success. We also believe that the `impact` of these factors may `vary` depending on the `round` of the tournament, as teams may have different levels of `fatigue` or `pressure` depending on how far they have `progressed` in the tournament.
-
--   Identify the types of variables in your research question. Categorical? Quantitative?
-
-    The number of days between matches: quantitative. The location of the match: categorical. The round of the tournament: categorical
-
-## Literature
-
--   Find one published credible article on the topic you are interested in researching.
-
-Weston M, Castagna C, Impellizzeri FM, Rampinini E, Abt G. Analysis of physical match performance in English Premier League soccer referees with particular reference to first half and player work rates. J Sci Med Sport. 2007 Dec;10(6):390-7. doi: 10.1016/j.jsams.2006.09.001. Epub 2006 Nov 28. PMID: 17126077.
-
--   Provide a one paragraph summary about the article.
-
-The article investigates the impact of `player work rate` on `match outcome` in professional English soccer. The study uses data from `20 Premier League matches` and analyzes player movement data to evalaute y player `work rates`. The results indicate that `higher levels of work rate` are associated with a greater likelihood of a `positive match outcome`. The study also finds that the impact of player work rate on match outcome `may differ` depending on the `position played` by the player. We can understand how different factors, such as `work rate` and `position`, impact a team's performance, which can be used `improve` their chances of success.
-
--   In 1-2 sentences, explain how your research question builds on / is different than the article you have cited.
-
-While this article does not focus specifically on the `FIFA World Cup tournament`, it provides evidence into the `impact` of player `work rate` on match outcomes in professional soccer, which may be `relevant` to the research question I proposed earlier.
-
-## Glimpse of data
-
-```{r}
-#| label: load-data-2
-
-wcmatches <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-11-29/wcmatches.csv')
-worldcups <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-11-29/worldcups.csv')
-
-```
-
-# Data 3
-
-## Introduction and data
-
--   Identify the source of the data.
-
--   State when and how it was originally collected (by the original data curator, not necessarily how you found the data).
-
--   Write a brief description of the observations.
+The observation describe "Date, Round number, FT score, Team 1, Team 2, Standing Position", for every game played in the Premier League from 2010-2019.
 
 ## Research question
 
@@ -154,7 +92,43 @@ worldcups <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/
 ## Glimpse of data
 
 ```{r}
+#| label: load-data-2
+
+flights <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-07-12/flights.csv')
+
+```
+
+# Data 3
+
+## Introduction and data
+
+-   The data is a cleaned dataset created by a user on Kaggle (https://www.kaggle.com/datasets/heesoo37/120-years-of-olympic-history-athletes-and-results)
+
+-   The original source of the data is http://www.sports-reference.com/, which has a compilation of data from the Olympic games over the years.
+
+-   The dataset has observations for each athlete competing in an event, and it has variables such as team, age, sex, and sport.
+
+## Research question
+
+-   Which Olympic skiing event's results can best be predicted by athletes' characteristics, such as nationality, sex, weight, and height?
+
+-   This research topic will explore which Olympic skiing victories are the most predictable based on the characteristics of competitors. This question could be important in knowing which events are the most predictable, and which may be more contested, which could guide coverage of the events. We predict that the events that tend to be dominated by one country, such as freestyle skiing (dominated by Canada) will have the best predictive models.
+
+-   The question involves categorical variables such as event, country, sex, and medal, as well as quantitative variables such as height and weight.
+
+## Literature
+
+-   https://pietistschoolman.com/2014/02/21/which-country-dominates-which-olympic-sport-winter-edition/
+
+-   The article shows the most dominated winter Olympic sports, broken down both by country and continent. This provides a decent basis to form a hypothesis, as particularly dominated sports may be more easily predicted than tossup sports. The article also suggests that continent, and not just country, could be a basis to sort athletes in order to predict results.
+
+-   The article does not go into depth regarding whether any of the events can be predicted year-to-year, so it can easily be expanded on.
+
+## Glimpse of data
+
+```{r}
 #| label: load-data-3
 
-# add code here
+olympics <- read.csv("data/olympics.csv") 
+glimpse(olympics)
 ```

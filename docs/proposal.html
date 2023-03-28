@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Project title</title>
+<title>Project Proposal - Team 199</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -195,8 +195,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Project title</h1>
-<p class="subtitle lead">Proposal</p>
+<h1 class="title">Project Proposal - Team 199</h1>
+<p class="subtitle lead">Amalia Desir, Luke Francese, Ella Davis, Ruben Mesalles</p>
 </div>
 
 
@@ -249,7 +249,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="glimpse-of-data" class="level2">
 <h2 class="anchored" data-anchor-id="glimpse-of-data">Glimpse of data</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>county_demographics <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">'https://think.cs.vt.edu/corgis/datasets/csv/county_demographics/county_demographics.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 3139 Columns: 43
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr  (2): County, State
+dbl (41): Age.Percent 65 and Older, Age.Percent Under 18 Years, Age.Percent ...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add glimpse. the glimpse will not run with the current code </span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># add code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -289,7 +302,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="glimpse-of-data-1" class="level2">
 <h2 class="anchored" data-anchor-id="glimpse-of-data-1">Glimpse of data</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>flights <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">'https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-07-12/flights.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>flights <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">'https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-07-12/flights.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 688099 Columns: 14
 ── Column specification ────────────────────────────────────────────────────────
@@ -309,31 +322,51 @@ dttm (1): FLT_DATE
 <section id="introduction-and-data-2" class="level2">
 <h2 class="anchored" data-anchor-id="introduction-and-data-2">Introduction and data</h2>
 <ul>
-<li><p>Identify the source of the data.</p></li>
-<li><p>State when and how it was originally collected (by the original data curator, not necessarily how you found the data).</p></li>
-<li><p>Write a brief description of the observations.</p></li>
+<li><p>The data is a cleaned dataset created by a user on Kaggle (https://www.kaggle.com/datasets/heesoo37/120-years-of-olympic-history-athletes-and-results)</p></li>
+<li><p>The original source of the data is http://www.sports-reference.com/, which has a compilation of data from the Olympic games over the years.</p></li>
+<li><p>The dataset has observations for each athlete competing in an event, and it has variables such as team, age, sex, and sport.</p></li>
 </ul>
 </section>
 <section id="research-question-2" class="level2">
 <h2 class="anchored" data-anchor-id="research-question-2">Research question</h2>
 <ul>
-<li><p>A well formulated research question. (You may include more than one research question if you want to receive feedback on different ideas for your project. However, one per data set is required.)</p></li>
-<li><p>A description of the research topic along with a concise statement of your hypotheses on this topic.</p></li>
-<li><p>Identify the types of variables in your research question. Categorical? Quantitative?</p></li>
+<li><p>Which Olympic skiing event’s results can best be predicted by athletes’ characteristics, such as nationality, sex, weight, and height?</p></li>
+<li><p>This research topic will explore which Olympic skiing victories are the most predictable based on the characteristics of competitors. This question could be important in knowing which events are the most predictable, and which may be more contested, which could guide coverage of the events. We predict that the events that tend to be dominated by one country, such as freestyle skiing (dominated by Canada) will have the best predictive models.</p></li>
+<li><p>The question involves categorical variables such as event, country, sex, and medal, as well as quantitative variables such as height and weight.</p></li>
 </ul>
 </section>
 <section id="literature-2" class="level2">
 <h2 class="anchored" data-anchor-id="literature-2">Literature</h2>
 <ul>
-<li><p>Find one published credible article on the topic you are interested in researching.</p></li>
-<li><p>Provide a one paragraph summary about the article.</p></li>
-<li><p>In 1-2 sentences, explain how your research question builds on / is different than the article you have cited.</p></li>
+<li><p>https://pietistschoolman.com/2014/02/21/which-country-dominates-which-olympic-sport-winter-edition/</p></li>
+<li><p>The article shows the most dominated winter Olympic sports, broken down both by country and continent. This provides a decent basis to form a hypothesis, as particularly dominated sports may be more easily predicted than tossup sports. The article also suggests that continent, and not just country, could be a basis to sort athletes in order to predict results.</p></li>
+<li><p>The article does not go into depth regarding whether any of the events can be predicted year-to-year, so it can easily be expanded on.</p></li>
 </ul>
 </section>
 <section id="glimpse-of-data-2" class="level2">
 <h2 class="anchored" data-anchor-id="glimpse-of-data-2">Glimpse of data</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>olympics <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/olympics.csv"</span>) </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(olympics)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 271,116
+Columns: 15
+$ ID     &lt;int&gt; 1, 2, 3, 4, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 6, 6, 7, 7, 7, …
+$ Name   &lt;chr&gt; "A Dijiang", "A Lamusi", "Gunnar Nielsen Aaby", "Edgar Lindenau…
+$ Sex    &lt;chr&gt; "M", "M", "M", "M", "F", "F", "F", "F", "F", "F", "M", "M", "M"…
+$ Age    &lt;int&gt; 24, 23, 24, 34, 21, 21, 25, 25, 27, 27, 31, 31, 31, 31, 33, 33,…
+$ Height &lt;int&gt; 180, 170, NA, NA, 185, 185, 185, 185, 185, 185, 188, 188, 188, …
+$ Weight &lt;dbl&gt; 80, 60, NA, NA, 82, 82, 82, 82, 82, 82, 75, 75, 75, 75, 75, 75,…
+$ Team   &lt;chr&gt; "China", "China", "Denmark", "Denmark/Sweden", "Netherlands", "…
+$ NOC    &lt;chr&gt; "CHN", "CHN", "DEN", "DEN", "NED", "NED", "NED", "NED", "NED", …
+$ Games  &lt;chr&gt; "1992 Summer", "2012 Summer", "1920 Summer", "1900 Summer", "19…
+$ Year   &lt;int&gt; 1992, 2012, 1920, 1900, 1988, 1988, 1992, 1992, 1994, 1994, 199…
+$ Season &lt;chr&gt; "Summer", "Summer", "Summer", "Summer", "Winter", "Winter", "Wi…
+$ City   &lt;chr&gt; "Barcelona", "London", "Antwerpen", "Paris", "Calgary", "Calgar…
+$ Sport  &lt;chr&gt; "Basketball", "Judo", "Football", "Tug-Of-War", "Speed Skating"…
+$ Event  &lt;chr&gt; "Basketball Men's Basketball", "Judo Men's Extra-Lightweight", …
+$ Medal  &lt;chr&gt; NA, NA, NA, "Gold", NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…</code></pre>
+</div>
 </div>
 
 
