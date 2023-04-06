@@ -9,9 +9,9 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "TEAM NAME",
+    "title": "Team 199: Olympics",
     "section": "",
-    "text": "Add project abstract here."
+    "text": "olympics_new <- olympics |> \n  mutate(BMI = (Weight/(Height/100)^2), medalyesno = if_else(is.na(Medal), \"no\", \"yes\"))\n\nolympics_new <- as.data.frame(olympics_new)\n\n\nolympics_new |> \n  filter(Sport == \"Gymnastics\", medalyesno == \"yes\", Year > 1999) |>\n  ggplot(aes(x = Team)) + \n    geom_bar()"
   },
   {
     "objectID": "proposal.html",

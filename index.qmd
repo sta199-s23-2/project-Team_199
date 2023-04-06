@@ -1,8 +1,33 @@
 ---
-title: "TEAM NAME"
+title: "Team 199: Olympics"
 subtitle: "STA 199 Project"
 format: html
 editor: visual
 ---
 
-Add project abstract here.
+```{r}
+
+library(tidyverse)
+library(tidymodels)
+library(lubridate)
+
+olympics <- read.csv("data/olympics.csv") 
+glimpse(olympics)
+```
+
+```{r}
+
+olympics_new <- olympics |> 
+  mutate(BMI = (Weight/(Height/100)^2), medalyesno = if_else(is.na(Medal), "no", "yes"))
+
+olympics_new <- as.data.frame(olympics_new)
+  
+```
+
+```{r}
+
+olympics_new |> 
+  filter(Sport == "Gymnastics", medalyesno == "yes", Year > 1999) |>
+  ggplot(aes(x = Team)) + 
+    geom_bar()
+```
