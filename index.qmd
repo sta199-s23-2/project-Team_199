@@ -30,7 +30,10 @@ olympics_new |>
   filter(Sport == "Gymnastics", medalyesno == "yes", Year > 1999) |>
   ggplot(aes(x = Team)) + 
     geom_bar() +
-   theme(axis.text.x = element_text(angle = 90, hjust = 1))
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  labs(title = "Wther Olympian won medal (year > 1999)",
+       x = "Team",
+       y = "Number of Olympians")
 ```
 
 ```{r}
