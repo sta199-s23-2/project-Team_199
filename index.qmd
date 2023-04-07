@@ -31,7 +31,7 @@ olympics_new |>
   ggplot(aes(x = Team)) + 
     geom_bar() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
-  labs(title = "Wther Olympian won medal (year > 1999)",
+  labs(title = "Wether Olympian won medal (year > 1999)",
        x = "Team",
        y = "Number of Olympians")
 ```
