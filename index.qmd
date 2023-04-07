@@ -52,8 +52,6 @@ olympics_new |>
   facet_wrap(~Sex)
 ```
 
-
-
 ```{r}
 
 olympics_new |> 
@@ -177,5 +175,3 @@ olympics_new |>
     geom_bar() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1)) + labs(title = "Swimming Gold Medals Recieved per Country", x = "Country", y = "Number of Gold Medals")
 ```
-
-
