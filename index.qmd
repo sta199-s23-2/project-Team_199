@@ -28,12 +28,21 @@ olympics_new <- as.data.frame(olympics_new)
 
 olympics_new |> 
   filter(Sport == "Gymnastics", medalyesno == "yes", Year > 1999) |>
+  mutate(medal = as.factor(Medal), medal = fct_relevel(Medal, "Gold", "Silver", "Bronze")) |>
+  ggplot(aes(x = Team, fill = medal)) + 
+    geom_bar() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) 
+
+olympics_new |> 
+  filter(Sport == "Gymnastics", Medal == "Gold", Year > 1999) |>
   ggplot(aes(x = Team)) + 
     geom_bar() +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
-  labs(title = "Wether Olympian won medal (year > 1999)",
-       x = "Team",
-       y = "Number of Olympians")
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) 
+```
+
+```{r}
+
+
 ```
 
 ```{r}
