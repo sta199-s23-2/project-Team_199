@@ -7,4 +7,20 @@ execute:
   echo: true
 ---
 
-Add project writeup here.
+# Introduction
+
+Throughout our project, we want to explore the correlation between athletes' traits and performance in swimming. We aim to define which traits---particularly nationality, sex, weight, and height---influence athletes' performance.
+
+-   The data is a cleaned dataset created by a user on Kaggle (https://www.kaggle.com/datasets/heesoo37/120-years-of-olympic-history-athletes-and-results)
+
+-   The original source of the data is http://www.sports-reference.com/, which has a compilation of data from the Olympic games over the years.
+
+-   The dataset has observations for each athlete competing in an event, and it has variables such as team, age, sex, and sport.
+
+## Research question
+
+-   Which Olympic skiing event's results can best be predicted by athletes' characteristics, such as nationality, sex, weight, and height?
+
+-   This research topic will explore which Olympic skiing victories are the most predictable based on the characteristics of competitors. This question could be important in knowing which events are the most predictable, and which may be more contested, which could guide coverage of the events. We predict that the events that tend to be dominated by one country, such as freestyle skiing (dominated by Canada) will have the best predictive models.
+
+-   The question involves categorical variables such as event, country, sex, and medal, as well as quantitative variables such as height and weight.

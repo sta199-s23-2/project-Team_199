@@ -8,6 +8,6 @@ This project was developed by Team 199 For [STA 199: Introduction to Data Scienc
 
 -   Team member 1: Luke Francese, Public Policy Studies, class of 2025
 -   Team member 2: Ruben Mesalles, Political Science, class of 2025
--   Team member 3: One sentence description of Team member 3 (e.g., year, major, etc.).
+-   Team member 3: Ella Davis, Public Policy Studies, class of 2025
 -   Team member 4: One sentence description of Team member 4 (e.g., year, major, etc.).
 -   ...
