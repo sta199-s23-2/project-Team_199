@@ -11,10 +11,9 @@ execute:
 
 Throughout our project, we want to explore the correlation between athletes' traits and performance in swimming. We aim to define which traits---particularly nationality, sex, weight, and height---influence athletes' performance. We seek to answer the question: which trait ultimately affects Olympic swimmers the most? This question involves categorical variables such as event, country, sex, and medal, as well as quantitative variables such as height and weight. We hypothesize that sex and height will impact Olympic swimmers the most.
 
-
 # Research question
 
-- Which trait ultimately affects Olympic swimmers' performance the most? 
+-   Which trait ultimately affects Olympic swimmers' performance the most?
 
 The data is a cleaned dataset created by a user on Kaggle (https://www.kaggle.com/datasets/heesoo37/120-years-of-olympic-history-athletes-and-results), and it originated from http://www.sports-reference.com/, which has a compilation of data from the Olympic games over the years. The dataset has observations for each athlete competing, and it has variables such as team, age, sex, and sport. For each column, the brief definitions are as follows:
 
@@ -48,11 +47,12 @@ The data is a cleaned dataset created by a user on Kaggle (https://www.kaggle.co
 
 15. **Medal** - Gold, Silver, Bronze, or NA
 
-
 # Literature
 
-Find one published credible article on the topic you are interested in researching.
-
-Provide a one paragraph summary about the article.
-
-In 1-2 sentences, explain how your research question builds on / is different than the article you have cited.
+      One published credible article on the topic that we are interested in researching is an article published by Swimming World Magazine, a US-based monthly swimming magazine that was first published in January 1960. It concurrently runs online websites Swimming World Magazine and Swimming World News, and the headquarters is in Phoenix, Arizona. The particular article that applies to our research is their March 2023 article, "What Makes the Perfect Swimmer’s Body?". 
+      Since our research is seeking the physical traits that have the strongest correlation with successful swimmer performance, this article acts as a foundation for our inspiration and our hypothesis. 
+      In this article, the author JP Mortenson, an alumnus of Dartmouth's swimming and diving team and a physical therapist for professional swimmers, lists traits that many professional and Olympic swimmers have that have aided in their past athletic successes. 
+      One of these traits is height, which is also found in our data set. JP claims hat height tends to give swimmers a distinct advantage in the pool, as made apparent by elite international male and female swimmers such as Nathan Adrian (6'6), Kilment Kolesnikov(6'5), Michael Andrew (6'5), Sarah Sjostrom (6'0), Olympic gold medalist Simone Manuel (5'11), and Olympic gold medalist Katie Ledeckey (5'11). The author even goes on to state that the average height of the 2016 Olympic finalists in Rio was 6'2 for men and 5'9 for women, which is 5 inches above the global average male and female heights respectively (worlddata.info and ourworldindata.org). Other traits that seem to lead to athletic success in the sector of swimming that were listed in this article include anthropometry, center of mass, flexibility, hyperextension abilities, and mental strength. 
+      Our research question, "Which trait ultimately affects Olympic swimmers' performance the most?" builds upon this article because it would lend more concrete statistical evidence to many observed correlations such as height. Although this article provides evidence to its claims by citing corresponding examples of athletes, our research question will be able to build upon these claims by calling more physical traits into question, and specific swimming events in which these traits have the strongest correlations with success. 
+      Article: https://www.swimmingworldmagazine.com/news/what-makes-the-perfect-swimmers-body/
+      
