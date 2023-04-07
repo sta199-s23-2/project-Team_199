@@ -45,4 +45,22 @@ print(athlete_count_by_medal_status)
 
 ```{r}
 
+olympians_per_team <- olympics |>
+  group_by(Team) |>
+  summarise(count = n()) |>
+  arrange(desc(count))
+
+
+N <- 20
+top_n_teams <- olympians_per_team[1:N, ]
+
+
+ggplot(top_n_teams, aes(x = Team, y = count)) +
+  geom_col() + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(title = "Number of Olympians per Team (Top 20)",
+       x = "Team",
+       y = "Number of Olympians")
+
+
 ```
