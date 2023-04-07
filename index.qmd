@@ -37,7 +37,7 @@ olympics_new |>
   filter(Sport == "Swimming", Medal == "Gold", Year > 1999) |>
   ggplot(aes(x = Team)) + 
     geom_bar() +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1)) 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) + labs(title = "Amount of Medals Recieved per Country", x = "Country", y = "Number of Medals")
 
 
 ```
@@ -70,7 +70,8 @@ olympics_new |>
   mutate(medal = as.factor(Medal), medal = fct_relevel(Medal, "Gold", "Silver", "Bronze")) |>
   ggplot(aes(x = Age, y = medal)) + 
     geom_boxplot() + 
-  facet_wrap(~Sex)
+  facet_wrap(~Sex) + labs(title = "Male and Female Age as it Relates to Medals Earned",
+                          x = "Type of Medal Earned", y = "Age of Athlete")
 
 ```
 
