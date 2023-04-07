@@ -31,3 +31,18 @@ olympics_new |>
   ggplot(aes(x = Team)) + 
     geom_bar()
 ```
+
+```{r}
+
+athlete_count_by_medal_status <- olympics |>
+  summarise(count = n())
+
+print(athlete_count_by_medal_status)
+
+
+
+```
+
+```{r}
+
+```
