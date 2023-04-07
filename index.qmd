@@ -37,8 +37,6 @@ olympics_new |>
 athlete_count_by_medal_status <- olympics |>
   summarise(count = n())
 
-print(athlete_count_by_medal_status)
-
 
 
 ```
@@ -62,5 +60,29 @@ ggplot(top_n_teams, aes(x = Team, y = count)) +
        x = "Team",
        y = "Number of Olympians")
 
+
+```
+
+```{r}
+olympians_per_games <- olympics |>
+  group_by(Games) |>
+  summarise(count = n()) |>
+  arrange(Games)
+
+ggplot(olympians_per_games, aes(x = Games, y = count)) +
+  geom_col() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  labs(title = "Number of Olympians per Olympic Games",
+       x = "Olympic Games",
+       y = "Number of Olympians")
+
+
+```
+
+```{r}
+olympians_per_sport <- olympics |>
+  group_by(Sport) |>
+  summarise(count = n()) |>
+  arrange(desc(count))
 
 ```
