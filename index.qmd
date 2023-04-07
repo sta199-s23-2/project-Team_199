@@ -27,20 +27,32 @@ olympics_new <- as.data.frame(olympics_new)
 ```{r}
 
 olympics_new |> 
-  filter(Sport == "Swimming", medalyesno == "yes", Year > 1999) |>
-  mutate(medal = as.factor(Medal), medal = fct_relevel(Medal, "Gold", "Silver", "Bronze")) |>
+  filter(Sport == "Swimming",
+         medalyesno == "yes",
+         Year > 1999) |>
+  mutate(medal = as.factor(Medal),
+         medal = fct_relevel(Medal, "Gold", 
+                             "Silver", "Bronze")) |>
   ggplot(aes(x = Team, fill = medal)) + 
     geom_bar() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1)) 
 
 olympics_new |> 
-  filter(Sport == "Swimming", Medal == "Gold", Year > 1999) |>
-  ggplot(aes(x = Team)) + 
+  filter(Sport == "Swimming",
+         Year > 1999,
+         Team == c("Australia", "China", "France",
+                   "Germany", "Japan", "Netherlands",
+                   "United States")) |>
+  mutate(medal = as.factor(Medal),
+         medal = fct_relevel(Medal, "Gold", 
+                             "Silver", "Bronze")) |>
+  ggplot(aes(x = Team, fill = medal)) + 
     geom_bar() +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1)) + labs(title = "Amount of Medals Recieved per Country", x = "Country", y = "Number of Medals")
-
-
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  facet_wrap(~Sex)
 ```
+
+
 
 ```{r}
 
@@ -70,7 +82,7 @@ olympics_new |>
   mutate(medal = as.factor(Medal), medal = fct_relevel(Medal, "Gold", "Silver", "Bronze")) |>
   ggplot(aes(x = Age, y = medal)) + 
     geom_boxplot() + 
-  facet_wrap(~Sex) + labs(title = "Male and Female Age as it Relates to Medals Earned",
+  facet_wrap(~Sex) + labs(title = "Male and Female Age vs. Medal Earned",
                           x = "Type of Medal Earned", y = "Age of Athlete")
 
 ```
@@ -156,3 +168,14 @@ ggplot(olympians_per_sport, aes(x = Sport, y = count)) +
 
 
 ```
+
+```{r}
+
+olympics_new |> 
+  filter(Sport == "Swimming", Medal == "Gold", Year > 1999) |>
+  ggplot(aes(x = Team)) + 
+    geom_bar() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) + labs(title = "Swimming Gold Medals Recieved per Country", x = "Country", y = "Number of Gold Medals")
+```
+
+
