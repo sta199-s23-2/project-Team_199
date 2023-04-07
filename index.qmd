@@ -5,6 +5,8 @@ format: html
 editor: visual
 ---
 
+
+
 ```{r}
 
 library(tidyverse)
@@ -27,21 +29,50 @@ olympics_new <- as.data.frame(olympics_new)
 ```{r}
 
 olympics_new |> 
-  filter(Sport == "Gymnastics", medalyesno == "yes", Year > 1999) |>
+  filter(Sport == "Swimming", medalyesno == "yes", Year > 1999) |>
   mutate(medal = as.factor(Medal), medal = fct_relevel(Medal, "Gold", "Silver", "Bronze")) |>
   ggplot(aes(x = Team, fill = medal)) + 
     geom_bar() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1)) 
 
 olympics_new |> 
-  filter(Sport == "Gymnastics", Medal == "Gold", Year > 1999) |>
+  filter(Sport == "Swimming", Medal == "Gold", Year > 1999) |>
   ggplot(aes(x = Team)) + 
     geom_bar() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1)) 
+
+
 ```
 
 ```{r}
 
+olympics_new |> 
+  filter(Sport == "Swimming", Year > 1999) |>
+  mutate(medal = as.factor(Medal), medal = fct_relevel(Medal, "Gold", "Silver", "Bronze")) |>
+  ggplot(aes(x = BMI, y = medal)) + 
+    geom_boxplot() + 
+  facet_wrap(~Sex)
+
+olympics_new |> 
+  filter(Sport == "Swimming", Year > 1999) |>
+  mutate(medal = as.factor(Medal), medal = fct_relevel(Medal, "Gold", "Silver", "Bronze")) |>
+  ggplot(aes(x = Height, y = medal)) + 
+    geom_boxplot() + 
+  facet_wrap(~Sex)
+
+olympics_new |> 
+  filter(Sport == "Swimming", Year > 1999) |>
+  mutate(medal = as.factor(Medal), medal = fct_relevel(Medal, "Gold", "Silver", "Bronze")) |>
+  ggplot(aes(x = Weight, y = medal)) + 
+    geom_boxplot() + 
+  facet_wrap(~Sex)
+
+olympics_new |> 
+  filter(Sport == "Swimming", Year > 1999) |>
+  mutate(medal = as.factor(Medal), medal = fct_relevel(Medal, "Gold", "Silver", "Bronze")) |>
+  ggplot(aes(x = Age, y = medal)) + 
+    geom_boxplot() + 
+  facet_wrap(~Sex)
 
 ```
 
@@ -80,14 +111,14 @@ ggplot(top_n_teams, aes(x = Team, y = count)) +
 olympians_per_games <- olympics |>
   group_by(Games) |>
   summarise(count = n()) |>
-  arrange(Games)
+  arrange(Games) 
 
 ggplot(olympians_per_games, aes(x = Games, y = count)) +
   geom_col() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
   labs(title = "Number of Olympians per Olympic Games",
        x = "Olympic Games",
-       y = "Number of Olympians")
+       y = "Number of Olympians") 
 
 
 ```
