@@ -29,7 +29,8 @@ olympics_new <- as.data.frame(olympics_new)
 olympics_new |> 
   filter(Sport == "Gymnastics", medalyesno == "yes", Year > 1999) |>
   ggplot(aes(x = Team)) + 
-    geom_bar()
+    geom_bar() +
+   theme(axis.text.x = element_text(angle = 90, hjust = 1))
 ```
 
 ```{r}
@@ -84,5 +85,32 @@ olympians_per_sport <- olympics |>
   group_by(Sport) |>
   summarise(count = n()) |>
   arrange(desc(count))
+
+ggplot(olympians_per_sport, aes(x = Sport, y = count)) +
+  geom_col() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  labs(title = "Number of Olympians per Sport",
+       x = "Sport",
+       y = "Number of Olympians")
+
+
+```
+
+```{r}
+N <- 10
+
+olympians_per_sport <- olympics |>
+  group_by(Sport) |>
+  summarise(count = n()) |>
+  arrange(desc(count)) |>
+  slice_head(n = N)
+
+ggplot(olympians_per_sport, aes(x = Sport, y = count)) +
+  geom_col() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  labs(title = "Number of Olympians for the Most Popular Sports (Top 10)",
+       x = "Sport",
+       y = "Number of Olympians")
+
 
 ```
