@@ -9,7 +9,7 @@ execute:
 
 # Introduction
 
-Throughout our project, we want to explore the correlation between Olympic athletes' traits and performance in swimming. We aim to define which traits---particularly nationality, sex, weight, and height---influence athletes' performance. We seek to answer the question: which trait ultimately affects Olympic swimmers the most? This question involves categorical variables such as event, country, sex, and medal, as well as quantitative variables such as height and weight. We hypothesize that height and nationality will impact Olympic swimmers the most.
+Throughout our project, we want to explore the correlation between Olympic athletes' traits and performance in swimming. We aim to define which traits---particularly nationality, BMI, weight, and height---influence athletes' performance. We seek to answer the question: which trait ultimately affects Olympic swimmers the most? This question involves categorical variables such as event, country, sex, and medal, as well as quantitative variables such as height and weight. We hypothesize that height and nationality will impact Olympic swimmers the most.
 
 # Research question & Data
 

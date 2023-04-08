@@ -196,7 +196,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
-<p>Throughout our project, we want to explore the correlation between Olympic athletes’ traits and performance in swimming. We aim to define which traits—particularly nationality, sex, weight, and height—influence athletes’ performance. We seek to answer the question: which trait ultimately affects Olympic swimmers the most? This question involves categorical variables such as event, country, sex, and medal, as well as quantitative variables such as height and weight. We hypothesize that height and nationality will impact Olympic swimmers the most.</p>
+<p>Throughout our project, we want to explore the correlation between Olympic athletes’ traits and performance in swimming. We aim to define which traits—particularly nationality, BMI, weight, and height—influence athletes’ performance. We seek to answer the question: which trait ultimately affects Olympic swimmers the most? This question involves categorical variables such as event, country, sex, and medal, as well as quantitative variables such as height and weight. We hypothesize that height and nationality will impact Olympic swimmers the most.</p>
 </section>
 <section id="research-question-data" class="level1">
 <h1>Research question &amp; Data</h1>
@@ -260,7 +260,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ✖ dplyr::lag()      masks stats::lag()
 ✖ yardstick::spec() masks readr::spec()
 ✖ recipes::step()   masks stats::step()
-• Learn how to get started at https://www.tidymodels.org/start/</code></pre>
+• Use suppressPackageStartupMessages() to eliminate package startup messages</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
