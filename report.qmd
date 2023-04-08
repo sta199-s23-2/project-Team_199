@@ -9,7 +9,7 @@ execute:
 
 # Introduction
 
-Throughout our project, we want to explore the correlation between athletes' traits and performance in swimming. We aim to define which traits---particularly nationality, sex, weight, and height---influence athletes' performance. We seek to answer the question: which trait ultimately affects Olympic swimmers the most? This question involves categorical variables such as event, country, sex, and medal, as well as quantitative variables such as height and weight. We hypothesize that height and nationality will impact Olympic swimmers the most.
+Throughout our project, we want to explore the correlation between Olympic athletes' traits and performance in swimming. We aim to define which traits---particularly nationality, sex, weight, and height---influence athletes' performance. We seek to answer the question: which trait ultimately affects Olympic swimmers the most? This question involves categorical variables such as event, country, sex, and medal, as well as quantitative variables such as height and weight. We hypothesize that height and nationality will impact Olympic swimmers the most.
 
 # Research question & Data
 
@@ -59,7 +59,7 @@ The data is a cleaned dataset created by a user on Kaggle (https://www.kaggle.co
 
 # Methodology
 
-The differences between swimmers are best shown through data visualization. The data was filtered to show only results from the 2000 Summer games and the years since, to make it more applicable to modern games. The relationship between national origin and medal results was shown in two ways: a first plot shows how many swimming medals of each kind had gone to each country, while the second plot shows the proportion of competitors from the top seven countries
+The differences between swimmers are best shown through data visualization. The data was filtered to show only results from the 2000 Summer games and the years since, to make it more applicable to modern games. The relationship between national origin and medal results was shown in two ways: a first plot shows how many swimming medals of each kind had gone to each country, while the second plot shows the proportion of competitors from the top seven countries who earned medals.
 
 ```{r gearing_up_data}
 
@@ -86,7 +86,10 @@ olympics_new |>
                              "Silver", "Bronze")) |>
   ggplot(aes(x = Team, fill = medal)) + 
     geom_bar() +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1)) 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) + 
+  labs(x = "", y = "Medal Count", fill = "",
+       title = "Swimming Medals Earned by country", 
+       subtitle = "2000-2016 Olympics")
 
 olympics_new |> 
   filter(Sport == "Swimming",
@@ -95,15 +98,23 @@ olympics_new |>
                    "Germany", "Japan", "Netherlands",
                    "United States")) |>
   mutate(medal = as.factor(Medal), 
-         medal = if_else(str_detect(medal, "NA"), "No Medal", "olympics_new"),
-         medal = fct_relevel(Medal, "Gold", "Silver", "Bronze", "No Medal")) |>
+         medal = fct_relevel(Medal, "Gold", "Silver",
+                             "Bronze", "No Medal")) |>
   ggplot(aes(x = Team, fill = medal)) + 
     geom_bar(position = "fill") +
   theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
-  facet_wrap(~Sex) 
+  facet_wrap(~Sex) + 
+  labs(y = "Fraction of Athletes",
+       x = "", fill = "",
+       title = "Fraction of Swimmers who Medaled in 2000-2016",
+       subtitle = "by Country and Sex")
 ```
 
-```{r}
+These visualizations show a very strong relationship between national origin and Olympic swimming performance. Australian and American swimmers had the majority of all medal types, and they also had the highest percentages of winners. National origin is thus a strong predictive factor for swimming performance.
+
+Next, parallel boxplots were used to compare the ranges for athlete's physical traits and age, comparing different medalists to non-medalists.
+
+```{r athlete_stats}
 
 olympics_new |> 
   filter(Sport == "Swimming", Year > 1999) |>
@@ -112,7 +123,7 @@ olympics_new |>
     geom_boxplot() + 
   facet_wrap(~Sex) + 
   labs(title = "BMI vs. Medal Earned", 
-       subtitle = "for Women and Men",
+       subtitle = "for Women and Men, 2000-2016 Olympics",
        x = "BMI of Athlete", 
        y = "Type of Medal Earned")
 
@@ -123,7 +134,7 @@ olympics_new |>
     geom_boxplot() + 
   facet_wrap(~Sex) + 
   labs(title = "Height vs. Medal Earned", 
-       subtitle = "for Women and Men",
+       subtitle = "for Women and Men, 2000-2016 Olympics",
        x = "Height of Athlete (cm)", 
        y = "Type of Medal Earned")
 
@@ -134,7 +145,7 @@ olympics_new |>
     geom_boxplot() + 
   facet_wrap(~Sex) + 
   labs(title = "Weight vs. Medal Earned", 
-       subtitle = "for Women and Men",
+       subtitle = "for Women and Men, 2000-2016 Olympics",
        x = "Weight of Athlete (Kg)", 
        y = "Type of Medal Earned")
 
@@ -144,11 +155,17 @@ olympics_new |>
   ggplot(aes(x = Age, y = medal)) + 
     geom_boxplot() + 
   facet_wrap(~Sex) + 
-  labs(title = "Age vs. Medal Earned", 
+  labs(title = "Age vs. Medal Earned, 2000-2016 Olympics", 
        subtitle = "for Women and Men",
        x = "Age of Athlete", 
        y = "Type of Medal Earned")
 
 ```
 
+The typical BMI, height, and weight for swimmers increased as their medal rank did (so the typical gold winner was slightly taller and heavier, and had a higher BMI than the other medalists as well as non-medalists). These results are conserved across sex in each category. The age of the swimmer had no meaningful correlation with results; there are slight differences between medal categories but no large effect or clear trend.
+
 # Results
+
+All of the tested characteristics except for age showed a significant effect on medal results, with a clear trend between placement and each characteristic. High-placing swimmers tended to be taller, heavier, and of a higher BMI than low-placing swimmers. The effect of the physical characteristics, however, was far outshadowed by the effect of national origin. The typical ranges for gold-medal swimmers had significant overlap with those of non-medalists in most comparisons, while dominant countries such as the United States and Australia claimed the vast majority of medals and had a far greater fraction of winners as well.
+
+These results support the idea that national support and the training regimen for Olympic swimmers is far more important than the specifics of their physical traits. Becuase the medal data favored certain countries, it could be proposed that the main factors that support an Olympian's success are country-specific factors such as the popularity of their sport or the availability of funding for them to train. While physical characteristics are still important (the data showed that only people with a narrow range of body measurements were even in the competition), national support and other factors are critical for high-level success.
