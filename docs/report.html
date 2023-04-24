@@ -260,7 +260,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ✖ dplyr::lag()      masks stats::lag()
 ✖ yardstick::spec() masks readr::spec()
 ✖ recipes::step()   masks stats::step()
-• Search for functions across packages at https://www.tidymodels.org/find/</code></pre>
+• Use suppressPackageStartupMessages() to eliminate package startup messages</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -301,7 +301,7 @@ The following objects are masked from 'package:base':
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>         Year <span class="sc">&gt;</span> <span class="dv">1999</span>,</span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>         Team <span class="sc">==</span> <span class="fu">c</span>(<span class="st">"Australia"</span>, <span class="st">"China"</span>, <span class="st">"France"</span>,</span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>                   <span class="st">"Germany"</span>, <span class="st">"Japan"</span>, <span class="st">"Netherlands"</span>,</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>                   <span class="st">"United States"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>                   <span class="st">"United States"</span>, <span class="st">"Great Britain"</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">medal =</span> <span class="fu">as.factor</span>(Medal), </span>
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">medal =</span> <span class="fu">fct_relevel</span>(Medal, <span class="st">"Gold"</span>, <span class="st">"Silver"</span>,</span>
 <span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Bronze"</span>, <span class="st">"No Medal"</span>)) <span class="sc">|&gt;</span></span>
@@ -390,6 +390,50 @@ longer object length is not a multiple of shorter object length</code></pre>
 </div>
 </div>
 <p>The typical BMI, height, and weight for swimmers increased as their medal rank did (so the typical gold winner was slightly taller and heavier, and had a higher BMI than the other medalists as well as non-medalists). These results are conserved across sex in each category. The age of the swimmer had no meaningful correlation with results; there are slight differences between medal categories but no large effect or clear trend.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>olympics_new <span class="sc">|&gt;</span> </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Sport <span class="sc">==</span> <span class="st">"Swimming"</span>, Year <span class="sc">&gt;</span> <span class="dv">1999</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Team) <span class="sc">|&gt;</span> </span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(medalyesno <span class="sc">==</span> <span class="st">"yes"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(medalyesno) <span class="sc">|&gt;</span> </span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 38 × 3
+# Groups:   Team [38]
+   Team          medalyesno     n
+   &lt;chr&gt;         &lt;chr&gt;      &lt;int&gt;
+ 1 United States yes          338
+ 2 Australia     yes          195
+ 3 Japan         yes           53
+ 4 Netherlands   yes           48
+ 5 France        yes           47
+ 6 China         yes           41
+ 7 Germany       yes           32
+ 8 Great Britain yes           24
+ 9 Russia        yes           24
+10 Canada        yes           20
+# … with 28 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>medal_colors <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Gold"</span> <span class="ot">=</span> <span class="st">"#FFD700"</span>, <span class="st">"Silver"</span> <span class="ot">=</span> <span class="st">"#C0C0C0"</span>, <span class="st">"Bronze"</span> <span class="ot">=</span> <span class="st">"#CD7F32"</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>olympics_new <span class="sc">|&gt;</span> </span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Sport <span class="sc">==</span> <span class="st">"Swimming"</span>, Year <span class="sc">&gt;</span> <span class="dv">1979</span>, medalyesno <span class="sc">==</span> <span class="st">"yes"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Team) <span class="sc">|&gt;</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">n</span>() <span class="sc">&gt;</span> <span class="dv">20</span>) <span class="sc">|&gt;</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Team, Medal, <span class="at">name =</span> <span class="st">"Frequency"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Medal =</span> <span class="fu">factor</span>(Medal, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Gold"</span>, <span class="st">"Silver"</span>, <span class="st">"Bronze"</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Team) <span class="sc">|&gt;</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Total_Medals =</span> <span class="fu">sum</span>(Frequency)) <span class="sc">|&gt;</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(Team, <span class="sc">-</span>Total_Medals), <span class="at">y =</span> Frequency, <span class="at">fill =</span> Medal)) <span class="sc">+</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> medal_colors) <span class="sc">+</span></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Team"</span>, <span class="at">y =</span> <span class="st">"Number of Medals"</span>, <span class="at">fill =</span> <span class="st">"Medal"</span>) <span class="sc">+</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="report_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 </section>
 <section id="results" class="level1">
 <h1>Results</h1>

@@ -100,7 +100,7 @@ olympics_new |>
          Year > 1999,
          Team == c("Australia", "China", "France",
                    "Germany", "Japan", "Netherlands",
-                   "United States")) |>
+                   "United States", "Great Britain")) |>
   mutate(medal = as.factor(Medal), 
          medal = fct_relevel(Medal, "Gold", "Silver",
                              "Bronze", "No Medal")) |>
@@ -167,6 +167,33 @@ olympics_new |>
 ```
 
 The typical BMI, height, and weight for swimmers increased as their medal rank did (so the typical gold winner was slightly taller and heavier, and had a higher BMI than the other medalists as well as non-medalists). These results are conserved across sex in each category. The age of the swimmer had no meaningful correlation with results; there are slight differences between medal categories but no large effect or clear trend.
+
+```{r}
+
+olympics_new |> 
+  filter(Sport == "Swimming", Year > 1999) |> 
+  group_by(Team) |> 
+  filter(medalyesno == "yes") |> 
+  count(medalyesno) |> 
+  arrange(desc(n))
+
+medal_colors <- c("Gold" = "#FFD700", "Silver" = "#C0C0C0", "Bronze" = "#CD7F32")
+
+olympics_new |> 
+  filter(Sport == "Swimming", Year > 1979, medalyesno == "yes") |> 
+  group_by(Team) |>
+  filter(n() > 20) |>
+  count(Team, Medal, name = "Frequency") |>
+  mutate(Medal = factor(Medal, levels = c("Gold", "Silver", "Bronze"))) |>
+  group_by(Team) |>
+  mutate(Total_Medals = sum(Frequency)) |>
+  ungroup() |>
+  ggplot(aes(x = reorder(Team, -Total_Medals), y = Frequency, fill = Medal)) +
+  geom_col() +
+  scale_fill_manual(values = medal_colors) +
+  labs(x = "Team", y = "Number of Medals", fill = "Medal") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
 
 # Results
 
