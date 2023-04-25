@@ -121,7 +121,7 @@ Next, parallel boxplots were used to compare the ranges for athlete's physical t
 ```{r athlete_stats}
 
 olympics_new |> 
-  filter(Sport == "Swimming", Year > 1999) |>
+  filter(Sport == "Swimming", Year > 1991) |>
   mutate(medal = as.factor(Medal), medal = fct_relevel(Medal, "Gold", "Silver", "Bronze")) |>
   ggplot(aes(x = BMI, y = medal)) + 
     geom_boxplot() + 
@@ -132,7 +132,7 @@ olympics_new |>
        y = "Type of Medal Earned")
 
 olympics_new |> 
-  filter(Sport == "Swimming", Year > 1999) |>
+  filter(Sport == "Swimming", Year > 1991) |>
   mutate(medal = as.factor(Medal), medal = fct_relevel(Medal, "Gold", "Silver", "Bronze")) |>
   ggplot(aes(x = Height, y = medal)) + 
     geom_boxplot() + 
@@ -143,7 +143,7 @@ olympics_new |>
        y = "Type of Medal Earned")
 
 olympics_new |> 
-  filter(Sport == "Swimming", Year > 1999) |>
+  filter(Sport == "Swimming", Year > 1991) |>
   mutate(medal = as.factor(Medal), medal = fct_relevel(Medal, "Gold", "Silver", "Bronze")) |>
   ggplot(aes(x = Weight, y = medal)) + 
     geom_boxplot() + 
@@ -154,7 +154,7 @@ olympics_new |>
        y = "Type of Medal Earned")
 
 olympics_new |> 
-  filter(Sport == "Swimming", Year > 1999) |>
+  filter(Sport == "Swimming", Year > 1991) |>
   mutate(medal = as.factor(Medal), medal = fct_relevel(Medal, "Gold", "Silver", "Bronze")) |>
   ggplot(aes(x = Age, y = medal)) + 
     geom_boxplot() + 
@@ -193,7 +193,7 @@ olympics_new |>
   geom_col() +
   scale_fill_manual(values = medal_colors) +
   labs(x = "Team", y = "Number of Medals", fill = "Medal", 
-       title = "Olympic Swimming Medals by Country", subtitle = "countries with 10+ medals, 2000-2016") +
+       title = "Olympic Swimming Medals by Country", subtitle = "countries with 10+ medals, 1992-2016") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
@@ -213,7 +213,7 @@ olympics_new |>
   geom_col() +
   scale_fill_manual(values = medal_colors) +
   labs(x = "Team", y = "Number of Medals", fill = "Medal", 
-       title = "Olympic Swimming Medals by Country", subtitle = "countries with 10+ medals, 2000-2016") +
+       title = "Olympic Swimming Medals by Country", subtitle = "countries with 10+ medals, 1992-2016") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 ```
@@ -224,8 +224,15 @@ olympics3 <- olympics_new |>
   mutate(Team = if_else(Team == "Unified Team", "Russia", Team)) |> 
   filter(Sport == "Swimming",
          Year > 1991,
-         Team == c("United States", "Australia", "Japan", "Netherlands", "France", "China", "Germany", "Great Britain", "Russia", "Canada", "Italy", "Hungary", "South Africa", "Sweden")) |> 
+         Team == c("United States", "Australia", 
+                   "Japan", "Netherlands", 
+                   "France", "China", 
+                   "Germany", "Great Britain", 
+                   "Russia", "Canada", 
+                   "Italy", "Hungary", 
+                   "South Africa", "Sweden")) |> 
   mutate(medalyesno = as_factor(medalyesno))
+
 
 logistic_swim <- logistic_reg() |>
     set_engine("glm") |>
@@ -246,7 +253,7 @@ logistic_swim3 <- logistic_reg() |>
     fit(medalyesno ~ Team + BMI + Height, 
         data = olympics3, family = "binomial")
 
-glance(logistic_swim3)
+glance(logistic_swim3) 
 
 logistic_swim4 <- logistic_reg() |>
     set_engine("glm") |>
@@ -261,15 +268,39 @@ logistic_swim5 <- logistic_reg() |>
         data = olympics3, family = "binomial")
 
 glance(logistic_swim5)
+
+logistic_swim6 <- logistic_reg() |>
+    set_engine("glm") |>
+    fit(medalyesno ~ Team + Height + Weight, 
+        data = olympics3, family = "binomial")
+
+glance(logistic_swim6)
+
+logistic_swim7 <- logistic_reg() |> ## this one! 
+    set_engine("glm") |>
+    fit(medalyesno ~ Team + Height, 
+        data = olympics3, family = "binomial")
+
+glance(logistic_swim7)
 ```
 
 ```{r}
 
-olympics_new |> 
-  filter(Sport == "Swimming",
-         Year > 1999,
-         Team == c("United States", "Australia", "Japan", "Netherlands", "France", "China", "Germany", "Great Britain", "Russia", "Canada", "Italy", "Hungary", "South Africa", "Sweden"))
-         
+logistic_swim3 <- logistic_reg() |>
+    set_engine("glm") |>
+    fit(medalyesno ~ Team + BMI + Weight,
+        data = olympics3, family = "binomial")
+
+glance(logistic_swim3) 
+tidy(logistic_swim3)
+
+logistic_swim7 <- logistic_reg() |> ## 7th variation of the logistic model
+    set_engine("glm") |>
+    fit(medalyesno ~ Team + Height, ## medalyesno = was a medal earned? 
+        data = olympics3, family = "binomial")
+
+glance(logistic_swim7)
+tidy(logistic_swim7)
 ```
 
 # Results
