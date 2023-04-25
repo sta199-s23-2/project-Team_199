@@ -260,7 +260,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ✖ dplyr::lag()      masks stats::lag()
 ✖ yardstick::spec() masks readr::spec()
 ✖ recipes::step()   masks stats::step()
-• Use suppressPackageStartupMessages() to eliminate package startup messages</code></pre>
+• Learn how to get started at https://www.tidymodels.org/start/</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -417,21 +417,1268 @@ longer object length is not a multiple of shorter object length</code></pre>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>medal_colors <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Gold"</span> <span class="ot">=</span> <span class="st">"#FFD700"</span>, <span class="st">"Silver"</span> <span class="ot">=</span> <span class="st">"#C0C0C0"</span>, <span class="st">"Bronze"</span> <span class="ot">=</span> <span class="st">"#CD7F32"</span>)</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>olympics_new <span class="sc">|&gt;</span> </span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Sport <span class="sc">==</span> <span class="st">"Swimming"</span>, Year <span class="sc">&gt;</span> <span class="dv">1979</span>, medalyesno <span class="sc">==</span> <span class="st">"yes"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Team) <span class="sc">|&gt;</span></span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">n</span>() <span class="sc">&gt;</span> <span class="dv">20</span>) <span class="sc">|&gt;</span></span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Team, Medal, <span class="at">name =</span> <span class="st">"Frequency"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Medal =</span> <span class="fu">factor</span>(Medal, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Gold"</span>, <span class="st">"Silver"</span>, <span class="st">"Bronze"</span>))) <span class="sc">|&gt;</span></span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Team) <span class="sc">|&gt;</span></span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Total_Medals =</span> <span class="fu">sum</span>(Frequency)) <span class="sc">|&gt;</span></span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span></span>
-<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(Team, <span class="sc">-</span>Total_Medals), <span class="at">y =</span> Frequency, <span class="at">fill =</span> Medal)) <span class="sc">+</span></span>
-<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
-<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> medal_colors) <span class="sc">+</span></span>
-<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Team"</span>, <span class="at">y =</span> <span class="st">"Number of Medals"</span>, <span class="at">fill =</span> <span class="st">"Medal"</span>) <span class="sc">+</span></span>
-<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Team =</span> <span class="fu">if_else</span>(Team <span class="sc">==</span> <span class="st">"Unified Team"</span>, <span class="st">"Russia"</span>, Team)) <span class="sc">|&gt;</span> </span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Sport <span class="sc">==</span> <span class="st">"Swimming"</span>, Year <span class="sc">&gt;</span> <span class="dv">1991</span>, medalyesno <span class="sc">==</span> <span class="st">"yes"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Team) <span class="sc">|&gt;</span> </span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">n</span>() <span class="sc">&gt;</span> <span class="dv">9</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Team, Medal, <span class="at">name =</span> <span class="st">"Frequency"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Medal =</span> <span class="fu">factor</span>(Medal, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Gold"</span>, <span class="st">"Silver"</span>, <span class="st">"Bronze"</span>))) <span class="sc">|&gt;</span> </span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Team) <span class="sc">|&gt;</span> </span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Total_Medals =</span> <span class="fu">sum</span>(Frequency)) <span class="sc">|&gt;</span> </span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(Team, <span class="sc">-</span>Total_Medals), <span class="at">y =</span> Frequency, <span class="at">fill =</span> Medal)) <span class="sc">+</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> medal_colors) <span class="sc">+</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Team"</span>, <span class="at">y =</span> <span class="st">"Number of Medals"</span>, <span class="at">fill =</span> <span class="st">"Medal"</span>, </span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Olympic Swimming Medals by Country"</span>, <span class="at">subtitle =</span> <span class="st">"countries with 10+ medals, 2000-2016"</span>) <span class="sc">+</span></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="report_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>olympics_new <span class="sc">|&gt;</span> </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Team =</span> <span class="fu">if_else</span>(Team <span class="sc">==</span> <span class="st">"Unified Team"</span>, <span class="st">"Russia"</span>, Team)) <span class="sc">|&gt;</span> </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Sport <span class="sc">==</span> <span class="st">"Swimming"</span>, Year <span class="sc">&gt;</span> <span class="dv">1991</span>, medalyesno <span class="sc">==</span> <span class="st">"yes"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Team) <span class="sc">|&gt;</span> </span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">n</span>() <span class="sc">&gt;</span> <span class="dv">9</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Team, Medal, <span class="at">name =</span> <span class="st">"Frequency"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Medal =</span> <span class="fu">factor</span>(Medal, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Gold"</span>, <span class="st">"Silver"</span>, <span class="st">"Bronze"</span>))) <span class="sc">|&gt;</span> </span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Team) <span class="sc">|&gt;</span> </span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Total_Medals =</span> <span class="fu">sum</span>(Frequency)) <span class="sc">|&gt;</span> </span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(Team, <span class="sc">-</span>Total_Medals), <span class="at">y =</span> Frequency, <span class="at">fill =</span> Medal)) <span class="sc">+</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> medal_colors) <span class="sc">+</span></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Team"</span>, <span class="at">y =</span> <span class="st">"Number of Medals"</span>, <span class="at">fill =</span> <span class="st">"Medal"</span>, </span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Olympic Swimming Medals by Country"</span>, <span class="at">subtitle =</span> <span class="st">"countries with 10+ medals, 2000-2016"</span>) <span class="sc">+</span></span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="report_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>olympics3 <span class="ot">&lt;-</span> olympics_new <span class="sc">|&gt;</span> </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Team =</span> <span class="fu">if_else</span>(Team <span class="sc">==</span> <span class="st">"Unified Team"</span>, <span class="st">"Russia"</span>, Team)) <span class="sc">|&gt;</span> </span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Sport <span class="sc">==</span> <span class="st">"Swimming"</span>,</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>         Year <span class="sc">&gt;</span> <span class="dv">1991</span>,</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>         Team <span class="sc">==</span> <span class="fu">c</span>(<span class="st">"United States"</span>, <span class="st">"Australia"</span>, <span class="st">"Japan"</span>, <span class="st">"Netherlands"</span>, <span class="st">"France"</span>, <span class="st">"China"</span>, <span class="st">"Germany"</span>, <span class="st">"Great Britain"</span>, <span class="st">"Russia"</span>, <span class="st">"Canada"</span>, <span class="st">"Italy"</span>, <span class="st">"Hungary"</span>, <span class="st">"South Africa"</span>, <span class="st">"Sweden"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">medalyesno =</span> <span class="fu">as_factor</span>(medalyesno))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in Team == c("United States", "Australia", "Japan", "Netherlands", :
+longer object length is not a multiple of shorter object length</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>logistic_swim <span class="ot">&lt;-</span> <span class="fu">logistic_reg</span>() <span class="sc">|&gt;</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_engine</span>(<span class="st">"glm"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fit</span>(medalyesno <span class="sc">~</span> Team,</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> olympics3, <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="fu">glance</span>(logistic_swim)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 8
+  null.deviance df.null logLik   AIC   BIC deviance df.residual  nobs
+          &lt;dbl&gt;   &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt; &lt;int&gt;
+1          403.     388  -151.  330.  385.     302.         375   389</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>logistic_swim2 <span class="ot">&lt;-</span> <span class="fu">logistic_reg</span>() <span class="sc">|&gt;</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_engine</span>(<span class="st">"glm"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fit</span>(medalyesno <span class="sc">~</span> Team <span class="sc">+</span> BMI,</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> olympics3, <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="fu">glance</span>(logistic_swim2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 8
+  null.deviance df.null logLik   AIC   BIC deviance df.residual  nobs
+          &lt;dbl&gt;   &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt; &lt;int&gt;
+1          395.     376  -146.  322.  381.     292.         362   377</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>logistic_swim3 <span class="ot">&lt;-</span> <span class="fu">logistic_reg</span>() <span class="sc">|&gt;</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_engine</span>(<span class="st">"glm"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fit</span>(medalyesno <span class="sc">~</span> Team <span class="sc">+</span> BMI <span class="sc">+</span> Height, </span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> olympics3, <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="fu">glance</span>(logistic_swim3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 8
+  null.deviance df.null logLik   AIC   BIC deviance df.residual  nobs
+          &lt;dbl&gt;   &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt; &lt;int&gt;
+1          395.     376  -143.  318.  381.     286.         361   377</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>logistic_swim4 <span class="ot">&lt;-</span> <span class="fu">logistic_reg</span>() <span class="sc">|&gt;</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_engine</span>(<span class="st">"glm"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fit</span>(medalyesno <span class="sc">~</span> Team <span class="sc">+</span> BMI <span class="sc">+</span> Height <span class="sc">+</span> Age, </span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> olympics3, <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="fu">glance</span>(logistic_swim4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 8
+  null.deviance df.null logLik   AIC   BIC deviance df.residual  nobs
+          &lt;dbl&gt;   &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt; &lt;int&gt;
+1          395.     376  -143.  320.  387.     286.         360   377</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>logistic_swim5 <span class="ot">&lt;-</span> <span class="fu">logistic_reg</span>() <span class="sc">|&gt;</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_engine</span>(<span class="st">"glm"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fit</span>(medalyesno <span class="sc">~</span> Team <span class="sc">+</span> BMI <span class="sc">+</span> Height <span class="sc">+</span> Weight, </span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> olympics3, <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="fu">glance</span>(logistic_swim5)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 8
+  null.deviance df.null logLik   AIC   BIC deviance df.residual  nobs
+          &lt;dbl&gt;   &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt; &lt;int&gt;
+1          395.     376  -143.  320.  387.     286.         360   377</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>olympics_new <span class="sc">|&gt;</span> </span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Sport <span class="sc">==</span> <span class="st">"Swimming"</span>,</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>         Year <span class="sc">&gt;</span> <span class="dv">1999</span>,</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>         Team <span class="sc">==</span> <span class="fu">c</span>(<span class="st">"United States"</span>, <span class="st">"Australia"</span>, <span class="st">"Japan"</span>, <span class="st">"Netherlands"</span>, <span class="st">"France"</span>, <span class="st">"China"</span>, <span class="st">"Germany"</span>, <span class="st">"Great Britain"</span>, <span class="st">"Russia"</span>, <span class="st">"Canada"</span>, <span class="st">"Italy"</span>, <span class="st">"Hungary"</span>, <span class="st">"South Africa"</span>, <span class="st">"Sweden"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in Team == c("United States", "Australia", "Japan", "Netherlands", :
+longer object length is not a multiple of shorter object length</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        ID                                                     Name Sex Age
+1      465                                     Matthew "Matt" Abood   M  30
+2      811                         Natalie Cammile Adams (-Brannan)   F  24
+3     1017                                   Nathan Ghar-Jun Adrian   M  27
+4     3935                                     Jonas Carl Andersson   M  24
+5     4183                             Viktoriya Olegovna Andreyeva   F  20
+6     4233                       Vyacheslav Dmitriyevich Andrusenko   M  24
+7     6990                                           Olga Bakaldina   F  15
+8     7354                                               Gbor Balog   M  25
+9     7753                                         Arianna Barbieri   F  23
+10    7997                                           Romain Barnier   M  24
+11    9100                                            Keith Beavers   M  25
+12    9796                            Janine Claire Belton (-Usher)   F  20
+13   10136                         Lindsay Dianne Benko (-Mintenko)   F  27
+14   10160                           Brooke Marie Bennett (-Frioud)   F  20
+15   10737                                              Pter Bernek   M  20
+16   10747                                           Vipa Bernhardt   F  21
+17   11351                                          Paul Biedermann   M  25
+18   12516                                         Federico Bocchia   M  29
+19   12778                             Yelena Valeryevna Bogomazova   F  22
+20   13251                                         Charlotte Bonnet   F  17
+21   13716                                              Dylan Bosch   M  23
+22   13923                                       Dominique Bouchard   F  25
+23   14159                      Frdric Thierry Roger "Frd" Bousquet   M  23
+24   14862                                Elaine Breeden (-Penrose)   F  19
+25   15462                                         Adam Thorp Brown   M  23
+26   15566                              Michael Andrew "Mike" Brown   M  20
+27   15885                             Aleksey Sergeyevich Bryansky   M  18
+28   16816                              Antje Buschschulte (-Meeuw)   F  21
+29   16970                                    Jennifer "Jen" Button   F  22
+30   18071                                     Federico Cappellazzo   M  23
+31   18325                                Kehn Eric Daniel Carlsson   M  23
+32   18355                              Frida Cathrin Sofie Carlzon   F  21
+33   18606                                       David Robert Carry   M  26
+34   20204                                              Chen Huijia   F  18
+35   20339                                                 Chen Zuo   M  22
+36   20495                           Dmitry Anatolyevich Chernyshov   M  24
+37   21612                                            Mathilde Cini   F  21
+38   21900                                        Scott Tyler Clary   M  23
+39   22017                                            Valerio Cleri   M  27
+40   22959                                    Todd Alexander Cooper   M  21
+41   22969                                      Haley Cope (-Clark)   F  25
+42   23868                                       Ian Lowell Crocker   M  18
+43   24093                                           Lszl Cseh, Jr.   M  22
+44   25014                                           Petra Dallmann   F  29
+45   25545                                      Ross Paul Davenport   M  20
+46   25975                                           Inge de Bruijn   F  30
+47   27048                                          Steffen Deibler   M  25
+48   27897                                           Gabriele Detti   M  21
+49   28343                                     Andrew Scott Dickens   M  20
+50   29145                            Thomas Fitzgerald "Tom" Dolan   M  24
+51   29374                                                 Dong Jie   F  17
+52   29644                                               Luca Dotto   M  22
+53   29754                       Mikhail Dzhavanshirovich Dovgalyuk   M  21
+54   30026                               Nicolaas "Nick" Driebergen   M  24
+55   30298                                           Hugues Duboscq   M  22
+56   31030                            Vladimir Fyodorovich Dyatchin   M  29
+57   31184                                               Heidi Earp   F  19
+58   32407                                   Brittany Joyce Elmslie   F  22
+59   33368                                  Ophlie-Cyrielle Etienne   F  21
+60   33431                                    Blair Catherine Evans   F  21
+61   33745                                       Gabriella Fagundez   F  22
+62   33895                               Grigory Alekseyevich Falko   M  21
+63   34673                                         Orsolya Ferenczy   F  16
+64   34914                                             Lyndon Ferns   M  20
+65   34928                                          Erika Ferraioli   F  26
+66   36080                                   Nicholas "Nick" Folker   M  23
+67   36223                                              Andrew Ford   M  23
+68   36785                        Melissa Jeanette "Missy" Franklin   F  17
+69   36868                             Thomas William Fraser-Holmes   M  24
+70   37301                                       Lars Arne Frlander   M  26
+71   38031                                        Christian Galenda   M  26
+72   38195                                 Felicity Madeline Galvez   F  19
+73   38393                                Stepan Sergeyevich Ganzey   M  23
+74   40403                    Fabien Pierre Aurlien Dominique Gilot   M  24
+75   41032                                               Sara Goffi   F  19
+76   42267                                    Elka Graham (-Whalan)   F  22
+77   42591                             Andrey Vladimirovich Grechin   M  28
+78   42803                                   Matthew "Matt" Grevers   M  23
+79   43136                                            Chantal Groot   F  17
+80   44410                                             Dniel Gyurta   M  15
+81   44569                                     Grant George Hackett   M  20
+82   45133                            Francesca Jean "Fran" Halsall   F  26
+83   45266                                          Samantha Hamill   F  17
+84   45493                                                  Han Xue   F  18
+85   46246                                            Sara Harstick   F  19
+86   46398                                           Junya Hasegawa   M  22
+87   46829                                     Brent Matthew Hayden   M  28
+88   47415                                               Heiko Hell   M  24
+89   47749                                        Jodie Clare Henry   F  20
+90   47853                                            Stefan Herbst   M  22
+91   47924                                           Heerden Herman   M  21
+92   48539                                    Caroline May Hildreth   F  22
+93   48750                                           Yasunari Hirai   M  26
+94   49019                  Benjamin Thomas "Ben" Hockin Brusquetti   M  21
+95   49020                                     Belinda Jane Hocking   F  25
+96   49104                   Kathryn Elise "Katie" Hoff (-Anderson)   F  19
+97   49538                                              Pter Holoda   M  20
+98   49984                                         Stephanie Horner   F  19
+99   50044                                             Fabien Horth   M  19
+100  50099                                              Pter Horvth   M  26
+101  50170                                            Katinka Hossz   F  23
+102  51119                                              Andrew Hurd   M  25
+103  53007                          Danila Sergeyevich "Dan" Izotov   M  16
+104  54409                                       Larsen Alan Jensen   M  18
+105  55162                    Camilla Marie Johansson (-Sponseller)   F  26
+106  55692                                       Leisel Marie Jones   F  18
+107  57098                             Anna-Karin Simone Kammerling   F  19
+108  57185                                            Kazuya Kaneda   M  24
+109  57315                                             Boglrka Kaps   F  19
+110  58455                                     Joris Gerhard Keizer   M  21
+111  58519                                 Kalyn Keller (-Robinson)   F  19
+112  59583                                           Michael Kiedel   M  24
+113  60485                                          Jaime Anne King   F  23
+114  60794                                                 Gerg Kis   M  24
+115  60832                                            Annamria Kiss   F  18
+116  61237                                      Michael George Klim   M  26
+117  62330                                          Rachel Komisarz   F  27
+118  62347                            Dmitry Vasilyevich Komornikov   M  19
+119  62715                            Yevgeny Nikolayevich Koptelov   M  22
+120  62885                         Yevgeny Yevgenyevich Korotyshkin   M  25
+121  62968                                          Yasuhiro Koseki   M  24
+122  63094                                           Annabel Kosten   F  27
+123  63367                                               gnes Kovcs   F  23
+124  63380                                              Emese Kovcs   F  17
+125  63488                             Aleksey Sergeyevich Kovrigin   M  23
+126  63600                                            Dominik Kozma   M  17
+127  64249                                      Ranomi Kromowidjojo   F  21
+128  64557                                        Christian Kubusch   M  20
+129  65034                                       Stephan Kunzelmann   M  25
+130  65762                                           Audrey Lacroix   F  24
+131  65905                           Yevgeny Aleksandrovich Lagunov   M  22
+132  66578                                          Klaus Lanzarini   M  23
+133  67254                                          Sergey Lavrenov   M  19
+134  67496                                Chad Guy Bertrand le Clos   M  20
+135  67636                                          Yannick Lebherz   M  23
+136  68645                              Celina Johanna Maria Lemmen   F  19
+137  68741                Lisbeth Constance "Libby" Lenton-Trickett   F  19
+138  69117                                   Amaury Raymond Leveaux   M  22
+139  69288                                       Jason Edward Lezak   M  24
+140  69389                                                    Li Ji   F  18
+141  69402                                               Li Jiaxing   F  18
+142  69451                                                    Li Mo   F  18
+143  69532                                                Li Xiayan   M  22
+144  69578                                                 Li Yunqi   M  18
+145  69832                                           Robert Lijesen   M  23
+146  69950                                  Marianne Louise Limpert   F  27
+147  70418                                             Silke Lippok   F  18
+148  70922                         Nikita Konstantinovich Lobintsev   M  19
+149  70965                                       Ryan Steven Lochte   M  24
+150  71777                           Nataliya Vladimirovna Lovtsova   F  28
+151  73050                           Linda June MacKenzie (-Single)   F  20
+152  73094                                         Brittany MacLean   F  22
+153  73335                                         Riccardo Maestri   M  18
+154  73445                                          Filippo Magnini   M  26
+155  73453                                          James Magnussen   M  21
+156  73600                                           Travis Mahoney   M  26
+157  74295                                           Laure Manaudou   F  25
+158  75420                                   Melanie Jayne Marshall   F  22
+159  76551                                          Takeshi Matsuda   M  28
+160  77328                                       Caitlin McClatchey   F  26
+161  77716                                              Emma McKeon   F  22
+162  77998                                    Katheryn Anne Meaklim   F  19
+163  79662                                                Jiro Miki   M  21
+164  79969                                 Alice Mary Mills (-Tait)   F  18
+165  81339                                            Aurore Mongel   F  26
+166  83759                                              gnes Mutina   F  20
+167  84419                                           Mattia Nalesso   M  23
+168  85020                                         Travis Nederpelt   M  23
+169  86178                                     Moniek Maria Nijhuis   F  24
+170  86449                                               Ning Zetao   M  23
+171  87565                                    Stefan Ernst Nystrand   M  18
+172  87654                                            David O'Brien   M  21
+173  87673                                        Nathaniel O'Brien   M  21
+174  88531                                        Yoshihiro Okumura   M  25
+175  89117                                    Susan "Susie" O'Neill   F  27
+176  89167                                             Junko Onishi   F  29
+177  89314                               Arina Pavlovna Opyonysheva   F  17
+178  89438                                            Tobias Oriwol   M  27
+179  90854                                            Joshua Palmer   M  24
+180  90861                                         Paul Rory Palmer   M  25
+181  91038                                             Pang Jiaying   F  27
+182  91695                                   Terence Michael Parkin   M  20
+183  92413                                 Keri-Anne Payne (-Carry)   F  20
+184  92771                                      Aaron Wells Peirsol   M  21
+185  92854                                      Federica Pellegrini   F  16
+186  92854                                      Federica Pellegrini   F  27
+187  93581                                            Stphan Perrot   M  23
+188  93857                                           Brett Petersen   M  24
+189  93935                                             Tim Peterson   M  21
+190  94322                                   Aglaia Mafalda Pezzato   F  22
+191  94406                                  Michael Fred Phelps, II   M  19
+192  94406                                  Michael Fred Phelps, II   M  27
+193  94947                                         Adam Robert Pine   M  24
+194  95097                                           Jim Alan Piper   M  22
+195  96203                               Veronika Andreyevna Popova   F  25
+196  96600                                           Eszter Povzsay   F  21
+197  97006                             Yury Aleksandrovich Prilukov   M  24
+198  97656                                          Alexandra Putra   F  17
+199  97752                                                   Qi Hui   F  19
+200  97787                                                 Qiu Ziao   M  17
+201  97815                                  Megan M. Quann-Jendrick   F  24
+202  98933                                     Clemens Andreas Rapp   M  27
+203  99149                              James Richert "Jamie" Rauch   M  21
+204  99690                                 Christopher Patrick Reid   M  20
+205  99945                               Christopher "Chris" Renaud   M  24
+206 100032                            Robert Peter "Robbie" Renwick   M  24
+207 100122                                         Lize-Mari Retief   F  21
+208 101041                                               va Risztov   F  26
+209 101878                               Joseph Peter "Joe" Roebuck   M  27
+210 102187                                        Susan "Sue" Rolph   F  22
+211 102672                              Massimiliano Edgar Rosolino   M  26
+212 102980                                Sebastien Daniel Rousseau   M  25
+213 103287                                            Roland Rudolf   M  23
+214 103800                                      Sarah Michelle Ryan   F  27
+215 104160                         Aleksandr Sergeyevich Sadovnikov   M  19
+216 104487                                            Natsumi Sakai   F  15
+217 105083                                         Daniela Samulski   F  16
+218 105535                                           Anna Santamans   F  19
+219 105996                                           Hisayoshi Sato   M  21
+220 106188                                          Katerine Savard   F  23
+221 106874                                       Katharina Schiller   F  24
+222 106906                             Jessicah Lee "Jess" Schipper   F  25
+223 107185                                  Allison Rodgers Schmitt   F  26
+224 107355                                     Roland Mark Schoeman   M  20
+225 107507                                           Jens Schreiber   M  21
+226 107518                                      Hinkelien Schreuder   F  24
+227 109327                                             David Sharpe   M  21
+228 109585                                          Alison Sheppard   F  27
+229 110828                                     Marialaura Simonetto   F  20
+230 111543                                   Sarah Frederica Sjstrm   F  14
+231 111849                            Nikolay Valeryevich Skvortsov   M  20
+232 112814                                 Yelena Petrovna Sokolova   F  21
+233 113965                                 Christian David Sprenger   M  22
+234 114472                                       Benjamin Stasiulis   M  22
+235 114692                                        Kelly Stefanyshyn   F  18
+236 114701                                           Britta Steffen   F  24
+237 115297                                        Hannah Stockbauer   F  22
+238 116301                        Aleksandr Nikolayevich Sukhorukov   M  28
+239 116360                                      Eamon Wade Sullivan   M  22
+240 116505                                                 Sun Yang   M  16
+241 116508                                                   Sun Ye   F  19
+242 116756                            Nataliya Viktorovna Sutyagina   F  20
+243 117234                           Jessica Aimee "Jess" Sylvester   F  21
+244 117305                                             Bla Szabados   M  26
+245 117529                                           Lilina Szilgyi   F  19
+246 117968                                             Emi Takanabe   F  22
+247 118439                                                  Tang Yi   F  19
+248 119568                                             Stev Theloke   M  22
+249 119835                               Petria Ann Thomas (-Jones)   F  28
+250 119922          Jennifer Elisabeth "Jenny" Thompson (-Cumpelik)   F  27
+251 121549                                      Darian Roy Townsend   M  23
+252 122074                                         Wendy Anne Trott   F  18
+253 122757                                        Adrian Roy Turner   M  27
+254 123146                                          Irina Ufimtseva   F  15
+255 123600                            Darya Konstantinovna Ustinova   F  17
+256 124145                                         Robin van Aggele   M  24
+257 124146                                    Franziska van Almsick   F  22
+258 124348                                    Cameron van der Burgh   M  20
+259 124670 Willemina Cornelia Adriana "Wilma" van Hofwegen-van Rijn   F  29
+260 124821                                        Lauren Van Oosten   F  25
+261 124935                                    Haike Eva van Stralen   F  17
+262 125083                                 Peter William Vanderkaay   M  24
+263 125745               Magdalena Johanna Maria "Marleen" Veldhuis   F  29
+264 125841                                            Erik K. Vendt   M  19
+265 126073                                          Esmee Vermeulen   F  20
+266 126117                                          Evelyn Verraszt   F  19
+267 127738                             Arkady Arkadyevich Vyachanin   M  20
+268 128156                                     Daniel "Dan" Wallace   M  23
+269 128885                                          Kanako Watanabe   F  15
+270 129164                                       Garrett Weber-Gale   M  23
+271 129634                                  Alexandra Nathalie Wenk   F  21
+272 129868                            Hanna Linnea Ingegerd Westrin   F  16
+273 130417                 Benjamin Marshall "Ben" Wildman-Tobriner   M  23
+274 130482                                     Julia Rose Wilkinson   F  21
+275 131179                   Charlene Lynette Wittstock (-Grimaldi)   F  22
+276 131809                                                  Wu Peng   M  21
+277 132065                                                 Xu Jiayu   M  16
+278 132263                                           Sachiko Yamada   F  17
+279 132744                                                Ye Shiwen   F  20
+280 134353                                          Christin Zenner   F  17
+281 134416                                                 Zhan Shu   F  19
+282 134849                                              Zhu Menghui   F  17
+283 134863                                                   Zhu Yi   M  22
+284 135489                    Anastasiya Valeryevna Zuyeva-Fesikova   F  18
+    Height Weight          Team NOC       Games Year Season           City
+1      197     92     Australia AUS 2016 Summer 2016 Summer Rio de Janeiro
+2      173     65 United States USA 2016 Summer 2016 Summer Rio de Janeiro
+3      198    100 United States USA 2016 Summer 2016 Summer Rio de Janeiro
+4      176     73        Sweden SWE 2008 Summer 2008 Summer        Beijing
+5      190     74        Russia RUS 2012 Summer 2012 Summer         London
+6      194     85        Russia RUS 2016 Summer 2016 Summer Rio de Janeiro
+7      170     49        Russia RUS 2000 Summer 2000 Summer         Sydney
+8      186     80       Hungary HUN 2016 Summer 2016 Summer Rio de Janeiro
+9      177     65         Italy ITA 2012 Summer 2012 Summer         London
+10     186     84        France FRA 2000 Summer 2000 Summer         Sydney
+11     185     75        Canada CAN 2008 Summer 2008 Summer        Beijing
+12     165     56 Great Britain GBR 2000 Summer 2000 Summer         Sydney
+13     185     74 United States USA 2004 Summer 2004 Summer         Athina
+14     165     57 United States USA 2000 Summer 2000 Summer         Sydney
+15     193     83       Hungary HUN 2012 Summer 2012 Summer         London
+16     165     60       Germany GER 2004 Summer 2004 Summer         Athina
+17     193     93       Germany GER 2012 Summer 2012 Summer         London
+18     197     93         Italy ITA 2016 Summer 2016 Summer Rio de Janeiro
+19     166     52        Russia RUS 2004 Summer 2004 Summer         Athina
+20     175     64        France FRA 2012 Summer 2012 Summer         London
+21     178     75  South Africa RSA 2016 Summer 2016 Summer Rio de Janeiro
+22     175     61        Canada CAN 2016 Summer 2016 Summer Rio de Janeiro
+23     188     86        France FRA 2004 Summer 2004 Summer         Athina
+24     180     73 United States USA 2008 Summer 2008 Summer        Beijing
+25     196     95 Great Britain GBR 2012 Summer 2012 Summer         London
+26     185     87        Canada CAN 2004 Summer 2004 Summer         Athina
+27     192     82        Russia RUS 2016 Summer 2016 Summer Rio de Janeiro
+28     186     75       Germany GER 2000 Summer 2000 Summer         Sydney
+29     163     55        Canada CAN 2000 Summer 2000 Summer         Sydney
+30     175     70         Italy ITA 2004 Summer 2004 Summer         Athina
+31     184     85        Sweden SWE 2000 Summer 2000 Summer         Sydney
+32     173     73        Sweden SWE 2004 Summer 2004 Summer         Athina
+33     185     77 Great Britain GBR 2008 Summer 2008 Summer        Beijing
+34     170     60         China CHN 2008 Summer 2008 Summer        Beijing
+35     186     78         China CHN 2004 Summer 2004 Summer         Athina
+36     184     76        Russia RUS 2000 Summer 2000 Summer         Sydney
+37     166     62        France FRA 2016 Summer 2016 Summer Rio de Janeiro
+38     185     84 United States USA 2012 Summer 2012 Summer         London
+39     177     76         Italy ITA 2008 Summer 2008 Summer        Beijing
+40     183     73 Great Britain GBR 2004 Summer 2004 Summer         Athina
+41     177     63 United States USA 2004 Summer 2004 Summer         Athina
+42     193     86 United States USA 2000 Summer 2000 Summer         Sydney
+43     188     83       Hungary HUN 2008 Summer 2008 Summer        Beijing
+44     184     69       Germany GER 2008 Summer 2008 Summer        Beijing
+45     187     76 Great Britain GBR 2004 Summer 2004 Summer         Athina
+46     174     55   Netherlands NED 2004 Summer 2004 Summer         Athina
+47     186     81       Germany GER 2012 Summer 2012 Summer         London
+48     184     79         Italy ITA 2016 Summer 2016 Summer Rio de Janeiro
+49     195     83        Canada CAN 2004 Summer 2004 Summer         Athina
+50     201     86 United States USA 2000 Summer 2000 Summer         Sydney
+51     170     62         China CHN 2016 Summer 2016 Summer Rio de Janeiro
+52     192     80         Italy ITA 2012 Summer 2012 Summer         London
+53      NA     NA        Russia RUS 2016 Summer 2016 Summer Rio de Janeiro
+54     185     75   Netherlands NED 2012 Summer 2012 Summer         London
+55     191     84        France FRA 2004 Summer 2004 Summer         Athina
+56     188     79        Russia RUS 2012 Summer 2012 Summer         London
+57     170     57 Great Britain GBR 2000 Summer 2000 Summer         Sydney
+58     179     73     Australia AUS 2016 Summer 2016 Summer Rio de Janeiro
+59     175     57        France FRA 2012 Summer 2012 Summer         London
+60     175     65     Australia AUS 2012 Summer 2012 Summer         London
+61     170     66        Sweden SWE 2008 Summer 2008 Summer        Beijing
+62     187     72        Russia RUS 2008 Summer 2008 Summer        Beijing
+63     170     53       Hungary HUN 2000 Summer 2000 Summer         Sydney
+64     187     87  South Africa RSA 2004 Summer 2004 Summer         Athina
+65     180     65         Italy ITA 2012 Summer 2012 Summer         London
+66     193     85  South Africa RSA 2000 Summer 2000 Summer         Sydney
+67     186     80        Canada CAN 2012 Summer 2012 Summer         London
+68     188     77 United States USA 2012 Summer 2012 Summer         London
+69     194     85     Australia AUS 2016 Summer 2016 Summer Rio de Janeiro
+70     184     83        Sweden SWE 2000 Summer 2000 Summer         Sydney
+71     180     81         Italy ITA 2008 Summer 2008 Summer        Beijing
+72     167     58     Australia AUS 2004 Summer 2004 Summer         Athina
+73     180     75        Russia RUS 2004 Summer 2004 Summer         Athina
+74     193     85        France FRA 2008 Summer 2008 Summer        Beijing
+75     175     65         Italy ITA 2000 Summer 2000 Summer         Sydney
+76     187     67     Australia AUS 2004 Summer 2004 Summer         Athina
+77     199     99        Russia RUS 2016 Summer 2016 Summer Rio de Janeiro
+78     203    105 United States USA 2008 Summer 2008 Summer        Beijing
+79     175     62   Netherlands NED 2000 Summer 2000 Summer         Sydney
+80     185     77       Hungary HUN 2004 Summer 2004 Summer         Athina
+81     198     96     Australia AUS 2000 Summer 2000 Summer         Sydney
+82     172     64 Great Britain GBR 2016 Summer 2016 Summer Rio de Janeiro
+83     164     53     Australia AUS 2008 Summer 2008 Summer        Beijing
+84     177     68         China CHN 2000 Summer 2000 Summer         Sydney
+85     178     66       Germany GER 2000 Summer 2000 Summer         Sydney
+86     180     70         Japan JPN 2016 Summer 2016 Summer Rio de Janeiro
+87     193     86        Canada CAN 2012 Summer 2012 Summer         London
+88     188     77       Germany GER 2004 Summer 2004 Summer         Athina
+89     176     63     Australia AUS 2004 Summer 2004 Summer         Athina
+90     197     97       Germany GER 2000 Summer 2000 Summer         Sydney
+91     178     71  South Africa RSA 2012 Summer 2012 Summer         London
+92     167     57     Australia AUS 2000 Summer 2000 Summer         Sydney
+93     175     75         Japan JPN 2016 Summer 2016 Summer Rio de Janeiro
+94     195     90 Great Britain GBR 2008 Summer 2008 Summer        Beijing
+95     167     57     Australia AUS 2016 Summer 2016 Summer Rio de Janeiro
+96     175     64 United States USA 2008 Summer 2008 Summer        Beijing
+97     196     90       Hungary HUN 2016 Summer 2016 Summer Rio de Janeiro
+98     180     69        Canada CAN 2008 Summer 2008 Summer        Beijing
+99     185     80        France FRA 2004 Summer 2004 Summer         Athina
+100    181     74       Hungary HUN 2000 Summer 2000 Summer         Sydney
+101    175     65       Hungary HUN 2012 Summer 2012 Summer         London
+102    190     82        Canada CAN 2008 Summer 2008 Summer        Beijing
+103    192     90        Russia RUS 2008 Summer 2008 Summer        Beijing
+104    185     88 United States USA 2004 Summer 2004 Summer         Athina
+105    177     66        Sweden SWE 2000 Summer 2000 Summer         Sydney
+106    177     68     Australia AUS 2004 Summer 2004 Summer         Athina
+107    193     68        Sweden SWE 2000 Summer 2000 Summer         Sydney
+108    171     66         Japan JPN 2012 Summer 2012 Summer         London
+109    168     54       Hungary HUN 2012 Summer 2012 Summer         London
+110    185     73   Netherlands NED 2000 Summer 2000 Summer         Sydney
+111    177     72 United States USA 2004 Summer 2004 Summer         Athina
+112    194     93       Germany GER 2000 Summer 2000 Summer         Sydney
+113    168     55 Great Britain GBR 2000 Summer 2000 Summer         Sydney
+114    184     81       Hungary HUN 2012 Summer 2012 Summer         London
+115    173     55       Hungary HUN 2000 Summer 2000 Summer         Sydney
+116    191     81     Australia AUS 2004 Summer 2004 Summer         Athina
+117    172     65 United States USA 2004 Summer 2004 Summer         Athina
+118    184     71        Russia RUS 2000 Summer 2000 Summer         Sydney
+119    190     72        Russia RUS 2016 Summer 2016 Summer Rio de Janeiro
+120    186     79        Russia RUS 2008 Summer 2008 Summer        Beijing
+121    188     80         Japan JPN 2016 Summer 2016 Summer Rio de Janeiro
+122    180     70   Netherlands NED 2004 Summer 2004 Summer         Athina
+123    178     63       Hungary HUN 2004 Summer 2004 Summer         Athina
+124    171     64       Hungary HUN 2008 Summer 2008 Summer        Beijing
+125    185     70        Russia RUS 2004 Summer 2004 Summer         Athina
+126    193     90       Hungary HUN 2008 Summer 2008 Summer        Beijing
+127    180     72   Netherlands NED 2012 Summer 2012 Summer         London
+128    194     86       Germany GER 2008 Summer 2008 Summer        Beijing
+129    195     96       Germany GER 2004 Summer 2004 Summer         Athina
+130    163     53        Canada CAN 2008 Summer 2008 Summer        Beijing
+131    188     77        Russia RUS 2008 Summer 2008 Summer        Beijing
+132    198     88         Italy ITA 2000 Summer 2000 Summer         Sydney
+133    186     71        Russia RUS 2000 Summer 2000 Summer         Sydney
+134    190     83  South Africa RSA 2012 Summer 2012 Summer         London
+135    194     85       Germany GER 2012 Summer 2012 Summer         London
+136    179     67   Netherlands NED 2004 Summer 2004 Summer         Athina
+137    167     60     Australia AUS 2004 Summer 2004 Summer         Athina
+138    202     88        France FRA 2008 Summer 2008 Summer        Beijing
+139    193     98 United States USA 2000 Summer 2000 Summer         Sydney
+140    180     70         China CHN 2004 Summer 2004 Summer         Athina
+141    175     65         China CHN 2008 Summer 2008 Summer        Beijing
+142    174     65         China CHN 2008 Summer 2008 Summer        Beijing
+143    199     98         China CHN 2012 Summer 2012 Summer         London
+144    193     82         China CHN 2012 Summer 2012 Summer         London
+145    191     85   Netherlands NED 2008 Summer 2008 Summer        Beijing
+146    180     64        Canada CAN 2000 Summer 2000 Summer         Sydney
+147    171     68       Germany GER 2012 Summer 2012 Summer         London
+148    193     85        Russia RUS 2008 Summer 2008 Summer        Beijing
+149    188     88 United States USA 2008 Summer 2008 Summer        Beijing
+150    177     70        Russia RUS 2016 Summer 2016 Summer Rio de Janeiro
+151    161     52     Australia AUS 2004 Summer 2004 Summer         Athina
+152    172     70        Canada CAN 2016 Summer 2016 Summer Rio de Janeiro
+153    176     72         Italy ITA 2012 Summer 2012 Summer         London
+154    188     80         Italy ITA 2008 Summer 2008 Summer        Beijing
+155    198     94     Australia AUS 2012 Summer 2012 Summer         London
+156    190     81     Australia AUS 2016 Summer 2016 Summer Rio de Janeiro
+157    180     69        France FRA 2012 Summer 2012 Summer         London
+158    170     67 Great Britain GBR 2004 Summer 2004 Summer         Athina
+159    184     84         Japan JPN 2012 Summer 2012 Summer         London
+160    170     57 Great Britain GBR 2012 Summer 2012 Summer         London
+161    180     60     Australia AUS 2016 Summer 2016 Summer Rio de Janeiro
+162    180     72  South Africa RSA 2008 Summer 2008 Summer        Beijing
+163    181     72         Japan JPN 2004 Summer 2004 Summer         Athina
+164    175     63     Australia AUS 2004 Summer 2004 Summer         Athina
+165    177     68        France FRA 2008 Summer 2008 Summer        Beijing
+166    170     61       Hungary HUN 2008 Summer 2008 Summer        Beijing
+167    184     80         Italy ITA 2004 Summer 2004 Summer         Athina
+168    184     75     Australia AUS 2008 Summer 2008 Summer        Beijing
+169    179     66   Netherlands NED 2012 Summer 2012 Summer         London
+170    191     81         China CHN 2016 Summer 2016 Summer Rio de Janeiro
+171    193     85        Sweden SWE 2000 Summer 2000 Summer         Sydney
+172    183     78 Great Britain GBR 2004 Summer 2004 Summer         Athina
+173    183     86        Canada CAN 2004 Summer 2004 Summer         Athina
+174    182     75         Japan JPN 2008 Summer 2008 Summer        Beijing
+175    171     63     Australia AUS 2000 Summer 2000 Summer         Sydney
+176    165     57         Japan JPN 2004 Summer 2004 Summer         Athina
+177    161     48        Russia RUS 2016 Summer 2016 Summer Rio de Janeiro
+178    195     85        Canada CAN 2012 Summer 2012 Summer         London
+179    186     87     Australia AUS 2016 Summer 2016 Summer Rio de Janeiro
+180    200     95 Great Britain GBR 2000 Summer 2000 Summer         Sydney
+181    178     64         China CHN 2012 Summer 2012 Summer         London
+182    185     82  South Africa RSA 2000 Summer 2000 Summer         Sydney
+183    177     66 Great Britain GBR 2008 Summer 2008 Summer        Beijing
+184    191     91 United States USA 2004 Summer 2004 Summer         Athina
+185    177     65         Italy ITA 2004 Summer 2004 Summer         Athina
+186    177     65         Italy ITA 2016 Summer 2016 Summer Rio de Janeiro
+187    185     84        France FRA 2000 Summer 2000 Summer         Sydney
+188    191     95  South Africa RSA 2000 Summer 2000 Summer         Sydney
+189    180     70        Canada CAN 2000 Summer 2000 Summer         Sydney
+190    175     60         Italy ITA 2016 Summer 2016 Summer Rio de Janeiro
+191    193     91 United States USA 2004 Summer 2004 Summer         Athina
+192    193     91 United States USA 2012 Summer 2012 Summer         London
+193    183     80     Australia AUS 2000 Summer 2000 Summer         Sydney
+194    187     82     Australia AUS 2004 Summer 2004 Summer         Athina
+195    182     68        Russia RUS 2016 Summer 2016 Summer Rio de Janeiro
+196    183     74       Hungary HUN 2012 Summer 2012 Summer         London
+197    188     82        Russia RUS 2008 Summer 2008 Summer        Beijing
+198    181     65        France FRA 2004 Summer 2004 Summer         Athina
+199    177     68         China CHN 2004 Summer 2004 Summer         Athina
+200    182     67         China CHN 2016 Summer 2016 Summer Rio de Janeiro
+201    170     64 United States USA 2008 Summer 2008 Summer        Beijing
+202    193     85       Germany GER 2016 Summer 2016 Summer Rio de Janeiro
+203    196     89 United States USA 2000 Summer 2000 Summer         Sydney
+204    198     98  South Africa RSA 2016 Summer 2016 Summer Rio de Janeiro
+205    185     75        Canada CAN 2000 Summer 2000 Summer         Sydney
+206    184     80 Great Britain GBR 2012 Summer 2012 Summer         London
+207    171     59  South Africa RSA 2008 Summer 2008 Summer        Beijing
+208    173     72       Hungary HUN 2012 Summer 2012 Summer         London
+209    188     80 Great Britain GBR 2012 Summer 2012 Summer         London
+210    168     62 Great Britain GBR 2000 Summer 2000 Summer         Sydney
+211    192     88         Italy ITA 2004 Summer 2004 Summer         Athina
+212    190     86  South Africa RSA 2016 Summer 2016 Summer Rio de Janeiro
+213    192     78       Hungary HUN 2008 Summer 2008 Summer        Beijing
+214    173     65     Australia AUS 2004 Summer 2004 Summer         Athina
+215    193     85        Russia RUS 2016 Summer 2016 Summer Rio de Janeiro
+216    172     63         Japan JPN 2016 Summer 2016 Summer Rio de Janeiro
+217    172     62       Germany GER 2000 Summer 2000 Summer         Sydney
+218    177     61        France FRA 2012 Summer 2012 Summer         London
+219    179     70         Japan JPN 2008 Summer 2008 Summer        Beijing
+220    167     54        Canada CAN 2016 Summer 2016 Summer Rio de Janeiro
+221    175     61       Germany GER 2008 Summer 2008 Summer        Beijing
+222    170     60     Australia AUS 2012 Summer 2012 Summer         London
+223    185     75 United States USA 2016 Summer 2016 Summer Rio de Janeiro
+224    190     84  South Africa RSA 2000 Summer 2000 Summer         Sydney
+225    193     83       Germany GER 2004 Summer 2004 Summer         Athina
+226    179     61   Netherlands NED 2008 Summer 2008 Summer        Beijing
+227    178     73        Canada CAN 2012 Summer 2012 Summer         London
+228    176     65 Great Britain GBR 2000 Summer 2000 Summer         Sydney
+229    166     53         Italy ITA 2008 Summer 2008 Summer        Beijing
+230    182     76        Sweden SWE 2008 Summer 2008 Summer        Beijing
+231    180     78        Russia RUS 2004 Summer 2004 Summer         Athina
+232    182     67        Russia RUS 2012 Summer 2012 Summer         London
+233    196     92     Australia AUS 2008 Summer 2008 Summer        Beijing
+234    185     82        France FRA 2008 Summer 2008 Summer        Beijing
+235    175     63        Canada CAN 2000 Summer 2000 Summer         Sydney
+236    180     60       Germany GER 2008 Summer 2008 Summer        Beijing
+237    174     63       Germany GER 2004 Summer 2004 Summer         Athina
+238    196     93        Russia RUS 2016 Summer 2016 Summer Rio de Janeiro
+239    189     78     Australia AUS 2008 Summer 2008 Summer        Beijing
+240    198     89         China CHN 2008 Summer 2008 Summer        Beijing
+241    169     61         China CHN 2008 Summer 2008 Summer        Beijing
+242    172     55        Russia RUS 2000 Summer 2000 Summer         Sydney
+243    173     69 Great Britain GBR 2008 Summer 2008 Summer        Beijing
+244    186     80       Hungary HUN 2000 Summer 2000 Summer         Sydney
+245    176     63       Hungary HUN 2016 Summer 2016 Summer Rio de Janeiro
+246    166     55         Japan JPN 2008 Summer 2008 Summer        Beijing
+247    178     70         China CHN 2012 Summer 2012 Summer         London
+248    202    100       Germany GER 2000 Summer 2000 Summer         Sydney
+249    173     64     Australia AUS 2004 Summer 2004 Summer         Athina
+250    177     69 United States USA 2000 Summer 2000 Summer         Sydney
+251    195     87  South Africa RSA 2008 Summer 2008 Summer        Beijing
+252    170     63  South Africa RSA 2008 Summer 2008 Summer        Beijing
+253    188     82 Great Britain GBR 2004 Summer 2004 Summer         Athina
+254    168     50        Russia RUS 2000 Summer 2000 Summer         Sydney
+255    183     70        Russia RUS 2016 Summer 2016 Summer Rio de Janeiro
+256    189     90   Netherlands NED 2008 Summer 2008 Summer        Beijing
+257    181     66       Germany GER 2000 Summer 2000 Summer         Sydney
+258    185     85  South Africa RSA 2008 Summer 2008 Summer        Beijing
+259    184     73   Netherlands NED 2000 Summer 2000 Summer         Sydney
+260    170     64        Canada CAN 2004 Summer 2004 Summer         Athina
+261    170     59   Netherlands NED 2000 Summer 2000 Summer         Sydney
+262    193     95 United States USA 2008 Summer 2008 Summer        Beijing
+263    182     67   Netherlands NED 2008 Summer 2008 Summer        Beijing
+264    180     75 United States USA 2000 Summer 2000 Summer         Sydney
+265    180     64   Netherlands NED 2016 Summer 2016 Summer Rio de Janeiro
+266    173     62       Hungary HUN 2008 Summer 2008 Summer        Beijing
+267    202     91        Russia RUS 2004 Summer 2004 Summer         Athina
+268    188     80 Great Britain GBR 2016 Summer 2016 Summer Rio de Janeiro
+269    167     60         Japan JPN 2012 Summer 2012 Summer         London
+270    188     82 United States USA 2008 Summer 2008 Summer        Beijing
+271    180     63       Germany GER 2016 Summer 2016 Summer Rio de Janeiro
+272    168     64        Sweden SWE 2008 Summer 2008 Summer        Beijing
+273    193     91 United States USA 2008 Summer 2008 Summer        Beijing
+274    178     70        Canada CAN 2008 Summer 2008 Summer        Beijing
+275    177     63  South Africa RSA 2000 Summer 2000 Summer         Sydney
+276    185     76         China CHN 2008 Summer 2008 Summer        Beijing
+277    187     78         China CHN 2012 Summer 2012 Summer         London
+278    176     61         Japan JPN 2000 Summer 2000 Summer         Sydney
+279    173     64         China CHN 2016 Summer 2016 Summer Rio de Janeiro
+280    174     61       Germany GER 2008 Summer 2008 Summer        Beijing
+281    170     59         China CHN 2004 Summer 2004 Summer         Athina
+282    177     62         China CHN 2016 Summer 2016 Summer Rio de Janeiro
+283    177     85         China CHN 2000 Summer 2000 Summer         Sydney
+284    182     71        Russia RUS 2008 Summer 2008 Summer        Beijing
+       Sport                                           Event  Medal      BMI
+1   Swimming              Swimming Men's 50 metres Freestyle   &lt;NA&gt; 23.70584
+2   Swimming           Swimming Women's 200 metres Butterfly   &lt;NA&gt; 21.71807
+3   Swimming             Swimming Men's 100 metres Freestyle Bronze 25.50760
+4   Swimming      Swimming Men's 4 x 100 metres Medley Relay   &lt;NA&gt; 23.56663
+5   Swimming Swimming Women's 4 x 100 metres Freestyle Relay   &lt;NA&gt; 20.49861
+6   Swimming             Swimming Men's 400 metres Freestyle   &lt;NA&gt; 22.58476
+7   Swimming    Swimming Women's 4 x 100 metres Medley Relay   &lt;NA&gt; 16.95502
+8   Swimming            Swimming Men's 100 metres Backstroke   &lt;NA&gt; 23.12406
+9   Swimming          Swimming Women's 100 metres Backstroke   &lt;NA&gt; 20.74755
+10  Swimming   Swimming Men's 4 x 100 metres Freestyle Relay   &lt;NA&gt; 24.28026
+11  Swimming     Swimming Men's 200 metres Individual Medley   &lt;NA&gt; 21.91381
+12  Swimming Swimming Women's 4 x 200 metres Freestyle Relay   &lt;NA&gt; 20.56933
+13  Swimming Swimming Women's 4 x 200 metres Freestyle Relay   Gold 21.62162
+14  Swimming           Swimming Women's 800 metres Freestyle   Gold 20.93664
+15  Swimming   Swimming Men's 4 x 200 metres Freestyle Relay   &lt;NA&gt; 22.28248
+16  Swimming        Swimming Women's 100 metres Breaststroke   &lt;NA&gt; 22.03857
+17  Swimming   Swimming Men's 4 x 200 metres Freestyle Relay   &lt;NA&gt; 24.96711
+18  Swimming              Swimming Men's 50 metres Freestyle   &lt;NA&gt; 23.96351
+19  Swimming        Swimming Women's 100 metres Breaststroke   &lt;NA&gt; 18.87066
+20  Swimming           Swimming Women's 100 metres Freestyle   &lt;NA&gt; 20.89796
+21  Swimming   Swimming Men's 4 x 200 metres Freestyle Relay   &lt;NA&gt; 23.67125
+22  Swimming          Swimming Women's 100 metres Backstroke   &lt;NA&gt; 19.91837
+23  Swimming             Swimming Men's 100 metres Butterfly   &lt;NA&gt; 24.33228
+24  Swimming           Swimming Women's 200 metres Butterfly   &lt;NA&gt; 22.53086
+25  Swimming      Swimming Men's 4 x 100 metres Medley Relay   &lt;NA&gt; 24.72928
+26  Swimming      Swimming Men's 4 x 100 metres Medley Relay   &lt;NA&gt; 25.42001
+27  Swimming              Swimming Men's 50 metres Freestyle   &lt;NA&gt; 22.24392
+28  Swimming Swimming Women's 4 x 100 metres Freestyle Relay   &lt;NA&gt; 21.67881
+29  Swimming Swimming Women's 4 x 200 metres Freestyle Relay   &lt;NA&gt; 20.70082
+30  Swimming   Swimming Men's 4 x 200 metres Freestyle Relay Bronze 22.85714
+31  Swimming      Swimming Men's 4 x 100 metres Medley Relay   &lt;NA&gt; 25.10633
+32  Swimming Swimming Women's 4 x 100 metres Freestyle Relay   &lt;NA&gt; 24.39106
+33  Swimming   Swimming Men's 4 x 200 metres Freestyle Relay   &lt;NA&gt; 22.49817
+34  Swimming        Swimming Women's 100 metres Breaststroke   &lt;NA&gt; 20.76125
+35  Swimming              Swimming Men's 50 metres Freestyle   &lt;NA&gt; 22.54596
+36  Swimming   Swimming Men's 4 x 200 metres Freestyle Relay   &lt;NA&gt; 22.44802
+37  Swimming Swimming Women's 4 x 100 metres Freestyle Relay   &lt;NA&gt; 22.49964
+38  Swimming             Swimming Men's 200 metres Butterfly   &lt;NA&gt; 24.54346
+39  Swimming         Swimming Men's 10 kilometres Open Water   &lt;NA&gt; 24.25867
+40  Swimming             Swimming Men's 100 metres Butterfly   &lt;NA&gt; 21.79820
+41  Swimming    Swimming Women's 4 x 100 metres Medley Relay Silver 20.10916
+42  Swimming      Swimming Men's 4 x 100 metres Medley Relay   Gold 23.08787
+43  Swimming     Swimming Men's 200 metres Individual Medley Silver 23.48348
+44  Swimming           Swimming Women's 100 metres Freestyle   &lt;NA&gt; 20.38043
+45  Swimming   Swimming Men's 4 x 200 metres Freestyle Relay   &lt;NA&gt; 21.73354
+46  Swimming            Swimming Women's 50 metres Freestyle   Gold 18.16620
+47  Swimming             Swimming Men's 100 metres Butterfly   &lt;NA&gt; 23.41311
+48  Swimming   Swimming Men's 4 x 200 metres Freestyle Relay   &lt;NA&gt; 23.33412
+49  Swimming          Swimming Men's 100 metres Breaststroke   &lt;NA&gt; 21.82774
+50  Swimming     Swimming Men's 200 metres Individual Medley Silver 21.28660
+51  Swimming Swimming Women's 4 x 200 metres Freestyle Relay   &lt;NA&gt; 21.45329
+52  Swimming      Swimming Men's 4 x 100 metres Medley Relay   &lt;NA&gt; 21.70139
+53  Swimming   Swimming Men's 4 x 200 metres Freestyle Relay   &lt;NA&gt;       NA
+54  Swimming            Swimming Men's 100 metres Backstroke   &lt;NA&gt; 21.91381
+55  Swimming          Swimming Men's 100 metres Breaststroke Bronze 23.02568
+56  Swimming         Swimming Men's 10 kilometres Open Water   &lt;NA&gt; 22.35174
+57  Swimming        Swimming Women's 100 metres Breaststroke   &lt;NA&gt; 19.72318
+58  Swimming Swimming Women's 4 x 100 metres Freestyle Relay   Gold 22.78331
+59  Swimming Swimming Women's 4 x 200 metres Freestyle Relay Bronze 18.61224
+60  Swimming Swimming Women's 4 x 200 metres Freestyle Relay Silver 21.22449
+61  Swimming Swimming Women's 4 x 200 metres Freestyle Relay   &lt;NA&gt; 22.83737
+62  Swimming          Swimming Men's 200 metres Breaststroke   &lt;NA&gt; 20.58967
+63  Swimming           Swimming Women's 100 metres Butterfly   &lt;NA&gt; 18.33910
+64  Swimming   Swimming Men's 4 x 100 metres Freestyle Relay   Gold 24.87918
+65  Swimming            Swimming Women's 50 metres Freestyle   &lt;NA&gt; 20.06173
+66  Swimming      Swimming Men's 4 x 100 metres Medley Relay   &lt;NA&gt; 22.81940
+67  Swimming     Swimming Men's 200 metres Individual Medley   &lt;NA&gt; 23.12406
+68  Swimming Swimming Women's 4 x 200 metres Freestyle Relay   Gold 21.78588
+69  Swimming     Swimming Men's 400 metres Individual Medley   &lt;NA&gt; 22.58476
+70  Swimming             Swimming Men's 100 metres Butterfly   Gold 24.51560
+71  Swimming             Swimming Men's 100 metres Freestyle   &lt;NA&gt; 25.00000
+72  Swimming           Swimming Women's 200 metres Butterfly   &lt;NA&gt; 20.79673
+73  Swimming   Swimming Men's 4 x 200 metres Freestyle Relay   &lt;NA&gt; 23.14815
+74  Swimming      Swimming Men's 4 x 100 metres Medley Relay   &lt;NA&gt; 22.81940
+75  Swimming           Swimming Women's 400 metres Freestyle   &lt;NA&gt; 21.22449
+76  Swimming           Swimming Women's 200 metres Freestyle   &lt;NA&gt; 19.15983
+77  Swimming   Swimming Men's 4 x 100 metres Freestyle Relay   &lt;NA&gt; 24.99937
+78  Swimming            Swimming Men's 100 metres Backstroke Silver 25.47987
+79  Swimming    Swimming Women's 4 x 100 metres Medley Relay   &lt;NA&gt; 20.24490
+80  Swimming          Swimming Men's 200 metres Breaststroke Silver 22.49817
+81  Swimming             Swimming Men's 200 metres Freestyle   &lt;NA&gt; 24.48730
+82  Swimming    Swimming Women's 4 x 100 metres Medley Relay   &lt;NA&gt; 21.63332
+83  Swimming           Swimming Women's 200 metres Butterfly   &lt;NA&gt; 19.70553
+84  Swimming           Swimming Women's 100 metres Freestyle   &lt;NA&gt; 21.70513
+85  Swimming Swimming Women's 4 x 200 metres Freestyle Relay Bronze 20.83070
+86  Swimming            Swimming Men's 100 metres Backstroke   &lt;NA&gt; 21.60494
+87  Swimming              Swimming Men's 50 metres Freestyle   &lt;NA&gt; 23.08787
+88  Swimming   Swimming Men's 4 x 200 metres Freestyle Relay   &lt;NA&gt; 21.78588
+89  Swimming    Swimming Women's 4 x 100 metres Medley Relay   Gold 20.33833
+90  Swimming             Swimming Men's 200 metres Freestyle   &lt;NA&gt; 24.99420
+91  Swimming           Swimming Men's 1,500 metres Freestyle   &lt;NA&gt; 22.40879
+92  Swimming        Swimming Women's 200 metres Breaststroke   &lt;NA&gt; 20.43817
+93  Swimming         Swimming Men's 10 kilometres Open Water   &lt;NA&gt; 24.48980
+94  Swimming   Swimming Men's 4 x 100 metres Freestyle Relay   &lt;NA&gt; 23.66864
+95  Swimming          Swimming Women's 200 metres Backstroke   &lt;NA&gt; 20.43817
+96  Swimming Swimming Women's 4 x 200 metres Freestyle Relay Bronze 20.89796
+97  Swimming   Swimming Men's 4 x 100 metres Freestyle Relay   &lt;NA&gt; 23.42774
+98  Swimming           Swimming Women's 400 metres Freestyle   &lt;NA&gt; 21.29630
+99  Swimming   Swimming Men's 4 x 200 metres Freestyle Relay   &lt;NA&gt; 23.37473
+100 Swimming            Swimming Men's 100 metres Backstroke   &lt;NA&gt; 22.58783
+101 Swimming   Swimming Women's 200 metres Individual Medley   &lt;NA&gt; 21.22449
+102 Swimming   Swimming Men's 4 x 200 metres Freestyle Relay   &lt;NA&gt; 22.71468
+103 Swimming   Swimming Men's 4 x 200 metres Freestyle Relay Silver 24.41406
+104 Swimming           Swimming Men's 1,500 metres Freestyle Silver 25.71220
+105 Swimming    Swimming Women's 4 x 100 metres Medley Relay   &lt;NA&gt; 21.06674
+106 Swimming    Swimming Women's 4 x 100 metres Medley Relay   Gold 21.70513
+107 Swimming           Swimming Women's 100 metres Butterfly   &lt;NA&gt; 18.25552
+108 Swimming             Swimming Men's 200 metres Butterfly   &lt;NA&gt; 22.57105
+109 Swimming           Swimming Women's 400 metres Freestyle   &lt;NA&gt; 19.13265
+110 Swimming      Swimming Men's 4 x 100 metres Medley Relay   &lt;NA&gt; 21.32944
+111 Swimming           Swimming Women's 400 metres Freestyle   &lt;NA&gt; 22.98190
+112 Swimming   Swimming Men's 4 x 200 metres Freestyle Relay   &lt;NA&gt; 24.71038
+113 Swimming        Swimming Women's 200 metres Breaststroke   &lt;NA&gt; 19.48696
+114 Swimming   Swimming Men's 4 x 200 metres Freestyle Relay   &lt;NA&gt; 23.92486
+115 Swimming          Swimming Women's 200 metres Backstroke   &lt;NA&gt; 18.37683
+116 Swimming      Swimming Men's 4 x 100 metres Medley Relay   &lt;NA&gt; 22.20334
+117 Swimming    Swimming Women's 4 x 100 metres Medley Relay Silver 21.97134
+118 Swimming          Swimming Men's 200 metres Breaststroke   &lt;NA&gt; 20.97117
+119 Swimming      Swimming Men's 4 x 100 metres Medley Relay   &lt;NA&gt; 19.94460
+120 Swimming      Swimming Men's 4 x 100 metres Medley Relay   &lt;NA&gt; 22.83501
+121 Swimming          Swimming Men's 200 metres Breaststroke   &lt;NA&gt; 22.63468
+122 Swimming Swimming Women's 4 x 100 metres Freestyle Relay Bronze 21.60494
+123 Swimming   Swimming Women's 200 metres Individual Medley   &lt;NA&gt; 19.88385
+124 Swimming           Swimming Women's 200 metres Butterfly   &lt;NA&gt; 21.88708
+125 Swimming     Swimming Men's 400 metres Individual Medley   &lt;NA&gt; 20.45289
+126 Swimming   Swimming Men's 4 x 200 metres Freestyle Relay   &lt;NA&gt; 24.16172
+127 Swimming Swimming Women's 4 x 100 metres Freestyle Relay Silver 22.22222
+128 Swimming             Swimming Men's 400 metres Freestyle   &lt;NA&gt; 22.85046
+129 Swimming   Swimming Men's 4 x 100 metres Freestyle Relay   &lt;NA&gt; 25.24655
+130 Swimming    Swimming Women's 4 x 100 metres Medley Relay   &lt;NA&gt; 19.94806
+131 Swimming             Swimming Men's 100 metres Freestyle   &lt;NA&gt; 21.78588
+132 Swimming   Swimming Men's 4 x 200 metres Freestyle Relay   &lt;NA&gt; 22.44669
+133 Swimming   Swimming Men's 4 x 200 metres Freestyle Relay   &lt;NA&gt; 20.52260
+134 Swimming             Swimming Men's 200 metres Butterfly   Gold 22.99169
+135 Swimming     Swimming Men's 400 metres Individual Medley   &lt;NA&gt; 22.58476
+136 Swimming Swimming Women's 4 x 200 metres Freestyle Relay   &lt;NA&gt; 20.91071
+137 Swimming           Swimming Women's 100 metres Freestyle   &lt;NA&gt; 21.51386
+138 Swimming   Swimming Men's 4 x 100 metres Freestyle Relay Silver 21.56651
+139 Swimming   Swimming Men's 4 x 100 metres Freestyle Relay Silver 26.30943
+140 Swimming Swimming Women's 4 x 200 metres Freestyle Relay Silver 21.60494
+141 Swimming   Swimming Women's 200 metres Individual Medley   &lt;NA&gt; 21.22449
+142 Swimming           Swimming Women's 400 metres Freestyle   &lt;NA&gt; 21.46915
+143 Swimming          Swimming Men's 100 metres Breaststroke   &lt;NA&gt; 24.74685
+144 Swimming   Swimming Men's 4 x 200 metres Freestyle Relay Bronze 22.01401
+145 Swimming              Swimming Men's 50 metres Freestyle   &lt;NA&gt; 23.29980
+146 Swimming Swimming Women's 4 x 200 metres Freestyle Relay   &lt;NA&gt; 19.75309
+147 Swimming Swimming Women's 4 x 100 metres Freestyle Relay   &lt;NA&gt; 23.25502
+148 Swimming   Swimming Men's 4 x 200 metres Freestyle Relay Silver 22.81940
+149 Swimming            Swimming Men's 200 metres Backstroke   Gold 24.89814
+150 Swimming Swimming Women's 4 x 100 metres Freestyle Relay   &lt;NA&gt; 22.34352
+151 Swimming           Swimming Women's 800 metres Freestyle   &lt;NA&gt; 20.06095
+152 Swimming           Swimming Women's 800 metres Freestyle   &lt;NA&gt; 23.66144
+153 Swimming   Swimming Men's 4 x 200 metres Freestyle Relay   &lt;NA&gt; 23.24380
+154 Swimming      Swimming Men's 4 x 100 metres Medley Relay   &lt;NA&gt; 22.63468
+155 Swimming      Swimming Men's 4 x 100 metres Medley Relay Bronze 23.97715
+156 Swimming     Swimming Men's 200 metres Individual Medley   &lt;NA&gt; 22.43767
+157 Swimming          Swimming Women's 100 metres Backstroke   &lt;NA&gt; 21.29630
+158 Swimming           Swimming Women's 200 metres Freestyle   &lt;NA&gt; 23.18339
+159 Swimming      Swimming Men's 4 x 100 metres Medley Relay Silver 24.81096
+160 Swimming Swimming Women's 4 x 100 metres Freestyle Relay   &lt;NA&gt; 19.72318
+161 Swimming Swimming Women's 4 x 200 metres Freestyle Relay Silver 18.51852
+162 Swimming   Swimming Women's 400 metres Individual Medley   &lt;NA&gt; 22.22222
+163 Swimming     Swimming Men's 200 metres Individual Medley   &lt;NA&gt; 21.97735
+164 Swimming Swimming Women's 4 x 100 metres Freestyle Relay   Gold 20.57143
+165 Swimming    Swimming Women's 4 x 100 metres Medley Relay   &lt;NA&gt; 21.70513
+166 Swimming           Swimming Women's 200 metres Freestyle   &lt;NA&gt; 21.10727
+167 Swimming             Swimming Men's 100 metres Butterfly   &lt;NA&gt; 23.62949
+168 Swimming     Swimming Men's 400 metres Individual Medley   &lt;NA&gt; 22.15265
+169 Swimming    Swimming Women's 4 x 100 metres Medley Relay   &lt;NA&gt; 20.59861
+170 Swimming   Swimming Men's 4 x 100 metres Freestyle Relay   &lt;NA&gt; 22.20334
+171 Swimming   Swimming Men's 4 x 100 metres Freestyle Relay   &lt;NA&gt; 22.81940
+172 Swimming   Swimming Men's 4 x 200 metres Freestyle Relay   &lt;NA&gt; 23.29123
+173 Swimming            Swimming Men's 200 metres Backstroke   &lt;NA&gt; 25.68007
+174 Swimming   Swimming Men's 4 x 200 metres Freestyle Relay   &lt;NA&gt; 22.64219
+175 Swimming           Swimming Women's 200 metres Butterfly Silver 21.54509
+176 Swimming    Swimming Women's 4 x 100 metres Medley Relay   &lt;NA&gt; 20.93664
+177 Swimming           Swimming Women's 400 metres Freestyle   &lt;NA&gt; 18.51780
+178 Swimming   Swimming Men's 4 x 200 metres Freestyle Relay   &lt;NA&gt; 22.35371
+179 Swimming          Swimming Men's 100 metres Breaststroke   &lt;NA&gt; 25.14742
+180 Swimming             Swimming Men's 400 metres Freestyle   &lt;NA&gt; 23.75000
+181 Swimming Swimming Women's 4 x 200 metres Freestyle Relay   &lt;NA&gt; 20.19947
+182 Swimming   Swimming Men's 4 x 100 metres Freestyle Relay   &lt;NA&gt; 23.95909
+183 Swimming   Swimming Women's 200 metres Individual Medley   &lt;NA&gt; 21.06674
+184 Swimming      Swimming Men's 4 x 100 metres Medley Relay   Gold 24.94449
+185 Swimming           Swimming Women's 200 metres Freestyle Silver 20.74755
+186 Swimming Swimming Women's 4 x 100 metres Freestyle Relay   &lt;NA&gt; 20.74755
+187 Swimming          Swimming Men's 200 metres Breaststroke   &lt;NA&gt; 24.54346
+188 Swimming      Swimming Men's 4 x 100 metres Medley Relay   &lt;NA&gt; 26.04095
+189 Swimming           Swimming Men's 1,500 metres Freestyle   &lt;NA&gt; 21.60494
+190 Swimming Swimming Women's 4 x 100 metres Freestyle Relay   &lt;NA&gt; 19.59184
+191 Swimming     Swimming Men's 400 metres Individual Medley   Gold 24.43019
+192 Swimming     Swimming Men's 200 metres Individual Medley   Gold 24.43019
+193 Swimming      Swimming Men's 4 x 100 metres Medley Relay Silver 23.88844
+194 Swimming      Swimming Men's 4 x 100 metres Medley Relay   &lt;NA&gt; 23.44934
+195 Swimming Swimming Women's 4 x 200 metres Freestyle Relay   &lt;NA&gt; 20.52892
+196 Swimming          Swimming Women's 100 metres Backstroke   &lt;NA&gt; 22.09681
+197 Swimming             Swimming Men's 400 metres Freestyle   &lt;NA&gt; 23.20054
+198 Swimming          Swimming Women's 200 metres Backstroke   &lt;NA&gt; 19.84066
+199 Swimming        Swimming Women's 200 metres Breaststroke   &lt;NA&gt; 21.70513
+200 Swimming           Swimming Men's 1,500 metres Freestyle   &lt;NA&gt; 20.22703
+201 Swimming    Swimming Women's 4 x 100 metres Medley Relay Silver 22.14533
+202 Swimming   Swimming Men's 4 x 200 metres Freestyle Relay   &lt;NA&gt; 22.81940
+203 Swimming   Swimming Men's 4 x 200 metres Freestyle Relay Silver 23.16743
+204 Swimming      Swimming Men's 4 x 100 metres Medley Relay   &lt;NA&gt; 24.99745
+205 Swimming            Swimming Men's 100 metres Backstroke   &lt;NA&gt; 21.91381
+206 Swimming   Swimming Men's 4 x 200 metres Freestyle Relay   &lt;NA&gt; 23.62949
+207 Swimming            Swimming Women's 50 metres Freestyle   &lt;NA&gt; 20.17715
+208 Swimming Swimming Women's 4 x 100 metres Freestyle Relay   &lt;NA&gt; 24.05693
+209 Swimming     Swimming Men's 200 metres Individual Medley   &lt;NA&gt; 22.63468
+210 Swimming            Swimming Women's 50 metres Freestyle   &lt;NA&gt; 21.96712
+211 Swimming   Swimming Men's 4 x 200 metres Freestyle Relay Bronze 23.87153
+212 Swimming     Swimming Men's 400 metres Individual Medley   &lt;NA&gt; 23.82271
+213 Swimming            Swimming Men's 200 metres Backstroke   &lt;NA&gt; 21.15885
+214 Swimming Swimming Women's 4 x 100 metres Freestyle Relay   Gold 21.71807
+215 Swimming             Swimming Men's 100 metres Butterfly   &lt;NA&gt; 22.81940
+216 Swimming          Swimming Women's 100 metres Backstroke   &lt;NA&gt; 21.29529
+217 Swimming Swimming Women's 4 x 100 metres Freestyle Relay   &lt;NA&gt; 20.95727
+218 Swimming            Swimming Women's 50 metres Freestyle   &lt;NA&gt; 19.47078
+219 Swimming   Swimming Men's 4 x 100 metres Freestyle Relay   &lt;NA&gt; 21.84701
+220 Swimming           Swimming Women's 200 metres Freestyle   &lt;NA&gt; 19.36247
+221 Swimming   Swimming Women's 400 metres Individual Medley   &lt;NA&gt; 19.91837
+222 Swimming           Swimming Women's 200 metres Butterfly   &lt;NA&gt; 20.76125
+223 Swimming Swimming Women's 4 x 200 metres Freestyle Relay   Gold 21.91381
+224 Swimming              Swimming Men's 50 metres Freestyle   &lt;NA&gt; 23.26870
+225 Swimming   Swimming Men's 4 x 200 metres Freestyle Relay   &lt;NA&gt; 22.28248
+226 Swimming            Swimming Women's 50 metres Freestyle   &lt;NA&gt; 19.03811
+227 Swimming             Swimming Men's 200 metres Butterfly   &lt;NA&gt; 23.04002
+228 Swimming            Swimming Women's 50 metres Freestyle   &lt;NA&gt; 20.98399
+229 Swimming           Swimming Women's 100 metres Freestyle   &lt;NA&gt; 19.23356
+230 Swimming    Swimming Women's 4 x 100 metres Medley Relay   &lt;NA&gt; 22.94409
+231 Swimming             Swimming Men's 200 metres Butterfly   &lt;NA&gt; 24.07407
+232 Swimming           Swimming Women's 400 metres Freestyle   &lt;NA&gt; 20.22703
+233 Swimming      Swimming Men's 4 x 100 metres Medley Relay Silver 23.94835
+234 Swimming            Swimming Men's 100 metres Backstroke   &lt;NA&gt; 23.95909
+235 Swimming          Swimming Women's 100 metres Backstroke   &lt;NA&gt; 20.57143
+236 Swimming Swimming Women's 4 x 100 metres Freestyle Relay   &lt;NA&gt; 18.51852
+237 Swimming           Swimming Women's 800 metres Freestyle   &lt;NA&gt; 20.80856
+238 Swimming      Swimming Men's 4 x 100 metres Medley Relay   &lt;NA&gt; 24.20866
+239 Swimming   Swimming Men's 4 x 100 metres Freestyle Relay Bronze 21.83589
+240 Swimming             Swimming Men's 400 metres Freestyle   &lt;NA&gt; 22.70177
+241 Swimming        Swimming Women's 100 metres Breaststroke   &lt;NA&gt; 21.35780
+242 Swimming    Swimming Women's 4 x 100 metres Medley Relay   &lt;NA&gt; 18.59113
+243 Swimming Swimming Women's 4 x 100 metres Freestyle Relay   &lt;NA&gt; 23.05456
+244 Swimming             Swimming Men's 200 metres Freestyle   &lt;NA&gt; 23.12406
+245 Swimming           Swimming Women's 200 metres Butterfly   &lt;NA&gt; 20.33833
+246 Swimming Swimming Women's 4 x 200 metres Freestyle Relay   &lt;NA&gt; 19.95936
+247 Swimming    Swimming Women's 4 x 100 metres Medley Relay   &lt;NA&gt; 22.09317
+248 Swimming            Swimming Men's 100 metres Backstroke Bronze 24.50740
+249 Swimming Swimming Women's 4 x 100 metres Freestyle Relay   Gold 21.38394
+250 Swimming Swimming Women's 4 x 100 metres Freestyle Relay   Gold 22.02432
+251 Swimming      Swimming Men's 4 x 100 metres Medley Relay   &lt;NA&gt; 22.87968
+252 Swimming Swimming Women's 4 x 100 metres Freestyle Relay   &lt;NA&gt; 21.79931
+253 Swimming     Swimming Men's 200 metres Individual Medley   &lt;NA&gt; 23.20054
+254 Swimming           Swimming Women's 800 metres Freestyle   &lt;NA&gt; 17.71542
+255 Swimming          Swimming Women's 100 metres Backstroke   &lt;NA&gt; 20.90239
+256 Swimming          Swimming Men's 200 metres Breaststroke   &lt;NA&gt; 25.19526
+257 Swimming           Swimming Women's 100 metres Butterfly   &lt;NA&gt; 20.14591
+258 Swimming      Swimming Men's 4 x 100 metres Medley Relay   &lt;NA&gt; 24.83565
+259 Swimming            Swimming Women's 50 metres Freestyle   &lt;NA&gt; 21.56191
+260 Swimming        Swimming Women's 200 metres Breaststroke   &lt;NA&gt; 22.14533
+261 Swimming Swimming Women's 4 x 200 metres Freestyle Relay   &lt;NA&gt; 20.41522
+262 Swimming   Swimming Men's 4 x 200 metres Freestyle Relay   Gold 25.50404
+263 Swimming           Swimming Women's 100 metres Freestyle   &lt;NA&gt; 20.22703
+264 Swimming           Swimming Men's 1,500 metres Freestyle   &lt;NA&gt; 23.14815
+265 Swimming Swimming Women's 4 x 200 metres Freestyle Relay   &lt;NA&gt; 19.75309
+266 Swimming          Swimming Women's 200 metres Backstroke   &lt;NA&gt; 20.71569
+267 Swimming            Swimming Men's 100 metres Backstroke   &lt;NA&gt; 22.30174
+268 Swimming   Swimming Men's 4 x 200 metres Freestyle Relay Silver 22.63468
+269 Swimming        Swimming Women's 200 metres Breaststroke   &lt;NA&gt; 21.51386
+270 Swimming      Swimming Men's 4 x 100 metres Medley Relay   Gold 23.20054
+271 Swimming   Swimming Women's 200 metres Individual Medley   &lt;NA&gt; 19.44444
+272 Swimming        Swimming Women's 100 metres Breaststroke   &lt;NA&gt; 22.67574
+273 Swimming   Swimming Men's 4 x 100 metres Freestyle Relay   Gold 24.43019
+274 Swimming Swimming Women's 4 x 200 metres Freestyle Relay   &lt;NA&gt; 22.09317
+275 Swimming    Swimming Women's 4 x 100 metres Medley Relay   &lt;NA&gt; 20.10916
+276 Swimming             Swimming Men's 200 metres Butterfly   &lt;NA&gt; 22.20599
+277 Swimming            Swimming Men's 200 metres Backstroke   &lt;NA&gt; 22.30547
+278 Swimming           Swimming Women's 800 metres Freestyle   &lt;NA&gt; 19.69267
+279 Swimming   Swimming Women's 200 metres Individual Medley   &lt;NA&gt; 21.38394
+280 Swimming          Swimming Women's 200 metres Backstroke   &lt;NA&gt; 20.14797
+281 Swimming          Swimming Women's 100 metres Backstroke   &lt;NA&gt; 20.41522
+282 Swimming Swimming Women's 4 x 100 metres Freestyle Relay   &lt;NA&gt; 19.78997
+283 Swimming          Swimming Men's 100 metres Breaststroke   &lt;NA&gt; 27.13141
+284 Swimming          Swimming Women's 200 metres Backstroke   &lt;NA&gt; 21.43461
+    medalyesno
+1           no
+2           no
+3          yes
+4           no
+5           no
+6           no
+7           no
+8           no
+9           no
+10          no
+11          no
+12          no
+13         yes
+14         yes
+15          no
+16          no
+17          no
+18          no
+19          no
+20          no
+21          no
+22          no
+23          no
+24          no
+25          no
+26          no
+27          no
+28          no
+29          no
+30         yes
+31          no
+32          no
+33          no
+34          no
+35          no
+36          no
+37          no
+38          no
+39          no
+40          no
+41         yes
+42         yes
+43         yes
+44          no
+45          no
+46         yes
+47          no
+48          no
+49          no
+50         yes
+51          no
+52          no
+53          no
+54          no
+55         yes
+56          no
+57          no
+58         yes
+59         yes
+60         yes
+61          no
+62          no
+63          no
+64         yes
+65          no
+66          no
+67          no
+68         yes
+69          no
+70         yes
+71          no
+72          no
+73          no
+74          no
+75          no
+76          no
+77          no
+78         yes
+79          no
+80         yes
+81          no
+82          no
+83          no
+84          no
+85         yes
+86          no
+87          no
+88          no
+89         yes
+90          no
+91          no
+92          no
+93          no
+94          no
+95          no
+96         yes
+97          no
+98          no
+99          no
+100         no
+101         no
+102         no
+103        yes
+104        yes
+105         no
+106        yes
+107         no
+108         no
+109         no
+110         no
+111         no
+112         no
+113         no
+114         no
+115         no
+116         no
+117        yes
+118         no
+119         no
+120         no
+121         no
+122        yes
+123         no
+124         no
+125         no
+126         no
+127        yes
+128         no
+129         no
+130         no
+131         no
+132         no
+133         no
+134        yes
+135         no
+136         no
+137         no
+138        yes
+139        yes
+140        yes
+141         no
+142         no
+143         no
+144        yes
+145         no
+146         no
+147         no
+148        yes
+149        yes
+150         no
+151         no
+152         no
+153         no
+154         no
+155        yes
+156         no
+157         no
+158         no
+159        yes
+160         no
+161        yes
+162         no
+163         no
+164        yes
+165         no
+166         no
+167         no
+168         no
+169         no
+170         no
+171         no
+172         no
+173         no
+174         no
+175        yes
+176         no
+177         no
+178         no
+179         no
+180         no
+181         no
+182         no
+183         no
+184        yes
+185        yes
+186         no
+187         no
+188         no
+189         no
+190         no
+191        yes
+192        yes
+193        yes
+194         no
+195         no
+196         no
+197         no
+198         no
+199         no
+200         no
+201        yes
+202         no
+203        yes
+204         no
+205         no
+206         no
+207         no
+208         no
+209         no
+210         no
+211        yes
+212         no
+213         no
+214        yes
+215         no
+216         no
+217         no
+218         no
+219         no
+220         no
+221         no
+222         no
+223        yes
+224         no
+225         no
+226         no
+227         no
+228         no
+229         no
+230         no
+231         no
+232         no
+233        yes
+234         no
+235         no
+236         no
+237         no
+238         no
+239        yes
+240         no
+241         no
+242         no
+243         no
+244         no
+245         no
+246         no
+247         no
+248        yes
+249        yes
+250        yes
+251         no
+252         no
+253         no
+254         no
+255         no
+256         no
+257         no
+258         no
+259         no
+260         no
+261         no
+262        yes
+263         no
+264         no
+265         no
+266         no
+267         no
+268        yes
+269         no
+270        yes
+271         no
+272         no
+273        yes
+274         no
+275         no
+276         no
+277         no
+278         no
+279         no
+280         no
+281         no
+282         no
+283         no
+284         no</code></pre>
 </div>
 </div>
 </section>

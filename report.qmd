@@ -180,19 +180,96 @@ olympics_new |>
 medal_colors <- c("Gold" = "#FFD700", "Silver" = "#C0C0C0", "Bronze" = "#CD7F32")
 
 olympics_new |> 
-  filter(Sport == "Swimming", Year > 1979, medalyesno == "yes") |> 
-  group_by(Team) |>
-  filter(n() > 20) |>
-  count(Team, Medal, name = "Frequency") |>
-  mutate(Medal = factor(Medal, levels = c("Gold", "Silver", "Bronze"))) |>
-  group_by(Team) |>
-  mutate(Total_Medals = sum(Frequency)) |>
-  ungroup() |>
+  mutate(Team = if_else(Team == "Unified Team", "Russia", Team)) |> 
+  filter(Sport == "Swimming", Year > 1991, medalyesno == "yes") |> 
+  group_by(Team) |> 
+  filter(n() > 9) |> 
+  count(Team, Medal, name = "Frequency") |> 
+  mutate(Medal = factor(Medal, levels = c("Gold", "Silver", "Bronze"))) |> 
+  group_by(Team) |> 
+  mutate(Total_Medals = sum(Frequency)) |> 
+  ungroup() |> 
   ggplot(aes(x = reorder(Team, -Total_Medals), y = Frequency, fill = Medal)) +
   geom_col() +
   scale_fill_manual(values = medal_colors) +
-  labs(x = "Team", y = "Number of Medals", fill = "Medal") +
+  labs(x = "Team", y = "Number of Medals", fill = "Medal", 
+       title = "Olympic Swimming Medals by Country", subtitle = "countries with 10+ medals, 2000-2016") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+```{r}
+
+olympics_new |> 
+  mutate(Team = if_else(Team == "Unified Team", "Russia", Team)) |> 
+  filter(Sport == "Swimming", Year > 1991, medalyesno == "yes") |> 
+  group_by(Team) |> 
+  filter(n() > 9) |> 
+  count(Team, Medal, name = "Frequency") |> 
+  mutate(Medal = factor(Medal, levels = c("Gold", "Silver", "Bronze"))) |> 
+  group_by(Team) |> 
+  mutate(Total_Medals = sum(Frequency)) |> 
+  ungroup() |> 
+  ggplot(aes(x = reorder(Team, -Total_Medals), y = Frequency, fill = Medal)) +
+  geom_col() +
+  scale_fill_manual(values = medal_colors) +
+  labs(x = "Team", y = "Number of Medals", fill = "Medal", 
+       title = "Olympic Swimming Medals by Country", subtitle = "countries with 10+ medals, 2000-2016") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
+
+```{r}
+
+olympics3 <- olympics_new |> 
+  mutate(Team = if_else(Team == "Unified Team", "Russia", Team)) |> 
+  filter(Sport == "Swimming",
+         Year > 1991,
+         Team == c("United States", "Australia", "Japan", "Netherlands", "France", "China", "Germany", "Great Britain", "Russia", "Canada", "Italy", "Hungary", "South Africa", "Sweden")) |> 
+  mutate(medalyesno = as_factor(medalyesno))
+
+logistic_swim <- logistic_reg() |>
+    set_engine("glm") |>
+    fit(medalyesno ~ Team,
+        data = olympics3, family = "binomial")
+
+glance(logistic_swim)
+
+logistic_swim2 <- logistic_reg() |>
+    set_engine("glm") |>
+    fit(medalyesno ~ Team + BMI,
+        data = olympics3, family = "binomial")
+
+glance(logistic_swim2)
+
+logistic_swim3 <- logistic_reg() |>
+    set_engine("glm") |>
+    fit(medalyesno ~ Team + BMI + Height, 
+        data = olympics3, family = "binomial")
+
+glance(logistic_swim3)
+
+logistic_swim4 <- logistic_reg() |>
+    set_engine("glm") |>
+    fit(medalyesno ~ Team + BMI + Height + Age, 
+        data = olympics3, family = "binomial")
+
+glance(logistic_swim4)
+
+logistic_swim5 <- logistic_reg() |>
+    set_engine("glm") |>
+    fit(medalyesno ~ Team + BMI + Height + Weight, 
+        data = olympics3, family = "binomial")
+
+glance(logistic_swim5)
+```
+
+```{r}
+
+olympics_new |> 
+  filter(Sport == "Swimming",
+         Year > 1999,
+         Team == c("United States", "Australia", "Japan", "Netherlands", "France", "China", "Germany", "Great Britain", "Russia", "Canada", "Italy", "Hungary", "South Africa", "Sweden"))
+         
 ```
 
 # Results
