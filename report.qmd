@@ -231,7 +231,8 @@ olympics3 <- olympics_new |>
                    "Russia", "Canada", 
                    "Italy", "Hungary", 
                    "South Africa", "Sweden")) |> 
-  mutate(medalyesno = as_factor(medalyesno))
+  mutate(medalyesno = as.factor(medalyesno)) |> 
+  drop_na(Height)
 
 
 logistic_swim <- logistic_reg() |>
@@ -302,14 +303,32 @@ logistic_swim7 <- logistic_reg() |>
     set_engine("glm") |>
     fit(medalyesno ~ Height + Team,  
         data = olympics3, family = "binomial")
-
 glance(logistic_swim7)
 tidy(logistic_swim7) |> 
   knitr::kable() 
+
+
+logistic_swim8 <- logistic_reg() |>
+    set_engine("glm") |>
+    fit(medalyesno ~ Height,  
+        data = olympics3, family = "binomial")
+glance(logistic_swim8)
+tidy(logistic_swim8) |> 
+  knitr::kable() 
+
+logistic_swim9 <- logistic_reg() |>
+    set_engine("glm") |>
+    fit(medalyesno ~ Team,  
+        data = olympics3, family = "binomial")
+glance(logistic_swim9)
+tidy(logistic_swim9) |> 
+  knitr::kable() 
 ```
 
-$$\log\Big(\frac{p}{1-p}\Big) = -7.5364541 + 0.0401009*Height + [Team\ Coef.]
+$$\log\Big(\frac{p}{1-p}\Big) = -7.5364541 + 0.0401009 \times Height + [TeamCoef.]
 $$
+
+$$p = \frac{\exp(-7.5364541 + 0.0401009\times Height\ + [TeamCoef.])}{1 + \exp(-7.5364541 + 0.0401009\times Height\ + [TeamCoef.])}$$
 
 # Results
 
