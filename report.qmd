@@ -305,9 +305,7 @@ logistic_swim7 <- logistic_reg() |>
 
 glance(logistic_swim7)
 tidy(logistic_swim7) |> 
-  knitr::kable()
-
-
+  knitr::kable() 
 ```
 
 #  Results
