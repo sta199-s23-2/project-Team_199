@@ -260,7 +260,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ✖ dplyr::lag()      masks stats::lag()
 ✖ yardstick::spec() masks readr::spec()
 ✖ recipes::step()   masks stats::step()
-• Search for functions across packages at https://www.tidymodels.org/find/</code></pre>
+• Dig deeper into tidy modeling with R at https://www.tmwr.org</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -575,21 +575,7 @@ longer object length is not a multiple of shorter object length</code></pre>
           &lt;dbl&gt;   &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt; &lt;int&gt;
 1          395.     377  -144.  317.  376.     287.         363   378</code></pre>
 </div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>logistic_swim7 <span class="ot">&lt;-</span> <span class="fu">logistic_reg</span>() <span class="sc">|&gt;</span></span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_engine</span>(<span class="st">"glm"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fit</span>(medalyesno <span class="sc">~</span> Team <span class="sc">+</span> Height,  </span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> olympics3, <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a><span class="fu">glance</span>(logistic_swim7)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 8
-  null.deviance df.null logLik   AIC   BIC deviance df.residual  nobs
-          &lt;dbl&gt;   &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt; &lt;int&gt;
-1          395.     377  -144.  317.  376.     287.         363   378</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(logistic_swim7)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(logistic_swim7)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 15 × 5
    term              estimate std.error statistic p.value
@@ -609,6 +595,142 @@ longer object length is not a multiple of shorter object length</code></pre>
 13 TeamSweden         -1.16      0.728      -1.60 0.109  
 14 TeamUnited States   1.63      0.522       3.11 0.00184
 15 Height              0.0401    0.0167      2.41 0.0161 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>logistic_swim7 <span class="ot">&lt;-</span> <span class="fu">logistic_reg</span>() <span class="sc">|&gt;</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_engine</span>(<span class="st">"glm"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fit</span>(medalyesno <span class="sc">~</span> Height <span class="sc">+</span> Team,  </span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> olympics3, <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a><span class="fu">glance</span>(logistic_swim7)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 8
+  null.deviance df.null logLik   AIC   BIC deviance df.residual  nobs
+          &lt;dbl&gt;   &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt; &lt;int&gt;
+1          395.     377  -144.  317.  376.     287.         363   378</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(logistic_swim7) <span class="sc">|&gt;</span> </span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<thead>
+<tr class="header">
+<th style="text-align: left;">term</th>
+<th style="text-align: right;">estimate</th>
+<th style="text-align: right;">std.error</th>
+<th style="text-align: right;">statistic</th>
+<th style="text-align: right;">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">-7.5364541</td>
+<td style="text-align: right;">3.0222801</td>
+<td style="text-align: right;">-2.493632</td>
+<td style="text-align: right;">0.0126444</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Height</td>
+<td style="text-align: right;">0.0401009</td>
+<td style="text-align: right;">0.0166577</td>
+<td style="text-align: right;">2.407350</td>
+<td style="text-align: right;">0.0160688</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TeamCanada</td>
+<td style="text-align: right;">-2.4016185</td>
+<td style="text-align: right;">0.8092747</td>
+<td style="text-align: right;">-2.967619</td>
+<td style="text-align: right;">0.0030012</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TeamChina</td>
+<td style="text-align: right;">-1.8478142</td>
+<td style="text-align: right;">0.6986759</td>
+<td style="text-align: right;">-2.644737</td>
+<td style="text-align: right;">0.0081754</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TeamFrance</td>
+<td style="text-align: right;">-1.7962859</td>
+<td style="text-align: right;">0.7071702</td>
+<td style="text-align: right;">-2.540104</td>
+<td style="text-align: right;">0.0110819</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TeamGermany</td>
+<td style="text-align: right;">-1.4709515</td>
+<td style="text-align: right;">0.5768240</td>
+<td style="text-align: right;">-2.550087</td>
+<td style="text-align: right;">0.0107696</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TeamGreat Britain</td>
+<td style="text-align: right;">-3.1181233</td>
+<td style="text-align: right;">1.0775970</td>
+<td style="text-align: right;">-2.893589</td>
+<td style="text-align: right;">0.0038087</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TeamHungary</td>
+<td style="text-align: right;">-2.0786095</td>
+<td style="text-align: right;">0.8191494</td>
+<td style="text-align: right;">-2.537522</td>
+<td style="text-align: right;">0.0111640</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TeamItaly</td>
+<td style="text-align: right;">-1.6192694</td>
+<td style="text-align: right;">0.7117530</td>
+<td style="text-align: right;">-2.275044</td>
+<td style="text-align: right;">0.0229033</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TeamJapan</td>
+<td style="text-align: right;">-2.5335523</td>
+<td style="text-align: right;">1.0810428</td>
+<td style="text-align: right;">-2.343619</td>
+<td style="text-align: right;">0.0190977</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TeamNetherlands</td>
+<td style="text-align: right;">-1.5083302</td>
+<td style="text-align: right;">0.7144247</td>
+<td style="text-align: right;">-2.111251</td>
+<td style="text-align: right;">0.0347507</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TeamRussia</td>
+<td style="text-align: right;">-1.9544265</td>
+<td style="text-align: right;">0.6437147</td>
+<td style="text-align: right;">-3.036169</td>
+<td style="text-align: right;">0.0023961</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TeamSouth Africa</td>
+<td style="text-align: right;">-1.8619358</td>
+<td style="text-align: right;">0.8377047</td>
+<td style="text-align: right;">-2.222664</td>
+<td style="text-align: right;">0.0262385</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TeamSweden</td>
+<td style="text-align: right;">-1.1646447</td>
+<td style="text-align: right;">0.7276161</td>
+<td style="text-align: right;">-1.600631</td>
+<td style="text-align: right;">0.1094587</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TeamUnited States</td>
+<td style="text-align: right;">1.6256412</td>
+<td style="text-align: right;">0.5219540</td>
+<td style="text-align: right;">3.114529</td>
+<td style="text-align: right;">0.0018424</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </section>
