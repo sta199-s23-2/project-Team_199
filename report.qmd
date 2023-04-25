@@ -284,15 +284,7 @@ logistic_swim7 <- logistic_reg() |> ## this one!
 glance(logistic_swim7)
 ```
 
-```{r}
-
-logistic_swim3 <- logistic_reg() |>
-    set_engine("glm") |>
-    fit(medalyesno ~ Team + BMI + Weight,
-        data = olympics3, family = "binomial")
-
-glance(logistic_swim3) 
-tidy(logistic_swim3)
+```{r final_model}
 
 logistic_swim7 <- logistic_reg() |> ## 7th variation of the logistic model
     set_engine("glm") |>
