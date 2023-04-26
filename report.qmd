@@ -4,7 +4,7 @@ subtitle: "Report"
 format: html
 editor: visual
 execute:
-  echo: true
+  echo: false
 ---
 
 # Introduction
@@ -231,6 +231,8 @@ logistic_swim7 <- logistic_reg() |> ## this one!
 
 glance(logistic_swim7)
 ```
+
+A variety of logistic models using the Team, Height, Weight, and BMI variables were then created and evaluated by AIC. The lowest AIC (and lowest p values) were for the model that fit Team and Height. Other models had similar AICs, but p values that were too high to be useful.
 
 ```{r final_model}
 
