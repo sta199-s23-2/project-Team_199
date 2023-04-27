@@ -9,4 +9,4 @@ editor: visual
 
 Title : "Team 199: Olympics"
 
-Abstract:
+Abstract: The purpose of this study is to determine whether characteristics of Olympic swimmers, such as nationality, height, weight, age, and BMI, are related to how well they perform in swimming competitions. The question we explored was, which trait ultimately has the greatest impact on Olympic swimmers? We set out to investigate using a Kaggle dataset containing information about Olympic athletes. Our hypothesis was that the two factors most likely to affect Olympic swimmers' performance were height and nationality.
