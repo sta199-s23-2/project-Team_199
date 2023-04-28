@@ -1,15 +1,16 @@
 ---
 title: "Team 199: Olympics"
-subtitle: "Report"
+subtitle: "What factors best predict Olymic swimming success?"
 format: html
 editor: visual
 execute:
   echo: false
+  warning: false 
 ---
 
 # Introduction
 
-Throughout our project, we want to explore the relationship between Olympic athletes' traits and successful performance in swimming. We aim to define which traits---particularly nationality, BMI, weight, and height---influence athletes' performance. We seek to answer the question: which trait ultimately affects Olympic swimmers the most? Within this question, we investigate event, country, sex, medal, height, and weight. We hypothesize that height and nationality will impact Olympic swimmers the most. Filtering the data to address Olympic swim meets from the year 2000 and beyond, we aim to answer our research question via visually comprehensible plots and logistic models.
+Throughout our project, we want to explore the relationship between Olympic athletes' traits and successful performance in swimming. We aim to determine which traits---between nationality, BMI, weight, age, and height---influence athletes' performance. We seek to answer the question: which trait or traits ultimately affect Olympic swimmers the most? Within this question, we investigate event, country, sex, medal, height, and weight. We hypothesize that height and nationality will impact Olympic swimmers the most. Filtering the data to address Olympic swim meets from the year 1992 and beyond, we aim to answer our research question via visually comprehensible plots and logistic models.
 
 # Research question & Data
 
@@ -49,17 +50,15 @@ The data is a cleaned dataset created by a user on Kaggle (https://www.kaggle.co
 
 # Literature
 
-One published credible article on the topic that we are interested in researching is an article published by Swimming World Magazine, a US-based monthly swimming magazine that was first published in January 1960. It concurrently runs online websites Swimming World Magazine and Swimming World News, and the headquarters is in Phoenix, Arizona. The particular article that applies to our research is their March 2023 article, "What Makes the Perfect Swimmer's Body?".
+One published credible journal article on the topic that we are interested in researching is an article published by the Institute of Electrical and Electronics Engineers, which entails an algorithim developed by researchers Wojciech Sałabun et. al to determine a swimmer assessment model based on ten factors: weight, height, age, foot length, arms-height-ratio, swimming technique, flexibility, maximum heart rate, fat index, fat-muscle-ratio, and best FINA result (the athlete's results against the world record in a given swimming competition). To produce this algorithim, 30 professional male swimmers were assessed in all of these categories. (See article here: https://ieeexplore.ieee.org/abstract/document/9673753).
 
-Since our research is seeking the physical traits that have the strongest correlation with successful swimmer performance, this article acts as a foundation for our inspiration and our hypothesis.
+Since our research is seeking the physical traits that have the strongest correlation with successful swimmer performance, this article acts as a foundation for our project inspiration.
 
-In this article, the author JP Mortenson, an alumnus of Dartmouth's swimming and diving team and a physical therapist for professional swimmers, lists traits that many professional and Olympic swimmers have that have aided in their past athletic successes.
+Other literature provided the basis of our hypothesis in this field of athletic research. A journal article published by Tim Ackland from the the University of Western Australia's department of Human Movement and Exercise Science lists traits that many professional and Olympic swimmers have that have aided in their past athletic successes. One of these main traits was found to be upper and lower limb length depending on swim event. These results were derived from a myriad of previous swim studies across continents and assessments from youth swimmers, adult swimmers, and professional swimmers alike.
 
-One of these traits is height, which is also found in our data set. JP claims hat height tends to give swimmers a distinct advantage in the pool, as made apparent by elite international male and female swimmers such as Nathan Adrian (6'6), Kilment Kolesnikov(6'5), Michael Andrew (6'5), Sarah Sjostrom (6'0), Olympic gold medalist Simone Manuel (5'11), and Olympic gold medalist Katie Ledeckey (5'11). The author even goes on to state that the average height of the 2016 Olympic finalists in Rio was 6'2 for men and 5'9 for women, which is 5 inches above the global average male and female heights respectively (worlddata.info and ourworldindata.org). Other traits that seem to lead to athletic success in the sector of swimming that were listed in this article include anthropometry, center of mass, flexibility, hyperextension abilities, and mental strength.
+Since the trait that is most correlated with limb length is height, which is in our data set, we hypothesize that height will be greatly correlated with the success of an Olympic swimmer. The article claims that height tends to give swimmers a distinct advantage in the pool, as made apparent by elite international male and female swimmers such as Nathan Adrian (6'6), Kilment Kolesnikov(6'5), Michael Andrew (6'5), Sarah Sjostrom (6'0), Olympic gold medalist Simone Manuel (5'11), and Olympic gold medalist Katie Ledeckey (5'11). In addition, data from the 2016 Olympic finals states that the average height of the finalists in Rio was 6'2 for men and 5'9 for women, which is 5 inches above the global average male and female heights respectively (worlddata.info and ourworldindata.org). Other traits that seem to lead to athletic success in the sector of swimming that were listed in Ackland's article include tall stature, limb length, chest girth, foot length, arm span, body mass, and psychology (https://ro.ecu.edu.au/cgi/viewcontent.cgi?article=8132&context=ecuworks#page=76).
 
-Our research question, "Which trait ultimately affects Olympic swimmers' performance the most?" builds upon this article because it would lend more concrete statistical evidence to many observed correlations such as height. Although this article provides evidence to its claims by citing corresponding examples of athletes, our research question will be able to build upon these claims by calling more physical traits into question, and specific swimming events in which these traits have the strongest correlations with success.
-
-Article: https://www.swimmingworldmagazine.com/news/what-makes-the-perfect-swimmers-body/
+Our research question, "Which trait ultimately affects Olympic swimmers' performance the most?" builds upon this article because it would lend more concrete statistical evidence to many observed correlations such as height. Although this article provides evidence to its claims by citing corresponding examples of athletes and previous research, our research question will be able to build upon these claims by calling more physical traits into question, and specific swimming events in which these traits have the strongest correlations with success.
 
 # Methodology
 
@@ -117,7 +116,7 @@ olympics_new2 |>
   geom_boxplot() + 
   facet_wrap(~Sex) + 
   labs(title = "BMI vs. Medal Earned", 
-       subtitle = "for Women and Men, 2000-2016 Olympics",
+       subtitle = "for Women and Men, 1992-2016 Olympics",
        x = "BMI of Athlete", 
        y = "Type of Medal Earned")
 
@@ -128,7 +127,7 @@ olympics_new2 |>
   geom_boxplot() + 
   facet_wrap(~Sex) + 
   labs(title = "Height vs. Medal Earned", 
-       subtitle = "for Women and Men, 2000-2016 Olympics",
+       subtitle = "for Women and Men, 1992-2016 Olympics",
        x = "Height of Athlete (cm)", 
        y = "Type of Medal Earned")
 
@@ -139,7 +138,7 @@ olympics_new2 |>
   geom_boxplot() + 
   facet_wrap(~Sex) + 
   labs(title = "Weight vs. Medal Earned", 
-       subtitle = "for Women and Men, 2000-2016 Olympics",
+       subtitle = "for Women and Men, 1992-2016 Olympics",
        x = "Weight of Athlete (Kg)", 
        y = "Type of Medal Earned")
 
@@ -149,7 +148,7 @@ olympics_new2 |>
   ggplot(aes(x = Age, y = medal)) + 
   geom_boxplot() + 
   facet_wrap(~Sex) + 
-  labs(title = "Age vs. Medal Earned, 2000-2016 Olympics", 
+  labs(title = "Age vs. Medal Earned, 1992-2016 Olympics", 
        subtitle = "for Women and Men",
        x = "Age of Athlete", 
        y = "Type of Medal Earned")
@@ -160,8 +159,9 @@ The typical BMI, height, and weight for swimmers increased slightly as their med
 
 A logistic regression model was chosen to determine which variables have the strongest effect on swimmer performance. For this model, all medals were merged into one category, and the model attempted to predict whether or not an athlete would win any medal based on their traits. Based on the visualization results, Age was excluded as a variable to be tested, leaving Team, Height, Weight, and BMI. The model only included the countries that had earned ten or more medals, making the assumption that athletes from other countries had a negligible likelihood of winning.
 
-```{r}
+The first attempt at the model used only **Team** as a predictor, and yielded an AIC of 321.2.
 
+```{r}
 olympics3 <- olympics_new2 |> 
   mutate(Team = if_else(Team == "Unified Team", "Russia", Team)) |> 
   filter(Sport == "Swimming",
@@ -183,6 +183,11 @@ logistic_swim <- logistic_reg() |>
         data = olympics3, family = "binomial")
 
 glance(logistic_swim)
+```
+
+Next, BMI was added to the model (yielding **Team + BMI**). This raised the AIC to 322.5, so BMI was discarded as a predictor.
+
+```{r}
 
 logistic_swim2 <- logistic_reg() |>
     set_engine("glm") |>
@@ -190,6 +195,11 @@ logistic_swim2 <- logistic_reg() |>
         data = olympics3, family = "binomial") 
 
 glance(logistic_swim2) #this made AIC worse 
+```
+
+With BMI discarded, Weight was tested next (yielding **Team + Weight**). This lowered the AIC to 319.5, so it will be carried forward.
+
+```{r}
 
 logistic_swim3 <- logistic_reg() |>
     set_engine("glm") |>
@@ -197,13 +207,22 @@ logistic_swim3 <- logistic_reg() |>
         data = olympics3, family = "binomial")
 
 glance(logistic_swim3) #slightly better 
+```
 
+Next, Height was added to the model (yielding **Team + Weight + Height**), for an even lower AIC of 317.8.
+
+```{r}
 logistic_swim4 <- logistic_reg() |>
     set_engine("glm") |>
     fit(medalyesno ~ Team + Weight + Height, 
         data = olympics3, family = "binomial") 
 
 glance(logistic_swim4) #best yet
+```
+
+Next, new combinations of these three variables were tested. First, Team was removed (yielding **Height + Weight**). This raised the AIC sharply to 392.6, so Team will remain in the model.
+
+```{r}
 
 logistic_swim5 <- logistic_reg() |>
     set_engine("glm") |>
@@ -211,6 +230,11 @@ logistic_swim5 <- logistic_reg() |>
         data = olympics3, family = "binomial")
 
 glance(logistic_swim5) #testing without Team. Just awful
+```
+
+Next, Weight was removed (yielding **Team + Height**). This gave the lowest AIC yet, 317.2, so this is the best model in terms of AIC.
+
+```{r}
 
 logistic_swim6 <- logistic_reg() |>
     set_engine("glm") |>
@@ -218,6 +242,11 @@ logistic_swim6 <- logistic_reg() |>
         data = olympics3, family = "binomial")
 
 glance(logistic_swim6) #testing without Weight. Better than with. 
+```
+
+Lastly, a model that uses only **Height** allows direct comparison between the Team and Height variables. It yields an AIC of 391.2, far higher than the Team model's 321.1. Team is therefore the more predictive of the two best variables.
+
+```{r}
 
 logistic_swim7 <- logistic_reg() |> 
     set_engine("glm") |>
@@ -227,47 +256,29 @@ logistic_swim7 <- logistic_reg() |>
 glance(logistic_swim7) #testing with just Height. much worse than just Team 
 ```
 
-This set of logistic models yielded two models with comparable AIC values: Team + Height + Weight and Team + Height. Models that did not incorporate the Team variable had far higher AIC than those that did, while the model with Team alone had an AIC close to the final model. This makes it clear that Team is the variable that best predicts medaling. The p-values of the two best models were checked to determine which yielded more significant results.
+This series of logistic models yielded two models with comparable AIC values: Team + Height + Weight and Team + Height. Models that did not incorporate the Team variable had far higher AIC than those that did, while the model with Team alone had an AIC close to the final model. This makes it clear that Team is the variable that best predicts medaling. The p-values of the two best models were checked to determine which yielded more significant results.
 
-```{r final_model}
-
-tidy(logistic_swim6) |> 
-  knitr::kable() 
-
-tidy(logistic_swim4) |> 
-  knitr::kable() 
-
-```
+The model with **Team + Weight + Height** had a p value of 0.323 for the Weight coefficient, which shows a low level of certainty in this variable.
 
 ```{r}
 
-logistic_swim90 <- logistic_reg() |>
-    set_engine("glm") |>
-    fit(medalyesno ~ Height + Team,  
-        data = olympics3, family = "binomial")
-glance(logistic_swim90)
-tidy(logistic_swim90) |> 
-  knitr::kable() 
-
-logistic_swim8 <- logistic_reg() |>
-    set_engine("glm") |>
-    fit(medalyesno ~ Height,  
-        data = olympics3, family = "binomial")
-glance(logistic_swim8)
-tidy(logistic_swim8) |> 
-  knitr::kable() 
-
-logistic_swim9 <- logistic_reg() |>
-    set_engine("glm") |>
-    fit(medalyesno ~ Team,  
-        data = olympics3, family = "binomial")
-glance(logistic_swim9)
-tidy(logistic_swim9) |> 
+tidy(logistic_swim4) |> 
   knitr::kable() 
 ```
 
+The model with just **Height + Weight** had p values below 0.05 for all coefficients besides Team Sweden (p = 0.109), which is far better than the previous model. Though the AIC values were similar, the difference between p values make the Height + Weight model far superior.
+
+```{r final_model}
+tidy(logistic_swim6) |> 
+  knitr::kable() 
+```
+
+The final regression equation with the best model is as follows:
+
 $$\log\Big(\frac{p}{1-p}\Big) = -7.5364541 + 0.0401009 \times Height + [TeamCoef.]
 $$
+
+or:
 
 $$p = \frac{\exp(-7.5364541 + 0.0401009\times Height\ + [TeamCoef.])}{1 + \exp(-7.5364541 + 0.0401009\times Height\ + [TeamCoef.])}$$
 
