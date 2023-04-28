@@ -134,7 +134,7 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
-<p>Throughout our project, we want to explore the correlation between Olympic athletes’ traits and performance in swimming. We aim to define which traits—particularly nationality, BMI, weight, and height—influence athletes’ performance. We seek to answer the question: which trait ultimately affects Olympic swimmers the most? This question involves categorical variables such as event, country, sex, and medal, as well as quantitative variables such as height and weight. We hypothesize that height and nationality will impact Olympic swimmers the most.</p>
+<p>Throughout our project, we want to explore the relationship between Olympic athletes’ traits and successful performance in swimming. We aim to define which traits—particularly nationality, BMI, weight, and height—influence athletes’ performance. We seek to answer the question: which trait ultimately affects Olympic swimmers the most? Within this question, we investigate event, country, sex, medal, height, and weight. We hypothesize that height and nationality will impact Olympic swimmers the most. Filtering the data to address Olympic swim meets from the year 2000 and beyond, we aim to answer our research question via visually comprehensible plots and logistic models.</p>
 </section>
 <section id="research-question-data" class="level1">
 <h1>Research question &amp; Data</h1>
@@ -169,7 +169,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="methodology" class="level1">
 <h1>Methodology</h1>
-<p>The differences between swimmers are best shown through data visualization. The data was filtered to show only results from the 2000 Summer games and the years since, to make it more applicable to modern games. The relationship between national origin and medal results was shown in two ways: the first plot shows how many swimming medals of each kind had gone to each country, while the second plot shows the proportion of competitors from the top seven countries who earned medals.</p>
+<p>The differences between swimmers are best shown through data visualization. The data was filtered to show only results from the 1992 Summer games and the years since, to make it more applicable to modern games while maintaining a large sample size. The relationship between national origin and medal results was shown through a stacked bar plot that shows the number of each type of medals earned by each country with at least ten medals.</p>
 <div class="cell">
 <div class="cell-output cell-output-stderr">
 <pre><code>── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
@@ -196,7 +196,7 @@ ul.task-list li input[type="checkbox"] {
 ✖ dplyr::lag()      masks stats::lag()
 ✖ yardstick::spec() masks readr::spec()
 ✖ recipes::step()   masks stats::step()
-• Use suppressPackageStartupMessages() to eliminate package startup messages
+• Search for functions across packages at https://www.tidymodels.org/find/
 
 Loading required package: timechange
 
@@ -210,29 +210,12 @@ The following objects are masked from 'package:base':
 </div>
 </div>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 38 × 3
-# Groups:   Team [38]
-   Team          medalyesno     n
-   &lt;chr&gt;         &lt;chr&gt;      &lt;int&gt;
- 1 United States yes          338
- 2 Australia     yes          195
- 3 Japan         yes           53
- 4 Netherlands   yes           48
- 5 France        yes           47
- 6 China         yes           41
- 7 Germany       yes           32
- 8 Great Britain yes           24
- 9 Russia        yes           24
-10 Canada        yes           20
-# … with 28 more rows</code></pre>
-</div>
 <div class="cell-output-display">
 <p><img src="report_files/figure-html/country_comparisons-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>These visualizations show a very strong relationship between national origin and Olympic swimming performance. Australian and American swimmers had by far the majority of all medal types. National origin is thus a strong predictive factor for swimming performance.</p>
-<p>Next, parallel boxplots were used to compare the ranges for athlete’s physical traits and age, comparing different medalists to non-medalists.</p>
+<p>These visualizations show a very strong relationship between national origin and Olympic swimming performance. Australian and American swimmers had by far the majority of all medal types, while the majority of countries had a negligible number. National origin is thus a strong predictive factor for swimming performance.</p>
+<p>Next, parallel boxplots were used to compare the ranges for athlete’s physical traits and age, comparing different medalists to non-medalists. Each plot was faceted by age to determine if trends in age or physical characteristics differed for males and females.</p>
 <div class="cell">
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Removed 990 rows containing non-finite values (`stat_boxplot()`).</code></pre>
@@ -259,7 +242,8 @@ The following objects are masked from 'package:base':
 <p><img src="report_files/figure-html/athlete_stats-4.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>The typical BMI, height, and weight for swimmers increased as their medal rank did (so the typical gold winner was slightly taller and heavier, and had a higher BMI than the other medalists as well as non-medalists). These results are conserved across sex in each category. The age of the swimmer had no meaningful correlation with results; there are slight differences between medal categories but no large effect or clear trend.</p>
+<p>The typical BMI, height, and weight for swimmers increased slightly as their medal rank did (so the typical gold winner was slightly taller and heavier, and had a higher BMI than the other medalists as well as non-medalists). These results are conserved across sex in each category. The age of the swimmer had no meaningful correlation with results; there are slight differences between medal categories but no large effect or clear trend.</p>
+<p>A logistic regression model was chosen to determine which variables have the strongest effect on swimmer performance. For this model, all medals were merged into one category, and the model attempted to predict whether or not an athlete would win any medal based on their traits. Based on the visualization results, Age was excluded as a variable to be tested, leaving Team, Height, Weight, and BMI. The model only included the countries that had earned ten or more medals, making the assumption that athletes from other countries had a negligible likelihood of winning.</p>
 <div class="cell">
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in Team == c("United States", "Australia", "Japan", "Netherlands", :
@@ -281,25 +265,19 @@ longer object length is not a multiple of shorter object length</code></pre>
 <pre><code># A tibble: 1 × 8
   null.deviance df.null logLik   AIC   BIC deviance df.residual  nobs
           &lt;dbl&gt;   &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt; &lt;int&gt;
-1          395.     376  -143.  318.  381.     286.         361   377</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 8
-  null.deviance df.null logLik   AIC   BIC deviance df.residual  nobs
-          &lt;dbl&gt;   &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt; &lt;int&gt;
-1          395.     376  -143.  320.  387.     286.         360   377</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 8
-  null.deviance df.null logLik   AIC   BIC deviance df.residual  nobs
-          &lt;dbl&gt;   &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt; &lt;int&gt;
-1          395.     376  -143.  320.  387.     286.         360   377</code></pre>
+1          395.     376  -145.  320.  378.     290.         362   377</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 8
   null.deviance df.null logLik   AIC   BIC deviance df.residual  nobs
           &lt;dbl&gt;   &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt; &lt;int&gt;
 1          395.     376  -143.  318.  381.     286.         361   377</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 8
+  null.deviance df.null logLik   AIC   BIC deviance df.residual  nobs
+          &lt;dbl&gt;   &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt; &lt;int&gt;
+1          395.     376  -193.  393.  404.     387.         374   377</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 8
@@ -307,34 +285,261 @@ longer object length is not a multiple of shorter object length</code></pre>
           &lt;dbl&gt;   &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt; &lt;int&gt;
 1          395.     377  -144.  317.  376.     287.         363   378</code></pre>
 </div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 8
+  null.deviance df.null logLik   AIC   BIC deviance df.residual  nobs
+          &lt;dbl&gt;   &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt; &lt;int&gt;
+1          395.     377  -194.  391.  399.     387.         376   378</code></pre>
 </div>
-<p>A variety of logistic models using the Team, Height, Weight, and BMI variables were then created and evaluated by AIC. The lowest AIC (and lowest p values) were for the model that fit Team and Height. Other models had similar AICs, but p values that were too high to be useful.</p>
+</div>
+<p>This set of logistic models yielded two models with comparable AIC values: Team + Height + Weight and Team + Height. Models that did not incorporate the Team variable had far higher AIC than those that did, while the model with Team alone had an AIC close to the final model. This makes it clear that Team is the variable that best predicts medaling. The p-values of the two best models were checked to determine which yielded more significant results.</p>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 8
-  null.deviance df.null logLik   AIC   BIC deviance df.residual  nobs
-          &lt;dbl&gt;   &lt;int&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt; &lt;int&gt;
-1          395.     377  -144.  317.  376.     287.         363   378</code></pre>
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<thead>
+<tr class="header">
+<th style="text-align: left;">term</th>
+<th style="text-align: right;">estimate</th>
+<th style="text-align: right;">std.error</th>
+<th style="text-align: right;">statistic</th>
+<th style="text-align: right;">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">-7.5364541</td>
+<td style="text-align: right;">3.0222801</td>
+<td style="text-align: right;">-2.493632</td>
+<td style="text-align: right;">0.0126444</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TeamCanada</td>
+<td style="text-align: right;">-2.4016185</td>
+<td style="text-align: right;">0.8092747</td>
+<td style="text-align: right;">-2.967619</td>
+<td style="text-align: right;">0.0030012</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TeamChina</td>
+<td style="text-align: right;">-1.8478142</td>
+<td style="text-align: right;">0.6986759</td>
+<td style="text-align: right;">-2.644737</td>
+<td style="text-align: right;">0.0081754</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TeamFrance</td>
+<td style="text-align: right;">-1.7962859</td>
+<td style="text-align: right;">0.7071702</td>
+<td style="text-align: right;">-2.540104</td>
+<td style="text-align: right;">0.0110819</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TeamGermany</td>
+<td style="text-align: right;">-1.4709515</td>
+<td style="text-align: right;">0.5768240</td>
+<td style="text-align: right;">-2.550087</td>
+<td style="text-align: right;">0.0107696</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TeamGreat Britain</td>
+<td style="text-align: right;">-3.1181233</td>
+<td style="text-align: right;">1.0775970</td>
+<td style="text-align: right;">-2.893589</td>
+<td style="text-align: right;">0.0038087</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TeamHungary</td>
+<td style="text-align: right;">-2.0786095</td>
+<td style="text-align: right;">0.8191494</td>
+<td style="text-align: right;">-2.537522</td>
+<td style="text-align: right;">0.0111640</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TeamItaly</td>
+<td style="text-align: right;">-1.6192694</td>
+<td style="text-align: right;">0.7117530</td>
+<td style="text-align: right;">-2.275044</td>
+<td style="text-align: right;">0.0229033</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TeamJapan</td>
+<td style="text-align: right;">-2.5335523</td>
+<td style="text-align: right;">1.0810428</td>
+<td style="text-align: right;">-2.343619</td>
+<td style="text-align: right;">0.0190977</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TeamNetherlands</td>
+<td style="text-align: right;">-1.5083302</td>
+<td style="text-align: right;">0.7144247</td>
+<td style="text-align: right;">-2.111251</td>
+<td style="text-align: right;">0.0347507</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TeamRussia</td>
+<td style="text-align: right;">-1.9544265</td>
+<td style="text-align: right;">0.6437147</td>
+<td style="text-align: right;">-3.036169</td>
+<td style="text-align: right;">0.0023961</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TeamSouth Africa</td>
+<td style="text-align: right;">-1.8619358</td>
+<td style="text-align: right;">0.8377047</td>
+<td style="text-align: right;">-2.222664</td>
+<td style="text-align: right;">0.0262385</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TeamSweden</td>
+<td style="text-align: right;">-1.1646447</td>
+<td style="text-align: right;">0.7276161</td>
+<td style="text-align: right;">-1.600631</td>
+<td style="text-align: right;">0.1094587</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TeamUnited States</td>
+<td style="text-align: right;">1.6256412</td>
+<td style="text-align: right;">0.5219540</td>
+<td style="text-align: right;">3.114529</td>
+<td style="text-align: right;">0.0018424</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Height</td>
+<td style="text-align: right;">0.0401009</td>
+<td style="text-align: right;">0.0166577</td>
+<td style="text-align: right;">2.407350</td>
+<td style="text-align: right;">0.0160688</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 15 × 5
-   term              estimate std.error statistic p.value
-   &lt;chr&gt;                &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
- 1 (Intercept)        -7.54      3.02       -2.49 0.0126 
- 2 TeamCanada         -2.40      0.809      -2.97 0.00300
- 3 TeamChina          -1.85      0.699      -2.64 0.00818
- 4 TeamFrance         -1.80      0.707      -2.54 0.0111 
- 5 TeamGermany        -1.47      0.577      -2.55 0.0108 
- 6 TeamGreat Britain  -3.12      1.08       -2.89 0.00381
- 7 TeamHungary        -2.08      0.819      -2.54 0.0112 
- 8 TeamItaly          -1.62      0.712      -2.28 0.0229 
- 9 TeamJapan          -2.53      1.08       -2.34 0.0191 
-10 TeamNetherlands    -1.51      0.714      -2.11 0.0348 
-11 TeamRussia         -1.95      0.644      -3.04 0.00240
-12 TeamSouth Africa   -1.86      0.838      -2.22 0.0262 
-13 TeamSweden         -1.16      0.728      -1.60 0.109  
-14 TeamUnited States   1.63      0.522       3.11 0.00184
-15 Height              0.0401    0.0167      2.41 0.0161 </code></pre>
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<thead>
+<tr class="header">
+<th style="text-align: left;">term</th>
+<th style="text-align: right;">estimate</th>
+<th style="text-align: right;">std.error</th>
+<th style="text-align: right;">statistic</th>
+<th style="text-align: right;">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">-11.6760426</td>
+<td style="text-align: right;">5.1897384</td>
+<td style="text-align: right;">-2.2498326</td>
+<td style="text-align: right;">0.0244596</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TeamCanada</td>
+<td style="text-align: right;">-2.4319881</td>
+<td style="text-align: right;">0.8117090</td>
+<td style="text-align: right;">-2.9961329</td>
+<td style="text-align: right;">0.0027343</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TeamChina</td>
+<td style="text-align: right;">-1.8652685</td>
+<td style="text-align: right;">0.7009288</td>
+<td style="text-align: right;">-2.6611384</td>
+<td style="text-align: right;">0.0077877</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TeamFrance</td>
+<td style="text-align: right;">-1.8211837</td>
+<td style="text-align: right;">0.7094199</td>
+<td style="text-align: right;">-2.5671451</td>
+<td style="text-align: right;">0.0102540</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TeamGermany</td>
+<td style="text-align: right;">-1.5421944</td>
+<td style="text-align: right;">0.5816299</td>
+<td style="text-align: right;">-2.6515048</td>
+<td style="text-align: right;">0.0080134</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TeamGreat Britain</td>
+<td style="text-align: right;">-3.1300410</td>
+<td style="text-align: right;">1.0777603</td>
+<td style="text-align: right;">-2.9042088</td>
+<td style="text-align: right;">0.0036818</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TeamHungary</td>
+<td style="text-align: right;">-2.1062137</td>
+<td style="text-align: right;">0.8203470</td>
+<td style="text-align: right;">-2.5674666</td>
+<td style="text-align: right;">0.0102445</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TeamItaly</td>
+<td style="text-align: right;">-1.6384474</td>
+<td style="text-align: right;">0.7135594</td>
+<td style="text-align: right;">-2.2961613</td>
+<td style="text-align: right;">0.0216667</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TeamJapan</td>
+<td style="text-align: right;">-2.4885067</td>
+<td style="text-align: right;">1.0828470</td>
+<td style="text-align: right;">-2.2981147</td>
+<td style="text-align: right;">0.0215553</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TeamNetherlands</td>
+<td style="text-align: right;">-1.6327879</td>
+<td style="text-align: right;">0.7278732</td>
+<td style="text-align: right;">-2.2432313</td>
+<td style="text-align: right;">0.0248819</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TeamRussia</td>
+<td style="text-align: right;">-2.0623226</td>
+<td style="text-align: right;">0.6547879</td>
+<td style="text-align: right;">-3.1496040</td>
+<td style="text-align: right;">0.0016349</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TeamSouth Africa</td>
+<td style="text-align: right;">-1.8022148</td>
+<td style="text-align: right;">0.8399601</td>
+<td style="text-align: right;">-2.1455959</td>
+<td style="text-align: right;">0.0319052</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TeamSweden</td>
+<td style="text-align: right;">-1.1190584</td>
+<td style="text-align: right;">0.7423960</td>
+<td style="text-align: right;">-1.5073605</td>
+<td style="text-align: right;">0.1317183</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TeamUnited States</td>
+<td style="text-align: right;">1.6565604</td>
+<td style="text-align: right;">0.5241582</td>
+<td style="text-align: right;">3.1604204</td>
+<td style="text-align: right;">0.0015754</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Weight</td>
+<td style="text-align: right;">-0.0302190</td>
+<td style="text-align: right;">0.0306008</td>
+<td style="text-align: right;">-0.9875227</td>
+<td style="text-align: right;">0.3233865</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Height</td>
+<td style="text-align: right;">0.0751934</td>
+<td style="text-align: right;">0.0393608</td>
+<td style="text-align: right;">1.9103610</td>
+<td style="text-align: right;">0.0560868</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div class="cell">

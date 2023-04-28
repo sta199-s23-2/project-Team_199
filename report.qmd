@@ -63,7 +63,7 @@ Article: https://www.swimmingworldmagazine.com/news/what-makes-the-perfect-swimm
 
 # Methodology
 
-The differences between swimmers are best shown through data visualization. The data was filtered to show only results from the 2000 Summer games and the years since, to make it more applicable to modern games. The relationship between national origin and medal results was shown in two ways: the first plot shows how many swimming medals of each kind had gone to each country, while the second plot shows the proportion of competitors from the top seven countries who earned medals.
+The differences between swimmers are best shown through data visualization. The data was filtered to show only results from the 1992 Summer games and the years since, to make it more applicable to modern games while maintaining a large sample size. The relationship between national origin and medal results was shown through a stacked bar plot that shows the number of each type of medals earned by each country with at least ten medals.
 
 ```{r gearing_up_data}
 
@@ -83,13 +83,6 @@ olympics_new <- as.data.frame(olympics_new)
 
 olympics_new2 <- olympics_new|> 
   mutate(Team = if_else(Team == "Unified Team", "Russia", Team))
-
-olympics_new2 |> 
-  filter(Sport == "Swimming", Year > 1999) |> 
-  group_by(Team) |> 
-  filter(medalyesno == "yes") |> 
-  count(medalyesno) |> 
-  arrange(desc(n))
 
 medal_colors <- c("Gold" = "#FFD700", "Silver" = "#C0C0C0", "Bronze" = "#CD7F32")
 
@@ -111,9 +104,9 @@ olympics_new2 |>
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
-These visualizations show a very strong relationship between national origin and Olympic swimming performance. Australian and American swimmers had by far the majority of all medal types. National origin is thus a strong predictive factor for swimming performance.
+These visualizations show a very strong relationship between national origin and Olympic swimming performance. Australian and American swimmers had by far the majority of all medal types, while the majority of countries had a negligible number. National origin is thus a strong predictive factor for swimming performance.
 
-Next, parallel boxplots were used to compare the ranges for athlete's physical traits and age, comparing different medalists to non-medalists.
+Next, parallel boxplots were used to compare the ranges for athlete's physical traits and age, comparing different medalists to non-medalists. Each plot was faceted by age to determine if trends in age or physical characteristics differed for males and females.
 
 ```{r athlete_stats}
 
@@ -163,7 +156,9 @@ olympics_new2 |>
 
 ```
 
-The typical BMI, height, and weight for swimmers increased as their medal rank did (so the typical gold winner was slightly taller and heavier, and had a higher BMI than the other medalists as well as non-medalists). These results are conserved across sex in each category. The age of the swimmer had no meaningful correlation with results; there are slight differences between medal categories but no large effect or clear trend.
+The typical BMI, height, and weight for swimmers increased slightly as their medal rank did (so the typical gold winner was slightly taller and heavier, and had a higher BMI than the other medalists as well as non-medalists). These results are conserved across sex in each category. The age of the swimmer had no meaningful correlation with results; there are slight differences between medal categories but no large effect or clear trend.
+
+A logistic regression model was chosen to determine which variables have the strongest effect on swimmer performance. For this model, all medals were merged into one category, and the model attempted to predict whether or not an athlete would win any medal based on their traits. Based on the visualization results, Age was excluded as a variable to be tested, leaving Team, Height, Weight, and BMI. The model only included the countries that had earned ten or more medals, making the assumption that athletes from other countries had a negligible likelihood of winning.
 
 ```{r}
 
@@ -192,68 +187,66 @@ glance(logistic_swim)
 logistic_swim2 <- logistic_reg() |>
     set_engine("glm") |>
     fit(medalyesno ~ Team + BMI,
-        data = olympics3, family = "binomial")
+        data = olympics3, family = "binomial") 
 
-glance(logistic_swim2)
+glance(logistic_swim2) #this made AIC worse 
 
 logistic_swim3 <- logistic_reg() |>
     set_engine("glm") |>
-    fit(medalyesno ~ Team + BMI + Height, 
+    fit(medalyesno ~ Team + Weight, 
         data = olympics3, family = "binomial")
 
-glance(logistic_swim3) 
+glance(logistic_swim3) #slightly better 
 
 logistic_swim4 <- logistic_reg() |>
     set_engine("glm") |>
-    fit(medalyesno ~ Team + BMI + Height + Age, 
-        data = olympics3, family = "binomial")
+    fit(medalyesno ~ Team + Weight + Height, 
+        data = olympics3, family = "binomial") 
 
-glance(logistic_swim4)
+glance(logistic_swim4) #best yet
 
 logistic_swim5 <- logistic_reg() |>
     set_engine("glm") |>
-    fit(medalyesno ~ Team + BMI + Height + Weight, 
+    fit(medalyesno ~ Height + Weight, 
         data = olympics3, family = "binomial")
 
-glance(logistic_swim5)
+glance(logistic_swim5) #testing without Team. Just awful
 
 logistic_swim6 <- logistic_reg() |>
-    set_engine("glm") |>
-    fit(medalyesno ~ Team + Height + Weight, 
-        data = olympics3, family = "binomial")
-
-glance(logistic_swim6)
-
-logistic_swim7 <- logistic_reg() |> ## this one! 
     set_engine("glm") |>
     fit(medalyesno ~ Team + Height, 
         data = olympics3, family = "binomial")
 
-glance(logistic_swim7)
+glance(logistic_swim6) #testing without Weight. Better than with. 
+
+logistic_swim7 <- logistic_reg() |> 
+    set_engine("glm") |>
+    fit(medalyesno ~ Height, 
+        data = olympics3, family = "binomial")
+
+glance(logistic_swim7) #testing with just Height. much worse than just Team 
 ```
 
-A variety of logistic models using the Team, Height, Weight, and BMI variables were then created and evaluated by AIC. The lowest AIC (and lowest p values) were for the model that fit Team and Height. Other models had similar AICs, but p values that were too high to be useful.
+This set of logistic models yielded two models with comparable AIC values: Team + Height + Weight and Team + Height. Models that did not incorporate the Team variable had far higher AIC than those that did, while the model with Team alone had an AIC close to the final model. This makes it clear that Team is the variable that best predicts medaling. The p-values of the two best models were checked to determine which yielded more significant results.
 
 ```{r final_model}
 
-logistic_swim7 <- logistic_reg() |> ## 7th variation of the logistic model
-    set_engine("glm") |>
-    fit(medalyesno ~ Team + Height, ## medalyesno = was a medal earned? 
-        data = olympics3, family = "binomial")
+tidy(logistic_swim6) |> 
+  knitr::kable() 
 
-glance(logistic_swim7)
-tidy(logistic_swim7)
+tidy(logistic_swim4) |> 
+  knitr::kable() 
 
 ```
 
 ```{r}
 
-logistic_swim7 <- logistic_reg() |>
+logistic_swim90 <- logistic_reg() |>
     set_engine("glm") |>
     fit(medalyesno ~ Height + Team,  
         data = olympics3, family = "binomial")
-glance(logistic_swim7)
-tidy(logistic_swim7) |> 
+glance(logistic_swim90)
+tidy(logistic_swim90) |> 
   knitr::kable() 
 
 logistic_swim8 <- logistic_reg() |>
